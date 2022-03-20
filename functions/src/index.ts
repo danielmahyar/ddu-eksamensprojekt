@@ -22,3 +22,5 @@ export const welcomeEmail = functions.auth.user().onCreate(user => {
 	return sgMail.send(msg);
  
  });
+
+// firebase functions:config:set sendgrid.key=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 sendgrid.template=d-a35835a6f82d4cdebb9155dc431b7147
