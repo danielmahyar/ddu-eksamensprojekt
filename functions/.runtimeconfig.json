@@ -1,0 +1,14 @@
+{
+  "sendgrid": {
+    "template": "d-a35835a6f82d4cdebb9155dc431b7147",
+    "key": "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"
+  },
+  "network": {
+    "webapp_url": "http://localhost:3000",
+    "port": "3030"
+  },
+  "stripe": {
+    "webhook_key": "whsec_e95da56e7a387db3030/hooks[evt_3KgGfcHEMIrqYYjG1j9YOjsL]4ac5f3eacadcc5503d9440d7982bb362576ae4cc115279728",
+    "key": "sk_test_51ElZLlHEMIrqYYjGwSgK1ugfDsEtAAuKvXlPnWu76xpXSn0gzbsOnbfwsv1UW6VOYpzhPzjdTZlcHF1ooYiwbPvJ00MQiWHPCh"
+  }
+}
