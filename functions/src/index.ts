@@ -1,8 +1,8 @@
 import * as firebaseAdmin from 'firebase-admin'
 firebaseAdmin.initializeApp()
 import * as functions from "firebase-functions";
-import { db, stripe } from "./setup";
-import * as api from './api'
+import * as api from './stripeapi'
+import * as auth from './auth'
 
 
 
@@ -18,4 +18,6 @@ exports.makePaymentIntent = api.makePaymentIntent
 exports.newSubscription = api.newSubscription
 exports.saveCard = api.saveCard
 exports.unsubscribe = api.unsubscribe
-exports.stripewebhooks = api.stripewebhooks
+// exports.stripewebhooks = api.stripewebhooks
+exports.welcomeEmail = auth.welcomeEmail
+exports.cleanupUserDelete = auth.cleanupUserDelete
