@@ -1,10 +1,8 @@
-import { stripe } from '..';
-import * as firebaseAdmin from 'firebase-admin'
+import { stripe, db } from '../setup';
 import Stripe from 'stripe';
 import { getOrCreateCustomer } from './customer';
-import { firestore } from 'firebase-admin';
+import { firestore } from 'firebase-admin'
 
-export const db = firebaseAdmin.firestore()
 
 /**
  * Attaches a payment method to the Stripe customer,

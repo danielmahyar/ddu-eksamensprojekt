@@ -1,4 +1,4 @@
-import { stripe } from '..'
+import { stripe } from '../setup'
 import Stripe from 'stripe'
 
 export async function createStripeCheckoutSession(

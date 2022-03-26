@@ -1,7 +1,5 @@
 import Stripe from "stripe";
-import { stripe } from "..";
-import * as firebaseAdmin from "firebase-admin";
-export const db = firebaseAdmin.firestore()
+import { db, stripe } from "../setup";
 
 export async function getOrCreateCustomer(userId: string, params?: Stripe.CustomerCreateParams) {
 
