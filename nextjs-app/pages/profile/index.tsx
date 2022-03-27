@@ -1,6 +1,6 @@
 import React from 'react'
 import AuthCheck from '../../components/authentication/AuthCheck'
-import { auth } from '../../lib/firebase'
+import { auth } from '../../lib/setup/firebase'
 
 const SpecificProfile = () => {
   return (

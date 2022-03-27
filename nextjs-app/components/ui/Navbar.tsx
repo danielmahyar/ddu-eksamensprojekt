@@ -1,8 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../../lib/context/auth-context'
 
 const Navbar = () => {
+  const { user, userLoading } = useContext(UserContext)
+
   return (
-    <div>Navbar</div>
+    <nav className="w-screen h-20 bg-gray-200">
+      {user && !userLoading ? <UserNav /> : <CustomerNav />}
+    </nav>
+  )
+}
+
+function UserNav() {
+  return (
+    <>
+    </>
+  )
+}
+
+function CustomerNav() {
+  return (
+    <>
+    </>
   )
 }
 

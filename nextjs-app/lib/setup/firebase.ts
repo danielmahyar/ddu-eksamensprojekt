@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth'
+import { getApps, initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { getFunctions } from 'firebase/functions'
 import { getFirestore } from 'firebase/firestore'
 // TODO: Add SDKs for Firebase products that you want to use
@@ -16,10 +16,16 @@ const firebaseConfig = {
   appId: "1:75404224874:web:459ccf824c0327c4aedd13"
 }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
+let app;
+
+// Initialize Firebase for NextJS App
+if (!getApps().length) {
+	app = initializeApp(firebaseConfig);
+}
 
 export const auth = getAuth(app)
+export const googleAuthProvider = new GoogleAuthProvider()
+
 export const functions = getFunctions(app)
 export const firestore = getFirestore(app)
 

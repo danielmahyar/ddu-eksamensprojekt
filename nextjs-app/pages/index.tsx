@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useContext } from 'react'
-import { UserContext } from '../lib/auth-context'
+import { UserContext } from '../lib/context/auth-context'
 
 const Home: NextPage = () => {
   
