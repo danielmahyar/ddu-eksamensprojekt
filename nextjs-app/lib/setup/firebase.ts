@@ -1,10 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-import { getFunctions } from 'firebase/functions'
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions'
 import { getFirestore } from 'firebase/firestore'
+// import { getAnalytics } from "firebase/analytics";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+
+const env = process.env.NODE_ENV
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -27,5 +31,10 @@ export const auth = getAuth(app)
 export const googleAuthProvider = new GoogleAuthProvider()
 
 export const functions = getFunctions(app)
-export const firestore = getFirestore(app)
+export const db = getFirestore(app)
 
+if(env === "development"){
+  connectFunctionsEmulator(functions, 'localhost', 5001)
+}
+
+// export const analytics = getAnalytics(app);

@@ -1,7 +1,6 @@
 import * as functions from "firebase-functions";
 import { createStripeCheckoutSession } from './stripe/checkout';
 import { createPaymentIntent } from './stripe/payments';
-// import { handleStripeWebhook } from '../stripe/webhooks';
 import { createSetupIntent, listPaymentMethods } from './stripe/customer';
 import { cancelSubscription, createSubscription, listSubscriptions } from './stripe/billing';
 import { handleStripeWebhook } from "./stripe/webhooks";

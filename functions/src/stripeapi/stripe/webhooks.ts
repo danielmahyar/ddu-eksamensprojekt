@@ -8,6 +8,9 @@ const webhookHandlers: any = {
 		// Add your business logic here
 		console.log("Test")
 	},
+	'payment_method.attached': async (data: Stripe.PaymentMethod) => {
+
+	},
 	'payment_intent.payment_failed': async (data: Stripe.PaymentIntent) => {
 		// Add your business logic here
 	},
@@ -42,10 +45,13 @@ const webhookHandlers: any = {
 			});
 	},
 	'invoice.payment_succeeded': async (data: Stripe.Invoice) => {
+
+	},
+	'payment_succeeded': async (data: Stripe.Invoice) => {
 		// Add your business logic here
 		console.log("Payment done")
 	},
-	'invoice.payment_failed': async (data: Stripe.Invoice) => {
+	'payment_failed': async (data: Stripe.Invoice) => {
 
 		const customer = await stripe.customers.retrieve(data.customer as string) as Stripe.Customer;
 		const userSnapshot = await db.collection('users').doc(customer.metadata.firebaseUID).get();
@@ -56,7 +62,12 @@ const webhookHandlers: any = {
 
 export const handleStripeWebhook = async (req: functions.https.Request, res: functions.Response) => {
 	const sig = req.headers['stripe-signature'] || ""
-	const event = stripe.webhooks.constructEvent(req['rawBody'], sig, "whsec_e95da56e7a387db4ac5f3eacadcc5503d9440d7982bb362576ae4cc115279728")
-	await webhookHandlers[event.type](event.data.object);
-	res.status(200).json({ recieved: true })
+	const event = stripe.webhooks.constructEvent(req.rawBody, sig, "whsec_e95da56e7a387db4ac5f3eacadcc5503d9440d7982bb362576ae4cc115279728")
+	console.log(event.type)
+	try {
+		await webhookHandlers[event.type](event.data.object);
+		res.status(200).json({ recieved: true })
+	} catch (error) {
+		res.status(500).json({ recieved: false })
+	}
 }

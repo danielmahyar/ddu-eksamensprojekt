@@ -8,9 +8,9 @@ export const welcomeEmail = functions.auth.user().onCreate(async (user, context)
 	try {
 		await sendWelcomeEmail(user.email || "", user.displayName || "Nye Bruger")
 		const data = {
-			photoURL: user.photoURL || "",
+			photoURL: user.photoURL || "https://png.pngitem.com/pimgs/s/551-5510463_default-user-image-png-transparent-png.png",
 			email: user.email,
-			username: user.displayName || ""
+			username: user.displayName || "Nye Bruger"
 		}
 		await firestore().collection('users').doc(user.uid).create(data)
 	} catch (error) {
