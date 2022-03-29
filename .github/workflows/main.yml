@@ -2,6 +2,10 @@ name: Cypress Tests
 
 on: [push]
 
+defaults:
+  run:
+    working-directory: ./nextjs-app
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
