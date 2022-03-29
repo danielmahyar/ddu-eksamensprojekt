@@ -6,7 +6,7 @@ import { UserContext } from '../lib/context/auth-context'
 const Home: NextPage = () => {
   
   return (
-    <div>
+    <main>
       <Head>
         <title>VoShirts</title>
         <link rel="icon" href="/favicon.ico" />
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         </svg>
         Loading...
       </button>
-    </div>
+    </main>
   )
 }
 
