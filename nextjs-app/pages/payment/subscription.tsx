@@ -105,9 +105,9 @@ function SubscribeToPlan(props: any) {
 		}
 
 		// Create Subscription on the Server
-		const fn = httpsCallable<{ plan: string, payment_method: string }, { subscription: any }>(functions, 'newSubscription')
+		const fn = httpsCallable<{ plan: string, payment_method: string, email: string, displayName: string }, { subscription: any }>(functions, 'newSubscription')
 		try {
-			const subscription = (await fn({ plan, payment_method: paymentMethod.id })).data
+			const subscription = (await fn({ plan, payment_method: paymentMethod.id, email: user?.email || "", displayName: user?.displayName || "" })).data
 			// The subscription contains an invoice
 			// If the invoice's payment succeeded then you're good, 
 			// otherwise, the payment intent must be confirmed
