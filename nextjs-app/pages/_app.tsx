@@ -14,14 +14,14 @@ import { useCartItems } from '../lib/hooks/useCartItems'
 function MyApp({ Component, pageProps }: AppProps) {
   const { user, userLoading } = useUserData()
   return (
-      <UserContext.Provider value={{ user, userLoading }} >
+    <UserContext.Provider value={{ user, userLoading }} >
         <Navbar />
         <Elements stripe={stripePromise}>
           <Component {...pageProps} />
         </Elements>
         <Toaster />
         <Footer />
-      </UserContext.Provider>
+    </UserContext.Provider>
   )
 }
 

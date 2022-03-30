@@ -6,7 +6,6 @@ import { auth, db, functions } from '../../lib/setup/firebase';
 import { handleLogout } from '../../lib/helper-functions/user-auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { httpsCallable } from 'firebase/functions';
-import { Stripe } from '@stripe/stripe-js';
 import { CancelSubscriptionReq, GetSubscriptionsRes } from '../../types/FirebaseFuncReq';
 import toast from 'react-hot-toast';
 
