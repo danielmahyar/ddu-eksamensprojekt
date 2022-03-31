@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import AuthCheck from '../../components/authentication/AuthCheck';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { auth, db, functions } from '../../lib/setup/firebase';
+import { auth, db } from '../../lib/setup/firebase';
 import { handleLogout } from '../../lib/helper-functions/user-auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { httpsCallable } from 'firebase/functions';
-import { CancelSubscriptionReq, GetSubscriptionsRes } from '../../types/FirebaseFuncReq';
-import toast from 'react-hot-toast';
+import { StripeUIHandler } from '../../lib/handlers/stripeHandler';
 
 const Subscription = () => {
 	return (
@@ -20,7 +18,6 @@ const Subscription = () => {
 }
 
 function UserData(props: any) {
-
 	const [data, setData] = useState<any>({});
 
 	// Subscribe to the user's data in Firestore
@@ -46,100 +43,51 @@ function SubscribeToPlan(props: any) {
 	const stripe = useStripe();
 	const elements: any = useElements();
 	const [user] = useAuthState(auth);
-
 	const [plan, setPlan] = useState<any>();
 	const [subscriptions, setSubscriptions] = useState<any>([]);
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<Error | null>(null)
+
+	const handler = new StripeUIHandler(stripe)
 
 	// Get current subscriptions on mount
 	useEffect(() => {
-		getSubscrptions();
+		getSubscriptions();
 	}, [user]);
 
 	// Fetch current subscriptions from the API
-	const getSubscrptions = async () => {
+	const getSubscriptions = async () => {
 		if (user) {
-			const fn = httpsCallable<void, GetSubscriptionsRes>(functions, 'getSubscriptions')
-			const subscriptions = ((await fn()).data).data
-			setSubscriptions(
-				subscriptions
-			)
-			console.log(subscriptions)
+			try {
+				const subscriptions = await handler.getSubscriptions()
+				setSubscriptions(
+					subscriptions
+				)
+			} catch (error: any) {
+				console.log(error)
+				setError(error)
+			}
+
 		}
 	};
 
 	// Cancel a subscription
 	const cancel = async (id: string) => {
 		setLoading(true);
-		const fn = httpsCallable<CancelSubscriptionReq, GetSubscriptionsRes>(functions, 'unsubscribe')
-		try {
-			await fn({ id })
-			toast.success("Fjernede dit abonnement")
-			await getSubscrptions();
-		} catch (error) {
-
-		}
-
+		await handler.cancelSubscription(id)
+		getSubscriptions();
 		setLoading(false);
 	};
 
 	// Handle the submission of card details
 	const handleSubmit = async (event: any) => {
-		if (!stripe) return
-		setLoading(true);
 		event.preventDefault();
-
+		setLoading(true);
 		const cardElement: any = elements.getElement(CardElement);
-
-		// Create Payment Method
-		const { paymentMethod, error } = await stripe.createPaymentMethod({
-			type: 'card',
-			card: cardElement,
-		});
-
-		if (error) {
-			alert(error.message);
-			setLoading(false);
-			return;
-		}
-
-		// Create Subscription on the Server
-		const fn = httpsCallable<{ plan: string, payment_method: string, email: string, displayName: string }, { subscription: any }>(functions, 'newSubscription')
-		try {
-			const subscription = (await fn({ plan, payment_method: paymentMethod.id, email: user?.email || "", displayName: user?.displayName || "" })).data
-			// The subscription contains an invoice
-			// If the invoice's payment succeeded then you're good, 
-			// otherwise, the payment intent must be confirmed
-
-			const { latest_invoice }: any = subscription;
-
-			if (latest_invoice.payment_intent) {
-				const { client_secret, status } = latest_invoice.payment_intent;
-
-				if (status === 'requires_action') {
-					const { error: confirmationError } = await stripe.confirmCardPayment(
-						client_secret
-					);
-					if (confirmationError) {
-						console.error(confirmationError);
-						toast.error("Unable to confirm card information.")
-						return;
-					}
-				}
-
-				// success
-				toast.success("You are now subscribed!")
-				getSubscrptions();
-			}
-
-			setLoading(false);
-			setPlan(null);
-		} catch (error: any) {
-			console.log(error?.message)
-		}
-
-
-
+		await handler.newSubscription(cardElement, plan, user)
+		getSubscriptions();
+		setLoading(false);
+		setPlan(null);
 	};
 
 	return (
@@ -148,9 +96,7 @@ function SubscribeToPlan(props: any) {
 				<div>
 					{user && 'uid' in user && <UserData user={user} />}
 				</div>
-
 				<hr />
-
 				<div>
 
 					<button
@@ -168,7 +114,6 @@ function SubscribeToPlan(props: any) {
 					</p>
 				</div>
 				<hr />
-
 				<form onSubmit={handleSubmit} hidden={!plan}>
 
 					<CardElement />
@@ -176,7 +121,6 @@ function SubscribeToPlan(props: any) {
 						Subscribe & Pay
 					</button>
 				</form>
-
 				<div>
 					<h3>Manage Current Subscriptions</h3>
 					<div>
@@ -193,7 +137,9 @@ function SubscribeToPlan(props: any) {
 						))}
 					</div>
 				</div>
-
+				{error && (
+					<p className="text-red-600">{error.name === "FirebaseError" ? "Something wrong with server. Please try again later" : error.message}</p>
+				)}
 				<div>
 					<button onClick={handleLogout}>Sign out</button>
 				</div>

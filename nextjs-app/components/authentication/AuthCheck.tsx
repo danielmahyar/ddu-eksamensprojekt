@@ -7,11 +7,11 @@ import Spinner from '../ui/Spinner';
 export default function AuthCheck(props: any) {
 	const { user, userLoading } = useContext(UserContext);
 
-	if (userLoading){
+	if (userLoading && !user){
 		return <Spinner show />
 	}
 
 	return (
-		(user) ? props.children : (props.fallback || <Link href="/login">You must be signed in</Link>)
+		(user && !userLoading) ? props.children : (props.fallback || <Link href="/login">You must be signed in</Link>)
 	);
 }

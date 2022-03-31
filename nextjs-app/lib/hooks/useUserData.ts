@@ -1,11 +1,9 @@
-import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "../setup/firebase";
+import { auth } from "../setup/firebase";
 
 export const useUserData = () => {
 	const [user, userLoading, error] = useAuthState(auth)
-
 	useEffect(() => {
 		if(error) return
 

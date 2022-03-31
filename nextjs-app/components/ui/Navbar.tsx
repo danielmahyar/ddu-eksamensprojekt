@@ -1,12 +1,19 @@
-import React, { useContext } from 'react'
+import Link from 'next/link'
+import { useContext } from 'react'
 import { UserContext } from '../../lib/context/auth-context'
+import { CartContext } from '../../lib/context/cart-context'
 
 const Navbar = () => {
   const { user, userLoading } = useContext(UserContext)
+  const { cartItems } = useContext(CartContext)
 
   return (
-    <nav className="w-screen h-20 bg-gray-200">
-      {user && !userLoading ? <UserNav /> : <CustomerNav />}
+    <nav className="w-full h-20 bg-gray-200">
+      <Link href="/">Home</Link>
+      {user ?
+        <CustomerNav /> : !userLoading ? 
+        <UserNav /> : <div></div>}
+        <p>Shopping Cart: {cartItems.length}</p>
     </nav>
   )
 }
@@ -14,6 +21,7 @@ const Navbar = () => {
 function UserNav() {
   return (
     <>
+      <p>This is normal user nav</p>
     </>
   )
 }
@@ -21,6 +29,7 @@ function UserNav() {
 function CustomerNav() {
   return (
     <>
+      <p>This is customer nav</p>
     </>
   )
 }

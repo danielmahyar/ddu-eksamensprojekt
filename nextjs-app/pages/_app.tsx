@@ -8,19 +8,23 @@ import { stripePromise } from '../lib/setup/stripe'
 import Footer from '../components/ui/Footer'
 import Navbar from '../components/ui/Navbar'
 import { useCartItems } from '../lib/hooks/useCartItems'
+import { CartContext } from '../lib/context/cart-context'
 
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { user, userLoading } = useUserData()
+  const { cartItems, addCartItem, deleteCartItem } = useCartItems()
   return (
     <UserContext.Provider value={{ user, userLoading }} >
+      <CartContext.Provider value={{ cartItems, addCartItem, deleteCartItem }}>
         <Navbar />
         <Elements stripe={stripePromise}>
           <Component {...pageProps} />
         </Elements>
-        <Toaster />
         <Footer />
+      </CartContext.Provider>
+      <Toaster />
     </UserContext.Provider>
   )
 }

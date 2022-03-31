@@ -22,7 +22,5 @@ export type CancelSubscriptionRes = {
 }
 
 export type GetSubscriptionsRes = {
-	data: {
-		subscriptions: StripeSubscription[]
-	}
+	data: StripeSubscription[]
 }

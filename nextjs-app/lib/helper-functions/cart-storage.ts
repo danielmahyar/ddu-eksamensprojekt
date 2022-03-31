@@ -7,16 +7,16 @@ enum StorageTypes {
 export function getAllCartItems(): ItemType[] {
 	if (typeof window === 'undefined') return []
 	const RAW_JSON_DATA = localStorage.getItem(StorageTypes.CartItems)
-	if(!RAW_JSON_DATA) return []
+	if (!RAW_JSON_DATA) return []
 	const cartItems: ItemType[] = JSON.parse(RAW_JSON_DATA)
 	return cartItems
 }
 
-export function addCartItemToStorage(item: ItemType){
-	if (typeof window === 'undefined') return 
+export function addCartItemToStorage(item: ItemType) {
+	if (typeof window === 'undefined') return
 	const RAW_JSON_DATA = localStorage.getItem(StorageTypes.CartItems)
 
-	if(!RAW_JSON_DATA) {
+	if (!RAW_JSON_DATA) {
 		const dataToStorage = [item]
 		localStorage.setItem(StorageTypes.CartItems, JSON.stringify(dataToStorage))
 	} else {
@@ -24,4 +24,15 @@ export function addCartItemToStorage(item: ItemType){
 		storageData.push(item)
 		localStorage.setItem(StorageTypes.CartItems, JSON.stringify(storageData))
 	}
+}
+
+export function deleteCartItemToStorage(item: ItemType) {
+	if (typeof window === 'undefined') return
+	const RAW_JSON_DATA = localStorage.getItem(StorageTypes.CartItems)
+	if(!RAW_JSON_DATA) return
+	const storageData: ItemType[] = JSON.parse(RAW_JSON_DATA)
+	const filteredArray = storageData.filter(k => k.id !== item.id)
+	localStorage.setItem(StorageTypes.CartItems, JSON.stringify(filteredArray))
+	console.log("Here")
+
 }
