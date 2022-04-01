@@ -6,6 +6,7 @@ import { auth, db } from '../../lib/setup/firebase';
 import { handleLogout } from '../../lib/helper-functions/user-auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { StripeUIHandler } from '../../lib/handlers/stripeHandler';
+import { StripeSubscription } from '../../types/StripeTypes';
 
 const Subscription = () => {
 	return (
@@ -44,7 +45,7 @@ function SubscribeToPlan(props: any) {
 	const elements: any = useElements();
 	const [user] = useAuthState(auth);
 	const [plan, setPlan] = useState<any>();
-	const [subscriptions, setSubscriptions] = useState<any>([]);
+	const [subscriptions, setSubscriptions] = useState<StripeSubscription[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null)
 
@@ -124,10 +125,12 @@ function SubscribeToPlan(props: any) {
 				<div>
 					<h3>Manage Current Subscriptions</h3>
 					<div>
-						{subscriptions.length > 0 && subscriptions.map((sub: any) => (
+						{subscriptions.length > 0 && subscriptions.map((sub) => (
 							<div key={sub.id}>
 								{sub.id}. Next payment of {sub.plan.amount} due{' '}
 								{new Date(sub.current_period_end * 1000).toUTCString()}
+								--
+								{new Date(sub.start_date * 1000).toUTCString()}
 								<button
 									onClick={() => cancel(sub.id)}
 									disabled={loading}>

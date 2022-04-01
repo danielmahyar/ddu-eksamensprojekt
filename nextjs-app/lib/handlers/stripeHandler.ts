@@ -18,7 +18,7 @@ export class StripeUIHandler {
 		this.stripe = stripe
 	}
 
-	getSubscriptions = async (): Promise<StripeSubscription[] | Error> => {
+	getSubscriptions = async (): Promise<StripeSubscription[]> => {
 		const load = toast.loading('Getting your subscriptions')
 		const fn = httpsCallable<void, GetSubscriptionsRes>(functions, 'getSubscriptions')
 		try {

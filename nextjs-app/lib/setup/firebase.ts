@@ -3,6 +3,7 @@ import { getApps, initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { connectFunctionsEmulator, getFunctions } from 'firebase/functions'
 import { getFirestore } from 'firebase/firestore'
+import { getStorage } from "firebase/storage";
 // import { getAnalytics } from "firebase/analytics";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,6 +33,7 @@ export const googleAuthProvider = new GoogleAuthProvider()
 
 export const functions = getFunctions(app)
 export const db = getFirestore(app)
+export const storage = getStorage(app)
 
 if(env === "development"){
   connectFunctionsEmulator(functions, 'localhost', 5001)

@@ -4,6 +4,7 @@ import { handleEmailLogin, handleGoogleLogin } from '../lib/helper-functions/use
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from 'next/router';
 import { UserContext } from '../lib/context/auth-context';
+import { handleRedirect } from '../lib/helper-functions/redirects';
 
 type Inputs = {
   email: string,
@@ -13,17 +14,12 @@ type Inputs = {
 
 const Login: NextPage = () => {
   const { user } = useContext(UserContext)
-  const [error, setError] = useState<Error | null>(null)
   const router = useRouter()
-  if(user){
-    router.replace("/profile")
-  }
+  handleRedirect(user, router)
+  const [error, setError] = useState<Error | null>(null)
   const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const res = await handleEmailLogin(data.email, data.password)
-    if(res) {
-      
-    }
   };
   
   return (

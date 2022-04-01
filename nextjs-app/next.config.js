@@ -18,6 +18,7 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com'],
   },
+  headers: ["Access-Control-Allow-Origin: *"],
   reactStrictMode: false,
 }
 

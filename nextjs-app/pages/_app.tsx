@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { UserContext } from '../lib/context/auth-context'
 import { useUserData } from '../lib/hooks/useUserData'
-import { Toaster } from 'react-hot-toast'
+import toast, { ToastBar, Toaster } from 'react-hot-toast'
 import { Elements } from '@stripe/react-stripe-js'
 import { stripePromise } from '../lib/setup/stripe'
 import Footer from '../components/ui/Footer'
@@ -24,7 +24,29 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Elements>
         <Footer />
       </CartContext.Provider>
-      <Toaster />
+      <Toaster
+        // toastOptions={{
+        //   className: 'px-10',
+        //   style: {
+        //     border: '1px solid #713200',
+        //     padding: '16px',
+        //     color: '#713200',
+        //   },
+        // }}
+      />
+        {/* {(t) => (
+          <ToastBar toast={t}>
+            {({ icon, message }) => (
+              <>
+                {icon}
+                {message}
+                {t.type !== 'loading' && (
+                  <button onClick={() => toast.dismiss(t.id)}>X</button>
+                )}
+              </>
+            )}
+          </ToastBar>
+        )} */}
     </UserContext.Provider>
   )
 }

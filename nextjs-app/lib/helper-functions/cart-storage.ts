@@ -1,8 +1,6 @@
 import { ItemType } from "../../types/ItemType"
+import { StorageTypes } from "../../types/LocalStorage"
 
-enum StorageTypes {
-	CartItems = "CART_ITEMS"
-}
 
 export function getAllCartItems(): ItemType[] {
 	if (typeof window === 'undefined') return []
