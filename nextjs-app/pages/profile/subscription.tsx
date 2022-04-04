@@ -43,21 +43,27 @@ function UserData(props: any) {
 function SubscribeToPlan(props: any) {
 	const stripe = useStripe();
 	const elements: any = useElements();
+	const [handler, setHandler] = useState<StripeUIHandler | null>(null)
 	const [user] = useAuthState(auth);
 	const [plan, setPlan] = useState<any>();
 	const [subscriptions, setSubscriptions] = useState<StripeSubscription[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null)
 
-	const handler = new StripeUIHandler(stripe)
+
+	useEffect(() => {
+		const handler = new StripeUIHandler(stripe)
+		setHandler(handler)
+	}, [stripe])
 
 	// Get current subscriptions on mount
 	useEffect(() => {
 		getSubscriptions();
-	}, [user]);
+	}, [user, handler]);
 
 	// Fetch current subscriptions from the API
 	const getSubscriptions = async () => {
+		if(!handler) return
 		if (user) {
 			try {
 				const subscriptions = await handler.getSubscriptions()
@@ -74,6 +80,7 @@ function SubscribeToPlan(props: any) {
 
 	// Cancel a subscription
 	const cancel = async (id: string) => {
+		if(!handler) return
 		setLoading(true);
 		await handler.cancelSubscription(id)
 		getSubscriptions();
@@ -82,6 +89,7 @@ function SubscribeToPlan(props: any) {
 
 	// Handle the submission of card details
 	const handleSubmit = async (event: any) => {
+		if(!handler) return
 		event.preventDefault();
 		setLoading(true);
 		const cardElement: any = elements.getElement(CardElement);

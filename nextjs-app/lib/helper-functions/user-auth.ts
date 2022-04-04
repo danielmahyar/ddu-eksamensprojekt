@@ -43,7 +43,8 @@ export async function handleUserFirestoreCreate(
 	user: User,
 	username?: string,
 	email?: string, 
-	photoURL = "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png"
+	photoURL = "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png",
+	memberStatus = "NORMAL_USER"
 ){
 	try {
 		await setDoc(
@@ -52,6 +53,7 @@ export async function handleUserFirestoreCreate(
 				username: username || user.displayName,
 				email: email || user.email,
 				photoURL,
+				memberStatus
 			}
 		)
 	} catch (error) {

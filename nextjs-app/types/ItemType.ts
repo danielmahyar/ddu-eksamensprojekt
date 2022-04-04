@@ -5,3 +5,6 @@ export type ItemType = {
 	imageUrl:    string;
 	description: string;
 } 
+
+export const grid: number = 8;
+export const borderRadius: number = 2;

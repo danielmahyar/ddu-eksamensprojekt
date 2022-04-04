@@ -5,7 +5,7 @@ import { addCartItemToStorage, deleteCartItemToStorage, getAllCartItems } from "
 
 export function useCartItems() {
 	const [cartItems, setCartItems] = useState<ItemType[]>([])
-	console.log(cartItems)
+	
 	useEffect(() => {
 		setCartItems(getAllCartItems() || [])
 	}, [])

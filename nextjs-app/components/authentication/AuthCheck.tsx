@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useContext, useEffect, useLayoutEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../../lib/context/auth-context';
 import { saveUserLastLocation } from '../../lib/helper-functions/user-auth';
 import Spinner from '../ui/Spinner';
@@ -9,7 +9,7 @@ import Router from 'next/router'
 export default function AuthCheck(props: any) {
 	const { user, userLoading } = useContext(UserContext);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		saveUserLastLocation(Router.asPath.toString())
 	}, [])
 

@@ -1,3 +1,4 @@
+import Router from 'next/router'
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../setup/firebase";
@@ -10,13 +11,9 @@ export const useUserData = () => {
 		let unsub;
 
 		if (user) {
-			//Get user data...
-			// const ref = doc(firestore, 'users', user.uid)
-
-			// unsub = onSnapshot(ref, (user) => {
-			// 	setUsername(user.data()?.username)
-			// })
-
+			if(user.displayName === null){
+				Router.replace('/finalize-profile')
+			}
 		} else {
 		}
 
