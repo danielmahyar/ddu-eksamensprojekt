@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext, NextPage } from 'next'
 import React, { useCallback, useState } from 'react'
 import { resetServerContext } from "react-beautiful-dnd";
+import ElectronThermoView from '../../components/products-demo/thermo/ElectronThermoView';
 import MetaForProduct from '../../components/seo-tags/MetaForProduct';
 import DragAndDropGame from '../../components/ui/draggable/DragAndDropGame';
 
@@ -9,12 +10,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { data: [] } }
 }
 const initial = [')', '2', '*', 'O', 'H', ')', '(', '(', '+', 'ΔH', '=', ')', '(', 'H2O', '(', ')', '-'].map((k, i) => {
-	const custom: any = {
-		id: `id-${i}`,
-		content: `${k}`
-	};
+  const custom: any = {
+    id: `id-${i}`,
+    content: `${k}`
+  };
 
-	return custom;
+  return custom;
 });
 
 const Calculator: NextPage = () => {
@@ -23,9 +24,21 @@ const Calculator: NextPage = () => {
     <>
       <MetaForProduct />
       <main className="flex flex-col">
-        <p>2H + O -&gt; H2O</p>
-        Opskriv beregningen af standard entalpiændring
-        <DragAndDropGame initial={initial}/>
+        <section>
+          <p>2H + O -&gt; H2O</p>
+          Opskriv beregningen af standard entalpiændring
+          <DragAndDropGame initial={initial} />
+        </section>
+        <section className="h-screen bg-slate-200">
+
+        </section>
+        {/* ELECTRON VIEW HERE */}
+        <ElectronThermoView />
+
+        <section className="h-screen bg-slate-500">
+
+        </section>
+
       </main>
     </>
   );
