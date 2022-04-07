@@ -5,7 +5,13 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "primary": {
+          "DEFAULT": "#15314B"
+        }
+      }
+    },
   },
   plugins: [
     require('@kamona/tailwindcss-perspective'),

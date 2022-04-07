@@ -15,15 +15,13 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Vocast Production</title>
+        <title>Helpify - Din hjælper til eksamen</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen h-auto">
-        <div className="perspective-9 mt-10">
-          <div className="w-40 h-40 p-4 bg-red-500 translate-z-20 rotate-x-30 rotate-y-35 -rotate-z-20">
-            <h2>3D transform</h2>
-          </div>
-        </div>
+        <section className="h-96 bg-primary w-full">
+
+        </section>
       </main>
     </>
   )
