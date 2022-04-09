@@ -2,21 +2,20 @@
 const nextConfig = {
   reactStrictMode: true,
   async redirects() {
-    return [
-      {
+    return [{
         source: '/users',
         destination: '/login',
         permanent: true,
       },
       {
         source: '/payment',
-        destination: '/payment/cart',
+        destination: '/',
         permanent: true,
       },
     ]
   },
   images: {
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com', 'lh3.googleusercontent.com'],
   },
   headers: ["Access-Control-Allow-Origin: *"],
   reactStrictMode: false,

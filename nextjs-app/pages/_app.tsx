@@ -7,34 +7,39 @@ import { Elements } from '@stripe/react-stripe-js'
 import { stripePromise } from '../lib/setup/stripe'
 import Footer from '../components/ui/Footer'
 import Navbar from '../components/ui/Navbar'
-import { useCartItems } from '../lib/hooks/useCartItems'
-import { CartContext } from '../lib/context/cart-context'
+import { NextRouter, useRouter } from 'next/router'
 
-
+const excludeRoutes = [
+  '/profile'
+]
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
   const { user, userLoading } = useUserData()
-  const { cartItems, addCartItem, deleteCartItem } = useCartItems()
+  const renderWebshopContent = !isProfile(router, excludeRoutes)
   return (
     <UserContext.Provider value={{ user, userLoading }} >
-      <CartContext.Provider value={{ cartItems, addCartItem, deleteCartItem }}>
+      {renderWebshopContent && (
         <Navbar />
-        <Elements stripe={stripePromise}>
-          <Component {...pageProps} />
-        </Elements>
+      )}
+      <Elements stripe={stripePromise}>
+        <Component {...pageProps} />
+      </Elements>
+      {renderWebshopContent && (
         <Footer />
-      </CartContext.Provider>
-      <Toaster
-        // toastOptions={{
-        //   className: 'px-10',
-        //   style: {
-        //     border: '1px solid #713200',
-        //     padding: '16px',
-        //     color: '#713200',
-        //   },
-        // }}
-      />
-        {/* {(t) => (
+      )}
+      <Toaster/>
+    </UserContext.Provider>
+  )
+}
+
+export default MyApp
+
+function isProfile(router: NextRouter, routes: string[]): boolean {
+  return router.pathname === routes[0]
+}
+
+{/* {(t) => (
           <ToastBar toast={t}>
             {({ icon, message }) => (
               <>
@@ -46,9 +51,14 @@ function MyApp({ Component, pageProps }: AppProps) {
               </>
             )}
           </ToastBar>
-        )} */}
-    </UserContext.Provider>
-  )
-}
+        )}
+*/}
 
-export default MyApp
+// toastOptions={{
+//   className: 'px-10',
+//   style: {
+//     border: '1px solid #713200',
+//     padding: '16px',
+//     color: '#713200',
+//   },
+// }}

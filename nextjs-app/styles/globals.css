@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap');
+
+* {
+	font-family: 'Josefin Sans', sans-serif;
+}
 
 body{
 	min-width: 100%;
@@ -8,3 +13,62 @@ body{
 	display: flex;
 	flex-direction: column;
 }
+
+.carousel {
+	display: inline-flex;
+	overflow-x: hidden;
+   /*  scroll snap is a great feature which will center the image on snap on touch screen devices  */
+	scroll-snap-type: x mandatory;
+   /* all below will hide the scrollbar on all browsers.    */
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; /* For Firefox */
+	-ms-overflow-style: none; /* For Internet Explorer and Edge */
+   }
+   .checkmark__circle {
+	stroke-dasharray: 166;
+	stroke-dashoffset: 166;
+	stroke-width: 2;
+	stroke-miterlimit: 10;
+	stroke: #4DAA57;
+	fill: none;
+	animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+   }
+   
+   .checkmark {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	display: block;
+	stroke-width: 4;
+	stroke: #fff;
+	stroke-miterlimit: 10;
+	margin: 10% auto;
+	box-shadow: inset 0px 0px 0px #4DAA57;
+	animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+   }
+   
+   .checkmark__check {
+	transform-origin: 50% 50%;
+	stroke-dasharray: 48;
+	stroke-dashoffset: 48;
+	animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+   }
+   
+   @keyframes stroke {
+	100% {
+	  stroke-dashoffset: 0;
+	}
+   }
+   @keyframes scale {
+	0%, 100% {
+	  transform: none;
+	}
+	50% {
+	  transform: scale3d(1.2, 1.2, 1);
+	}
+   }
+   @keyframes fill {
+	100% {
+	  box-shadow: inset 0px 0px 0px 30px #4DAA57;
+	}
+   }

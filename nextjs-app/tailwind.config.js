@@ -9,6 +9,21 @@ module.exports = {
       colors: {
         "primary": {
           "DEFAULT": "#15314B"
+        },
+        "secondary": {
+          "DEFAULT": "#306FAA"
+        },
+        "highlight": {
+          "DEFAULT": "#FFBF00"
+        },
+        "background": {
+          "DEFAULT": "#F5F5F5"
+        },
+        "theme-green": {
+          "DEFAULT": "#4DAA57"
+        },
+        "theme-red": {
+          "DEFAULT": "#D74E09"
         }
       }
     },
