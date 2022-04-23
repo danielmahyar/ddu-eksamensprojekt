@@ -1,6 +1,6 @@
 import AuthCheck from '../../components/authentication/AuthCheck'
 import ProfileNavbar from '../../components/ui/profile/ProfileNavbar'
-import Sidebar from '../../components/ui/profile/sidebar'
+import Sidebar from '../../components/ui/profile/Sidebar'
 import { auth } from '../../lib/setup/firebase'
 
 const SpecificProfile = () => {
