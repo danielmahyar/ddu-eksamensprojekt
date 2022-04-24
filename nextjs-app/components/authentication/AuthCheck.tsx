@@ -18,6 +18,11 @@ export default function AuthCheck(props: any) {
 	}
 
 	return (
-		(user && !userLoading) ? props.children : (props.fallback || <Link href="/login">You must be signed in</Link>)
+		(user && !userLoading) ? props.children : (props.fallback || (
+			<>
+				<Link href="/login">You must be signed in</Link>
+				<Link href="/">Go back to main page</Link>
+			</>
+		))
 	);
 }

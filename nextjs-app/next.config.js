@@ -15,7 +15,7 @@ const nextConfig = {
     ]
   },
   images: {
-    domains: ['images.unsplash.com', 'lh3.googleusercontent.com'],
+    domains: ['images.unsplash.com', 'lh3.googleusercontent.com', 'www.everblazing.org'],
   },
   headers: ["Access-Control-Allow-Origin: *"],
   reactStrictMode: false,

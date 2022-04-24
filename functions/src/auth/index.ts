@@ -6,10 +6,10 @@ export const createUser = functions.firestore.document("users/{uid}").onCreate(a
 	const userData = snapshot.data()
 	try {
 		await auth().updateUser(context.params.uid, {
-			displayName: userData.displayName,
+			displayName: userData.fullName,
 			email: userData.email,
 		})
-		await sendWelcomeEmail(userData.email, userData.displayName)
+		await sendWelcomeEmail(userData.email, userData.fullName)
 	} catch (error) {
 		console.log(error)
 	}

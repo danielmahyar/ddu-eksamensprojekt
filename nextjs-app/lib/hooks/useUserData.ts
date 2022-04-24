@@ -1,7 +1,8 @@
+import { doc, getDoc } from 'firebase/firestore';
 import Router from 'next/router'
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../setup/firebase";
+import { auth, db } from "../setup/firebase";
 
 export const useUserData = () => {
 	const [user, userLoading, error] = useAuthState(auth)
@@ -11,10 +12,18 @@ export const useUserData = () => {
 		let unsub;
 
 		if (user) {
-			if(user.displayName === null){
-				Router.replace('/finalize-profile')
-			}
+			const data = getDoc(doc(db, "users", user.uid)).then((userData) => {
+				const data = userData.data() || null
+				if(!data) {
+					Router.replace('/finalize-profile')
+				} else if (user.displayName === null && !("fullName" in data)){
+					console.log(user)
+					Router.replace('/finalize-profile')
+				}
+			})
+
 		} else {
+
 		}
 
 		return unsub;

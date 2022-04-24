@@ -3,6 +3,16 @@ import { doc, setDoc } from "firebase/firestore";
 import { StorageTypes } from "../../types/LocalStorage";
 import { auth, db, googleAuthProvider } from "../setup/firebase";
 import Router from 'next/router'
+import { CustomerType } from "../../types/CustomerTypes";
+
+type NewUserInfo = {
+	email: string;
+	password: string;
+	fullName: string;
+	photoURL?: string;
+}
+
+const PLACEHOLDER_PHOTOURL = "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png"
 
 /**
  * Log in to Google Authentication via. Email and Password.
@@ -27,12 +37,12 @@ export async function handleEmailLogin(
  * @returns auth-state-update
  */
 export async function createAccountWithEmail(
-	email: string,
-	password: string
+	user: NewUserInfo
 ): Promise<void> {
+	const { email, password, fullName, photoURL } = user
 	try {
-		await createUserWithEmailAndPassword(auth, email, password)
-
+		const newUser = await createUserWithEmailAndPassword(auth, email, password)
+		await handleUserFirestoreCreate(newUser.user, fullName, email, photoURL, CustomerType.NORMAL_USER)
 	} catch (error) {
 		throw error
 	}
@@ -41,16 +51,16 @@ export async function createAccountWithEmail(
 
 export async function handleUserFirestoreCreate(
 	user: User,
-	username?: string,
+	fullName?: string,
 	email?: string, 
-	photoURL = "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png",
-	memberStatus = "NORMAL_USER"
+	photoURL = PLACEHOLDER_PHOTOURL,
+	memberStatus = CustomerType.NORMAL_USER
 ){
 	try {
 		await setDoc(
 			doc(db, 'users', user.uid),
 			{
-				username: username || user.displayName,
+				fullName: fullName || user.displayName,
 				email: email || user.email,
 				photoURL,
 				memberStatus

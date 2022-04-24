@@ -29,9 +29,9 @@ const Navbar = () => {
         </div>
 
         <ul className="text-white w-72 font-semibold hidden md:flex items-center justify-around">
-          <Link href="/products/calculator"><p className="transition-all ease-in-out underline-offset-2 hover:underline cursor-pointer">Produkter</p></Link>
-          <Link href="/products/prices"><p className="transition-all ease-in-out underline-offset-2 hover:underline cursor-pointer">Priser</p></Link>
-          <Link href="/aboutus"><p className="transition-all ease-in-out underline-offset-2 hover:underline cursor-pointer">Om Helpify</p></Link>
+          <Link href="/products/calculator"><p className="link link-underline link-underline-black text-white">Produkter</p></Link>
+          <Link href="/products/prices"><p className="link link-underline link-underline-black text-white">Priser</p></Link>
+          <Link href="/aboutus"><p className="link link-underline link-underline-black text-white">Om Helpify</p></Link>
         </ul>
 
         {user ?
@@ -50,7 +50,7 @@ const Navbar = () => {
 function UserNav() {
   return (
     <Link href="/login">
-      <p className="text-white font-semibold cursor-pointer  hover:underline">Log ind</p>
+      <p className="text-white font-semibold link link-underline link-underline-black">Log ind</p>
     </Link>
   )
 }
@@ -59,13 +59,13 @@ function CustomerNav({ user, router }: { user: User, router: any }) {
   return (
     <div onClick={() => router.push("/profile")} className="flex items-center justify-center space-x-2">
       <Image 
-        src={user.photoURL || ""}
+        src={user.photoURL || "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png"}
         className="rounded-full cursor-pointer"
         alt="User Picture"
         width={40}
         height={40}
       />
-      <p className="text-white font-semibold cursor-pointer hover:underline">{user.displayName}</p>
+      <p className="text-white font-semibold link link-underline link-underline-black">{user.displayName}</p>
     </div>
   )
 }
