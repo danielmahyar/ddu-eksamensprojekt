@@ -29,7 +29,7 @@ const Navbar = () => {
         </div>
 
         <ul className="text-white w-72 font-semibold hidden md:flex items-center justify-around">
-          <Link href="/products/calculator"><p className="link link-underline link-underline-black text-white">Produkter</p></Link>
+          <Link href="/products/amfolabs"><p className="link link-underline link-underline-black text-white">Produkter</p></Link>
           <Link href="/products/prices"><p className="link link-underline link-underline-black text-white">Priser</p></Link>
           <Link href="/aboutus"><p className="link link-underline link-underline-black text-white">Om Helpify</p></Link>
         </ul>

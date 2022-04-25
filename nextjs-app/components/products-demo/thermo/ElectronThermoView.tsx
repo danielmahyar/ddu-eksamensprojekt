@@ -6,7 +6,7 @@ import Reactants from './Reactants'
 const ElectronThermoView = () => {
 	const [state, setState] = useState(1)
 	return (
-		<section className=" sm:hidden h-screen md:flex">
+		<article className="flex h-screen">
 			<aside
 				className={`h-full w-72 transition-all duration-700 ease-in-out flex-shrink-0 relative z-10 bg-[#2F3136]  flex flex-col border-discord-border`}
 			>
@@ -99,7 +99,7 @@ const ElectronThermoView = () => {
 				)}
 
 			</div>
-		</section>
+		</article>
 	)
 }
 
