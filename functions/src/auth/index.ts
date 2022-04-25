@@ -9,7 +9,7 @@ export const createUser = functions.firestore.document("users/{uid}").onCreate(a
 			displayName: userData.fullName,
 			email: userData.email,
 		})
-		await sendWelcomeEmail(userData.email, userData.fullName)
+		await sendWelcomeEmail(userData.email, userData.fullName, userData.photoURL)
 	} catch (error) {
 		console.log(error)
 	}

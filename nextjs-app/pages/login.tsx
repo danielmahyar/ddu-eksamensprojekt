@@ -7,6 +7,7 @@ import { UserContext } from '../lib/context/auth-context';
 import { handleRedirect } from '../lib/helper-functions/redirects';
 import google from '../public/google-icon.png'
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Inputs = {
   email: string,
@@ -40,14 +41,15 @@ const Login: NextPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-6">
           <div className="flex flex-col">
             <label className="text-white font-thin" htmlFor="email">Email</label>
-            <input className="py-2 px-4 bg-transparent border rounded-lg" type="email" placeholder="test@test.com" {...register("email")} />
+            <input className="text-white py-2 px-4 bg-transparent border rounded-lg" type="email" placeholder="test@test.com" {...register("email")} />
           </div>
           <div className="flex flex-col">
             <label className="text-white font-thin" htmlFor="password">Password</label>
-            <input className="py-2 px-4 bg-transparent border rounded-lg" type="password" placeholder="Enter" {...register("password")} />
+            <input className="text-white py-2 px-4 bg-transparent border rounded-lg" type="password" placeholder="Enter" {...register("password")} />
           </div>
           <button className="bg-secondary py-2 px-4 rounded-lg text-white font-bold" type="submit">Log ind</button>
         </form>
+        <p>Ikke oprettet? Så lav en profil <Link href="/signup">her</Link></p>
       </section>
 
     </main>

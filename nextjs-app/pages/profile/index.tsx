@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import AuthCheck from '../../components/authentication/AuthCheck'
 import ProfileNavbar from '../../components/ui/profile/ProfileNavbar'
 import Sidebar from '../../components/ui/profile/Sidebar'
