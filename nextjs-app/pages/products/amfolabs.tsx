@@ -4,6 +4,7 @@ import { FaHourglassHalf, FaSchool, FaScrewdriver, FaSearch, FaVial, FaWeight, F
 import ElectronThermoView from '../../components/products-demo/thermo/ElectronThermoView';
 import MetaForProduct from '../../components/seo-tags/MetaForProduct';
 import Card from '../../components/ui/Card';
+import RatingCard from '../../components/ui/RatingCard';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { data: [] } }
@@ -47,6 +48,14 @@ const cards: Array<{ title: string, Icon: IconType, text: string }> = [
     title: "Overblik over alle stoffer",
     Icon: FaWikipediaW,
     text: "Indholder alle de termodymaniske værdier for Databogen Fysik/Kemi 2016"
+  }
+]
+
+const ratings: Array<{ name: string, review: string, photoURL: string }> = [
+  {
+    name: "Hans Olsen",
+    review: "Jeg har brugt AmfoLabs siden starten af 3.g, og jeg kan kun anbefale AmfoLabs til jer.",
+    photoURL: "https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg"
   }
 ]
 
@@ -119,8 +128,15 @@ const Calculator: NextPage = () => {
           </div>
         </section>
 
-        <section className="h-screen">
-
+        <section className="h-auto ">
+          <div className="h-screen grid grid-cols-3">
+            {ratings.map((ratingCard, index) => (
+              <RatingCard
+                key={index}
+                {...ratingCard}
+              />
+            ))}
+          </div>
         </section>
 
       </main>
