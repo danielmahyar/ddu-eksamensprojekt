@@ -5,6 +5,9 @@ import ElectronThermoView from '../../components/products-demo/thermo/ElectronTh
 import MetaForProduct from '../../components/seo-tags/MetaForProduct';
 import Card from '../../components/ui/Card';
 import RatingCard from '../../components/ui/RatingCard';
+import { motion } from "framer-motion"
+import { useState } from 'react';
+import { MathJax, MathJaxContext } from 'better-react-mathjax';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { data: [] } }
@@ -60,14 +63,62 @@ const ratings: Array<{ name: string, review: string, photoURL: string }> = [
 ]
 
 const Calculator: NextPage = () => {
+  const [items, setItems] = useState<Array<number>>([0, 1, 2, 3])
+  const [start, setStart] = useState<boolean>(false)
+
 
   return (
     <>
       <MetaForProduct />
       <main className="flex flex-col bg-background space-y-14">
-        <section className="hidden md:block md:h-screen">
-          <p>2H + O -&gt; H2O</p>
-          Opskriv beregningen af standard entalpiændring
+        <section className="flex md:h-auto bg-primary text-white py-10 px-4 md:px-10">
+          <article className="w-full flex flex-col items-center md:items-start space-y-6 overflow-hidden">
+            <div className="h-20 md:h-32" />
+            <motion.h1
+              className="text-center md:text-left text-4xl md:text-6xl"
+              initial={{ x: -300 }}
+              animate={{ x: 0 }}
+            >AmfoLabs <br /> Hjælper dig med kemi </motion.h1>
+            <motion.button
+              className="bg-secondary px-20 py-3 rounded-lg"
+              initial={{ x: -300 }}
+              animate={{ x: 0 }}
+            >Køb</motion.button>
+            <div className="h-20 md:h-32" />
+
+          </article>
+          <article className="hidden md:block w-full">
+            <div className="h-24" />
+
+            <div className="w-full bg-secondary h-full">
+
+              {start === false ? (
+                <div className="h-full w-full flex items-center justify-center">
+                  <motion.button className="bg-highlight text-lg font-bold px-20 py-3 rounded-lg text-black">Spil</motion.button>
+                </div>
+              ) : (
+                <MathJaxContext>
+
+                  <MathJax>{"\\(Ag^{+}(aq) + Cl^{-}(aq) \\rightarrow AgCl\\)"}</MathJax>
+                  Opskriv beregningen af standard entalpiændring
+                  {/* <Reorder.Group axis="x" className="flex" values={items} onReorder={setItems}>
+                  {items.map((item) => (
+                    <Reorder.Item key={item} value={item} className="w-20 bg-highlight">
+                      {item}
+                    </Reorder.Item>
+                  ))}
+                </Reorder.Group> 
+              */}
+
+                </MathJaxContext>
+              )}
+
+            </div>
+
+
+
+          </article>
+
         </section>
         <section className="h-auto space-y-4 p-6">
 

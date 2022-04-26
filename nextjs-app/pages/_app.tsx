@@ -8,6 +8,8 @@ import { stripePromise } from '../lib/setup/stripe'
 import Footer from '../components/ui/Footer'
 import Navbar from '../components/ui/Navbar'
 import { NextRouter, useRouter } from 'next/router'
+import { SideBarContext } from '../lib/context/sidebar-context'
+import { useSidebar } from '../lib/hooks/useSidebar'
 
 const excludeRoutes = [
   '/profile'
@@ -16,15 +18,18 @@ const excludeRoutes = [
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const { user, userLoading } = useUserData()
+  const { pressed, setPressed } = useSidebar()
   const renderWebshopContent = !isProfile(router, excludeRoutes)
   return (
     <UserContext.Provider value={{ user, userLoading }} >
       {renderWebshopContent && (
-        <Navbar />
+        <Navbar setPressed={setPressed}/>
       )}
-      <Elements stripe={stripePromise}>
-        <Component {...pageProps} />
-      </Elements>
+        <Elements stripe={stripePromise}>
+          {pressed && <>Dwadwa</>}
+          <Component {...pageProps} />
+        </Elements>
+
       {renderWebshopContent && (
         <Footer />
       )}

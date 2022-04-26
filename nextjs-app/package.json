@@ -15,7 +15,9 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.25.0",
+    "better-react-mathjax": "^2.0.1",
     "firebase": "^9.6.10",
+    "framer-motion": "^6.3.2",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-collapsible": "^2.8.4",
