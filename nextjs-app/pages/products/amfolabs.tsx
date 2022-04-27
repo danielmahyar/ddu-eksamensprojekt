@@ -8,6 +8,7 @@ import RatingCard from '../../components/ui/RatingCard';
 import { motion } from "framer-motion"
 import { useState } from 'react';
 import { MathJax, MathJaxContext } from 'better-react-mathjax';
+import { buyItem } from '../../lib/handlers/userflowHandler';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { data: [] } }
@@ -62,9 +63,15 @@ const ratings: Array<{ name: string, review: string, photoURL: string }> = [
   }
 ]
 
-const Calculator: NextPage = () => {
+const PRODUCT_ID = "1wwiM2PGNAXdTgP6S62d"
+
+const AmfoLabsPage: NextPage = () => {
   const [items, setItems] = useState<Array<number>>([0, 1, 2, 3])
   const [start, setStart] = useState<boolean>(false)
+
+  const handleBuyPressed = () => {
+    buyItem(PRODUCT_ID)
+  }
 
 
   return (
@@ -83,6 +90,7 @@ const Calculator: NextPage = () => {
               className="bg-secondary px-20 py-3 rounded-lg"
               initial={{ x: -300 }}
               animate={{ x: 0 }}
+              onClick={handleBuyPressed}
             >Køb</motion.button>
             <div className="h-20 md:h-32" />
 
@@ -136,7 +144,8 @@ const Calculator: NextPage = () => {
 
 
         </section>
-        {/* ELECTRON VIEW HERE */}
+        {/* ELECTRON VIEW HERE */}+
+        
         <section className="hidden h-auto md:flex flex-col space-y-5">
 
           <h1 className="text-center text-2xl">Prøv AmfoLabs selv</h1>
@@ -195,4 +204,4 @@ const Calculator: NextPage = () => {
   );
 }
 
-export default Calculator
+export default AmfoLabsPage
