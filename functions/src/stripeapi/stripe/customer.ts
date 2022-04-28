@@ -25,6 +25,20 @@ export async function getOrCreateCustomer(userId: string, params?: Stripe.Custom
  
  }
 
+ export async function createCustomer(
+	email: string, 
+	firebaseUID: string, 
+	params?: Stripe.CustomerCreateParams
+): Promise<Stripe.Response<Stripe.Customer>> {
+	 return await stripe.customers.create({
+		email,
+		metadata: {
+			firebaseUID
+		},
+		...params
+	 })
+ }
+
  /**
  * Creates a SetupIntent used to save a credit card for later use
  */
@@ -37,6 +51,10 @@ export async function createSetupIntent(userId: string) {
 	})
  }
  
+export async function deleteCustomer(customerId: string){
+	return await stripe.customers.del(customerId)
+}
+
  /**
   * Returns all payment sources associated to the user
   */

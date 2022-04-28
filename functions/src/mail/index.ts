@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import * as sgMail from '@sendgrid/mail';
-import { MailType, SubscriptionEventMail, WelcomeEmail } from "../types/emails";
+import { ByeEmail, MailType, SubscriptionEventMail, WelcomeEmail } from "../types/emails";
 
 
 
@@ -23,10 +23,11 @@ export const sendWelcomeEmail = (email: string, displayName: string, photoURL: s
 }
 
 export const sendDeleteEmail = (email: string, displayName: string): Promise<[sgMail.ClientResponse, {}]> => {
-	const msg = {
+	const msg: ByeEmail = {
 		to: email,
 		from: senderEmail,
-		templateId: MailType.welcomeEmail,
+		templateId: MailType.byeEmail,
+		dynamic_template_data: {}
 	 };
 	 return sgMail.send(msg);
 }

@@ -6,9 +6,6 @@ import { cancelSubscription, createSubscription, listSubscriptions } from './str
 import { handleStripeWebhook } from "./stripe/webhooks";
 import { sendSubscriptionMail } from '../mail';
 
-
-
-
 // Stripe API
 
 export const stripewebhooks = functions.https.onRequest(

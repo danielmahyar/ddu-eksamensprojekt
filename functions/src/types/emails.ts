@@ -25,3 +25,9 @@ export interface WelcomeEmail extends BaseEmail {
 		photoURL: string
 	}
 }
+
+export interface ByeEmail extends BaseEmail {
+	dynamic_template_data: {
+		
+	}
+}

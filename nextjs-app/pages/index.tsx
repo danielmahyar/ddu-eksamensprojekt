@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="min-h-screen h-auto">
         <section className="h-96 bg-primary w-full flex justify-center">
-            <Carousel />
+            {/* <Carousel /> */}
 
         </section>
       </main>

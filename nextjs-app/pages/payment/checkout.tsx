@@ -60,7 +60,7 @@ const Checkout = () => {
 
   return (
     <AuthCheck>
-      <main className="h-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 p-10 bg-background">
+      <main className="min-h-screen h-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 p-10 bg-background">
 
         <section className="md:col-span-2 lg:col-span-3 space-y-3">
           <h1 className="font-bold text-4xl">Din Indkøbskurv</h1>
