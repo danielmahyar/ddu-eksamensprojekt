@@ -6,9 +6,11 @@ import MetaForProduct from '../../components/seo-tags/MetaForProduct';
 import Card from '../../components/ui/Card';
 import RatingCard from '../../components/ui/RatingCard';
 import { motion } from "framer-motion"
-import { useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { MathJax, MathJaxContext } from 'better-react-mathjax';
 import { buyItem } from '../../lib/handlers/userflowHandler';
+import { UserContext } from '../../lib/context/auth-context';
+import { BaseSubscriptionVariants, SubscriptionProduct } from '../../types/ProductsTypes';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { data: [] } }
@@ -64,13 +66,47 @@ const ratings: Array<{ name: string, review: string, photoURL: string }> = [
 ]
 
 const PRODUCT_ID = "1wwiM2PGNAXdTgP6S62d"
+const ONE_MONTH_SUBSCRIPTION: SubscriptionProduct = {
+  productID: PRODUCT_ID,
+  stripeID: "price_1KtFjVHEMIrqYYjGT8TQztk4",
+  name: "AmfoLabs",
+  type: BaseSubscriptionVariants.one_month,
+  photoURL: 'amfolabs-logo.png',
+  price: 39
+}
+const THREE_MONTH_SUBSCRIPTION: SubscriptionProduct = {
+  productID: PRODUCT_ID,
+  stripeID: "price_1KtFkWHEMIrqYYjGRL41yEUg",
+  name: "AmfoLabs",
+  type: BaseSubscriptionVariants.three_month,
+  photoURL: 'amfolabs-logo.png',
+  price: 109
+}
+const YEARLY_SUBSCRIPTION: SubscriptionProduct = {
+  productID: PRODUCT_ID,
+  stripeID: "price_1KtFkyHEMIrqYYjGy3lJuziZ",
+  name: "AmfoLabs",
+  type: BaseSubscriptionVariants.yearly,
+  photoURL: 'amfolabs-logo.png',
+  price: 399
+}
+
+const productVariants = {
+  ONE_MONTH_SUBSCRIPTION,
+  THREE_MONTH_SUBSCRIPTION,
+  YEARLY_SUBSCRIPTION
+}
+
 
 const AmfoLabsPage: NextPage = () => {
   const [items, setItems] = useState<Array<number>>([0, 1, 2, 3])
   const [start, setStart] = useState<boolean>(false)
+  const pricesRef = useRef<any>();
+  const { user } = useContext(UserContext)
 
-  const handleBuyPressed = () => {
-    buyItem(PRODUCT_ID)
+  const handleBuyPressed = (productKeyName: BaseSubscriptionVariants) => {
+
+    buyItem(productVariants[productKeyName], user?.uid)
   }
 
 
@@ -90,7 +126,7 @@ const AmfoLabsPage: NextPage = () => {
               className="bg-secondary px-20 py-3 rounded-lg"
               initial={{ x: -300 }}
               animate={{ x: 0 }}
-              onClick={handleBuyPressed}
+              onClick={() => pricesRef.current.scrollIntoView({ behavior: 'smooth' })}
             >Køb</motion.button>
             <div className="h-20 md:h-32" />
 
@@ -166,24 +202,33 @@ const AmfoLabsPage: NextPage = () => {
           </article>
         </section>
 
-        <section className="h-auto relative ">
+        <section ref={pricesRef} className="h-auto relative ">
           <div className="w-full h-96 bg-secondary absolute -top-0 z-0" />
           <h1 className="z-20 text-white">Priser</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-end">
             <article className="z-10 h-72 bg-primary">
-              3 måneders pris
-              <h2>109kr</h2>
+              1 måneds pris
+              <h2>39 kr</h2>
+              <button
+                onClick={() => handleBuyPressed(BaseSubscriptionVariants.one_month)}
+              >Køb</button>
             </article>
             <article className="z-10 h-96 bg-primary relative" >
               <div className="w-auto rounded-full h-auto px-5 py-1 absolute -top-2 bg-highlight right-5">
                 <p className="font-bold text-md">POPULÆRT</p>
               </div>
               3 måneders pris
-              <h2>109kr</h2>
+              <h2>109 kr</h2>
+              <button
+                onClick={() => handleBuyPressed(BaseSubscriptionVariants.three_month)}
+              >Køb</button>
             </article>
             <article className="z-10 h-72 bg-primary">
-              3 måneders pris
-              <h2>109kr</h2>
+              1 års pris
+              <h2>399 kr</h2>
+              <button
+                onClick={() => handleBuyPressed(BaseSubscriptionVariants.yearly)}
+              >Køb</button>
             </article>
           </div>
         </section>

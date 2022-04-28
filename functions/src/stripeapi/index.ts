@@ -20,6 +20,7 @@ export const stripewebhooks = functions.https.onRequest(
 export const checkouts = functions.https.onCall(async (data, context) => {
 	if (!context.auth) throw new Error('You must be authorized')
 	const checkoutSession = await createStripeCheckoutSession(data.line_items)
+	console.log(checkoutSession)
 	return checkoutSession
 })
 
