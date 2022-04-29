@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import React, { useContext, useState } from 'react'
 import { handleEmailLogin, handleGoogleLogin } from '../lib/helper-functions/user-auth'
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -14,6 +14,11 @@ type Inputs = {
   password: string,
 };
 
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: { data: null }
+  }
+}
 
 const Login: NextPage = () => {
   const { user } = useContext(UserContext)

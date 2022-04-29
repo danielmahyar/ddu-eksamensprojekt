@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -18,6 +18,12 @@ type Inputs = {
 	password: string,
 	rep_password: string,
 };
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	return {
+		props: { data: null }
+	}
+}
 
 const SignUp: NextPage = () => {
 	const { user: currUser } = useContext(UserContext)

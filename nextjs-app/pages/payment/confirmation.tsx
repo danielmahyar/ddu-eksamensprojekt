@@ -13,10 +13,10 @@ import { storage } from '../../lib/setup/firebase'
 const Confirmation: NextPage = () => {
   const router = useRouter()
   const [downloaded, setDownloaded] = useState<string>('')
-  const { itemId, stripeID } = router.query
-  if(!itemId || !stripeID){
-    router.replace("/profile")
-  }
+  // const { itemId, stripeID } = router.query
+  // if(!itemId || !stripeID){
+  //   router.replace("/profile")
+  // }
   const { user } = useContext(UserContext)
 
   useEffect(() => {
