@@ -28,7 +28,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           ) : (
             <>
               <Navbar />
-              <Component {...pageProps} />
+              <Toaster />
+            </>
+          )}
+          
+          <Component {...pageProps} />
+
+          {!router.pathname.includes('/profile') && (
+            <>
               <Footer />
               <Toaster />
             </>
