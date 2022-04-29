@@ -5,7 +5,7 @@ const PaymentError: NextPage = () => {
 	return (
 		<>
 			<main>
-				
+				Error
 			</main>
 		</>
 	)

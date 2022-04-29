@@ -1,13 +1,15 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { SetupIntent } from '@stripe/stripe-js'
+import { collection, getDocs } from 'firebase/firestore'
 import { httpsCallable } from 'firebase/functions'
 import { GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaArrowLeft, FaRegCreditCard } from 'react-icons/fa'
 import AuthCheck from '../../components/authentication/AuthCheck'
-import { functions } from '../../lib/setup/firebase'
+import { UserContext } from '../../lib/context/auth-context'
+import { db, functions } from '../../lib/setup/firebase'
+import { StripeSubscription } from '../../types/StripeTypes'
 
 export const getStaticProps: GetStaticProps = async () => {
 
@@ -22,40 +24,64 @@ const AddPaymentMethodPage: NextPage = () => {
 	const router = useRouter()
 	const stripe = useStripe()
 	const elements = useElements()
-	const [setupIntent, setSetupIntent] = useState<SetupIntent>();
+	const { user, extraInfo } = useContext(UserContext)
+	// const [setupIntent, setSetupIntent] = useState<SetupIntent>();
 
-	useEffect(() => {
-		const fn = httpsCallable<any, any>(functions, 'saveCard')
-
-		fn().then((response) => {
-			console.log(response)
-			setSetupIntent(response.data)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	const fn = httpsCallable<any, any>(functions, 'saveCard')
+	// 	fn().then((response) => setSetupIntent(response.data))
+	// }, [])
 
 	const handleSubmit = async () => {
-		if (!elements || !stripe || !setupIntent) return
+		const loading = toast.loading('Behandler dine kort oplysninger')
+		if (!elements || !stripe || !user) return
 		const cardElement = elements.getElement(CardElement)
-		console.log("Test")
 		if (!cardElement) return
-		if (!setupIntent.client_secret) return
 
-		const { setupIntent: updatedSetupIntent, error } = await stripe.confirmCardSetup(setupIntent?.client_secret, {
-			payment_method: {
-				card: cardElement
-			}
+		const { paymentMethod, error } = await stripe.createPaymentMethod({
+			type: 'card',
+			card: cardElement
 		})
 
+
 		if (error) {
-			// alert(error.message);
+			toast.dismiss(loading)
 			toast.error(error.type)
 			console.log(error);
-		} else {
-			setSetupIntent(updatedSetupIntent);
-			// await getWallet();
-			// alert('Success! Card added to your wallet');
-			toast.success('Success! Card added to your wallet')
+			return
 		}
+
+		// toast.success('Kortet er nu oprettet!')
+
+		if (!paymentMethod) return
+
+		const dbData = await getDocs(collection(db, 'users', user?.uid, 'cartItems'))
+
+		const fn = httpsCallable<{ email: string, displayName: string, plan: string, payment_method: string }, StripeSubscription>(functions, 'newSubscription')
+
+		const { data: subscription } = await fn({ email: user.email || "", displayName: user.displayName || "", plan: dbData.docs[0].data().stripeID || "", payment_method: paymentMethod.id })
+
+		const { latest_invoice } = subscription;
+
+		if (latest_invoice.payment_intent) {
+			const { client_secret, status } = latest_invoice.payment_intent;
+
+			if (status === 'requires_action') {
+				const { error: confirmationError } = await stripe.confirmCardPayment(
+					client_secret
+				);
+				if (confirmationError) {
+					console.error(confirmationError);
+					toast.dismiss(loading)
+					toast.error('unable to confirm card');
+					return;
+				}
+			}
+			toast.dismiss(loading)
+			toast.success('Du er nu abonneret!');
+			router.replace(`/payment/confirmation?itemId=1wwiM2PGNAXdTgP6S62d&stripeID=${extraInfo.stripeCustomerId}`)
+		}
+
 	}
 
 	return (
@@ -64,7 +90,7 @@ const AddPaymentMethodPage: NextPage = () => {
 
 				<section className="w-full flex flex-col items-center bg-primary">
 					<article className="flex flex-col w-full relative p-10 items-center text-white">
-						<button onClick={() => router.back()} className="absolute top-0 -translate-y-1/2 left-0 bg-secondary text-white items-center justify-start font-bold text-left rounded-lg flex px-4 py-1">
+						<button onClick={() => router.back()} className="absolute top-4 left-4 bg-secondary text-white items-center justify-start font-bold text-left rounded-lg flex px-4 py-1">
 							<FaArrowLeft />
 							<p>Tilbage</p>
 						</button>
@@ -72,20 +98,16 @@ const AddPaymentMethodPage: NextPage = () => {
 						<FaRegCreditCard size={50} />
 						<h1 className="text-3xl">Tilføj betalingsmetode</h1>
 					</article>
-					<article className="flex flex-col w-full h-96 bg-slate-300">
-						<div id="card" />
+					<article className="flex flex-col w-full h-auto bg-primary p-4 space-y-2">
 						{/* <PaymentElement /> */}
-						<CardElement />
+						<CardElement className='border p-4 text-white'/>
 						{/* <CardNumberElement/>
 						<CardExpiryElement />
 						<CardCvcElement /> */}
-						<button onClick={handleSubmit} className="bg-secondary">Tilføj betalingsmetode</button>
+						<button onClick={handleSubmit} className="text-white rounded-md font-bold py-2 px-6 bg-secondary">Tilføj betalingsmetode</button>
 					</article>
 				</section>
 
-				<form action="">
-
-				</form>
 			</main>
 		</AuthCheck>
 	)

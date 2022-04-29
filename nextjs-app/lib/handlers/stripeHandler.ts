@@ -19,16 +19,17 @@ export class StripeUIHandler {
 	}
 
 	getSubscriptions = async (): Promise<StripeSubscription[]> => {
-		const load = toast.loading('Getting your subscriptions')
+		const load = toast.loading('Finder dine abonnement')
 		const fn = httpsCallable<void, GetSubscriptionsRes>(functions, 'getSubscriptions')
 		try {
 			const data = ((await fn()).data).data
 			toast.dismiss(load)
+			toast.success('Fandt dine abonnement')
 			return data
 			
 		} catch (error: any) {
 			toast.dismiss(load)
-			toast.error("Error with server. Try again later")
+			toast.error("Der var nogle problemer. Prøv igen senere")
 			throw error
 		}
 	}

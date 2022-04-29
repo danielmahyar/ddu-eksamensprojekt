@@ -7,38 +7,28 @@ import { handleLogout } from '../../lib/helper-functions/user-auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { StripeUIHandler } from '../../lib/handlers/stripeHandler';
 import { StripeSubscription } from '../../types/StripeTypes';
+import Sidebar from '../../components/ui/profile/Sidebar';
+import { NextPage } from 'next';
+import SubscriptionCard from '../../components/ui/SubscriptionCard';
 
-const Subscription = () => {
+const SubscriptionPage: NextPage = () => {
+
 	return (
-		<main>
+		<main className="h-screen flex flex-col bg-background">
 			<AuthCheck>
-				<SubscribeToPlan />
+				<section className="flex w-full h-full">
+					<Sidebar />
+					<article className="p-10 w-full overflow-y-auto">
+						<h1 className="text-3xl font-thin">Dine Abonnementer</h1>
+						<p>Adminstrér dine abonnementer og se dine tidligere betalinger</p>
+						<SubscribeToPlan />
+					</article>
+				</section>
 			</AuthCheck>
 		</main>
 	)
 }
 
-function UserData(props: any) {
-	const [data, setData] = useState<any>({});
-
-	// Subscribe to the user's data in Firestore
-	useEffect(
-		() => {
-			const unsubscribe = onSnapshot(doc(db, 'users', props.user.uid), (doc) => {
-				setData(doc.data())
-			})
-			return () => unsubscribe()
-		},
-		[props.user]
-	)
-
-	return (
-		<pre>
-			Stripe Customer ID: {data.stripeCustomerId} <br />
-			Subscriptions: {JSON.stringify(data.activePlans || [])}
-		</pre>
-	);
-}
 
 function SubscribeToPlan(props: any) {
 	const stripe = useStripe();
@@ -63,7 +53,7 @@ function SubscribeToPlan(props: any) {
 
 	// Fetch current subscriptions from the API
 	const getSubscriptions = async () => {
-		if(!handler) return
+		if (!handler) return
 		if (user) {
 			try {
 				const subscriptions = await handler.getSubscriptions()
@@ -80,7 +70,7 @@ function SubscribeToPlan(props: any) {
 
 	// Cancel a subscription
 	const cancel = async (id: string) => {
-		if(!handler) return
+		if (!handler) return
 		setLoading(true);
 		await handler.cancelSubscription(id)
 		getSubscriptions();
@@ -89,7 +79,7 @@ function SubscribeToPlan(props: any) {
 
 	// Handle the submission of card details
 	const handleSubmit = async (event: any) => {
-		if(!handler) return
+		if (!handler) return
 		event.preventDefault();
 		setLoading(true);
 		const cardElement: any = elements.getElement(CardElement);
@@ -100,64 +90,37 @@ function SubscribeToPlan(props: any) {
 	};
 
 	return (
-		<>
-			<div>
+		<section>
+			<article>
+				<section>
+					<ul className="flex items-center justify-between px-4">
+						<li>Status</li>
+						<li>Abonnement</li>
+						<li>Pris</li>
+						<li>Dato</li>
+						<li>Adminstrér</li>
+					</ul>
+				</section>
 				<div>
-					{user && 'uid' in user && <UserData user={user} />}
+					{subscriptions.length > 0 && subscriptions.map((sub) => (
+						<SubscriptionCard item={sub} />
+						// <div key={sub.id}>
+						// 	{sub.id}. Next payment of {sub.plan.amount} due{' '}
+						// 	{new Date(sub.current_period_end * 1000).toUTCString()}
+						// 	--
+						// 	{new Date(sub.start_date * 1000).toUTCString()}
+						// 	<button
+						// 		onClick={() => cancel(sub.id)}
+						// 		disabled={loading}>
+						// 		Cancel
+						// 	</button>
+						// </div>
+					))}
 				</div>
-				<hr />
-				<div>
+			</article>
+		</section>
 
-					<button
-						onClick={() => setPlan('price_1KgY2xHEMIrqYYjGShOuobD6')}>
-						Choose Monthly $25/m
-					</button>
-
-					<button
-						onClick={() => setPlan('price_1KgY2xHEMIrqYYjGShOuobD6')}>
-						Choose Quarterly $50/q
-					</button>
-
-					<p>
-						Selected Plan: <strong>{plan}</strong>
-					</p>
-				</div>
-				<hr />
-				<form onSubmit={handleSubmit} hidden={!plan}>
-
-					<CardElement />
-					<button type="submit" disabled={loading}>
-						Subscribe & Pay
-					</button>
-				</form>
-				<div>
-					<h3>Manage Current Subscriptions</h3>
-					<div>
-						{subscriptions.length > 0 && subscriptions.map((sub) => (
-							<div key={sub.id}>
-								{sub.id}. Next payment of {sub.plan.amount} due{' '}
-								{new Date(sub.current_period_end * 1000).toUTCString()}
-								--
-								{new Date(sub.start_date * 1000).toUTCString()}
-								<button
-									onClick={() => cancel(sub.id)}
-									disabled={loading}>
-									Cancel
-								</button>
-							</div>
-						))}
-					</div>
-				</div>
-				{error && (
-					<p className="text-red-600">{error.name === "FirebaseError" ? "Something wrong with server. Please try again later" : error.message}</p>
-				)}
-				<div>
-					<button onClick={handleLogout}>Sign out</button>
-				</div>
-			</div>
-
-		</>
 	);
 }
 
-export default Subscription
+export default SubscriptionPage

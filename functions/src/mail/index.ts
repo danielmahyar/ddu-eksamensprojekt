@@ -32,14 +32,14 @@ export const sendDeleteEmail = (email: string, displayName: string): Promise<[sg
 	 return sgMail.send(msg);
 }
 
-export const sendSubscriptionMail = (email: string, displayName: string): Promise<[sgMail.ClientResponse, {}]> => {
+export const sendSubscriptionMail = (email: string, displayName: string, productName: string = "AmfoLabs abonnement"): Promise<[sgMail.ClientResponse, {}]> => {
 	const msg: SubscriptionEventMail = {
 		to: email,
 		from: senderEmail,
 		templateId: MailType.subscriptionCreated,
 		dynamic_template_data: {
 			username: displayName,
-			subscription_name: "AmfoLabs Premium"
+			subscription_name: productName
 		},
 	}
 	return sgMail.send(msg)

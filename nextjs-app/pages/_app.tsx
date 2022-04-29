@@ -2,47 +2,52 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { UserContext } from '../lib/context/auth-context'
 import { useUserData } from '../lib/hooks/useUserData'
-import toast, { ToastBar, Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 import { Elements } from '@stripe/react-stripe-js'
 import { stripePromise } from '../lib/setup/stripe'
 import Footer from '../components/ui/Footer'
 import Navbar from '../components/ui/Navbar'
-import { NextRouter, useRouter } from 'next/router'
-import { SideBarContext } from '../lib/context/sidebar-context'
-import { useSidebar } from '../lib/hooks/useSidebar'
-
-const excludeRoutes = [
-  '/profile'
-]
+import { useRouter } from 'next/router'
+import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  const { user, userLoading } = useUserData()
-  const { pressed, setPressed } = useSidebar()
-  const renderWebshopContent = !isProfile(router, excludeRoutes)
-  return (
-    <UserContext.Provider value={{ user, userLoading }} >
-      {renderWebshopContent && (
-        <Navbar setPressed={setPressed}/>
-      )}
-        <Elements stripe={stripePromise}>
-          {pressed && <>Dwadwa</>}
-          <Component {...pageProps} />
-        </Elements>
+  const { user, userLoading, extraInfo } = useUserData()
 
-      {renderWebshopContent && (
-        <Footer />
-      )}
-      <Toaster/>
+  return (
+    <UserContext.Provider value={{ user, userLoading, extraInfo }} >
+      <RecoilRoot>
+        <Elements stripe={stripePromise}>
+          {router.pathname.includes('/profile') ? (
+            <>
+              <Component {...pageProps} />
+              <Toaster
+                position="bottom-right"
+              />
+            </>
+          ) : (
+            <>
+              <Navbar />
+              <Component {...pageProps} />
+              <Footer />
+              <Toaster />
+            </>
+          )}
+        </Elements>
+      </RecoilRoot>
     </UserContext.Provider>
   )
 }
 
+
+
+
 export default MyApp
 
-function isProfile(router: NextRouter, routes: string[]): boolean {
-  return router.pathname === routes[0]
-}
+
+
+
+
 
 {/* {(t) => (
           <ToastBar toast={t}>

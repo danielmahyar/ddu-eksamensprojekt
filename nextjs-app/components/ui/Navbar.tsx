@@ -7,15 +7,17 @@ import logo from '../../public/helpify-transparent-vector.svg'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 import { User } from 'firebase/auth'
+import { useRecoilValue } from 'recoil'
 
-const Navbar = ({ setPressed }: any) => {
-  const { user, userLoading } = useContext(UserContext)
+const Navbar = () => {
+  const { user, userLoading, extraInfo } = useContext(UserContext)
   const router = useRouter()
+
   return (
     <header className="w-full px-6 h-28 bg-primary">
       <nav className=" md:w-full lg:w-5/6 mx-auto h-full flex items-center justify-between md:grid md:grid-cols-3 place-items-center py-2">
         <div className="block md:hidden cursor-pointer transition-all hover:opacity-60">
-          <GiHamburgerMenu size={38} className="text-white" onClick={() => setPressed((prev: boolean) => !prev)}/>
+          <GiHamburgerMenu size={38} className="text-white" />
         </div>
         <div>
           <motion.div
@@ -60,7 +62,7 @@ const Navbar = ({ setPressed }: any) => {
         </ul>
 
         {user ?
-          <CustomerNav user={user} router={router} /> :
+          <CustomerNav user={user} router={router} extraInfo={extraInfo} /> :
           !userLoading ?
             <UserNav /> :
             <div>
@@ -80,7 +82,7 @@ function UserNav() {
   )
 }
 
-function CustomerNav({ user, router }: { user: User, router: any }) {
+function CustomerNav({ user, router, extraInfo }: { user: User, router: any, extraInfo: any }) {
   return (
     <div onClick={() => router.push("/profile")} className="flex items-center justify-center space-x-2">
       <Image
@@ -90,7 +92,7 @@ function CustomerNav({ user, router }: { user: User, router: any }) {
         width={40}
         height={40}
       />
-      <p className="text-white font-semibold link link-underline link-underline-black">{user.displayName}</p>
+      <p className="text-white font-semibold link link-underline link-underline-black">{user.displayName || extraInfo?.fullName}</p>
     </div>
   )
 }

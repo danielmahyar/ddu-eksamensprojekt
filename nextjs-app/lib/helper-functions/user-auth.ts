@@ -20,7 +20,7 @@ const PLACEHOLDER_PHOTOURL = "https://www.everblazing.org/wp-content/uploads/201
  * @returns auth-state-update | error
  */
 export async function handleEmailLogin(
-	email: string, 
+	email: string,
 	password: string
 ): Promise<void> {
 	try {
@@ -38,11 +38,12 @@ export async function handleEmailLogin(
  */
 export async function createAccountWithEmail(
 	user: NewUserInfo
-): Promise<void> {
+): Promise<string> {
 	const { email, password, fullName, photoURL } = user
 	try {
 		const newUser = await createUserWithEmailAndPassword(auth, email, password)
 		await handleUserFirestoreCreate(newUser.user, fullName, email, photoURL, CustomerType.NORMAL_USER)
+		return newUser.user.uid
 	} catch (error) {
 		throw error
 	}
@@ -52,10 +53,10 @@ export async function createAccountWithEmail(
 export async function handleUserFirestoreCreate(
 	user: User,
 	fullName?: string,
-	email?: string, 
+	email?: string,
 	photoURL = PLACEHOLDER_PHOTOURL,
 	memberStatus = CustomerType.NORMAL_USER
-){
+) {
 	try {
 		await setDoc(
 			doc(db, 'users', user.uid),
@@ -66,6 +67,29 @@ export async function handleUserFirestoreCreate(
 				memberStatus
 			}
 		)
+		if (!auth.currentUser) return
+		await auth?.currentUser.reload()
+	} catch (error) {
+		throw error
+	}
+}
+
+export async function handleUserFirestoreCreateGoogle(
+	user: User,
+	memberStatus = CustomerType.NORMAL_USER
+) {
+	try {
+		await setDoc(
+			doc(db, 'users', user.uid),
+			{
+				fullName: user.displayName,
+				email: user.email,
+				photoURL: user.photoURL,
+				memberStatus
+			}
+		)
+		if (!auth.currentUser) return
+		await auth?.currentUser.reload()
 	} catch (error) {
 		throw error
 	}
@@ -76,14 +100,16 @@ export async function handleUserFirestoreCreate(
  * Makes UI change by using AuthState hook
  * @returns auth-state-update
  */
-export async function handleGoogleLogin(): Promise<void> {
+export async function handleGoogleLogin(): Promise<string> {
 	try {
-		await signInWithPopup(auth, googleAuthProvider)
+		const newUser = await signInWithPopup(auth, googleAuthProvider)
+		await handleUserFirestoreCreateGoogle(newUser.user, CustomerType.NORMAL_USER)
+		return newUser.user.uid
 	} catch (error) {
 		console.error(error)
 		throw error
 	}
-		
+
 }
 
 export function saveUserLastLocation(lastLocation: string): void {
@@ -95,12 +121,12 @@ export function saveUserLastLocation(lastLocation: string): void {
 export function getUserLastLocation(): string | null {
 	if (typeof window === 'undefined') return null
 	const storageData = localStorage.getItem(StorageTypes.LastLocation)
-	if(!storageData) return null
+	if (!storageData) return null
 	const url: string = JSON.parse(storageData)
 	return url.substring(1)
 }
 
-export async function handleLogout(){
+export async function handleLogout() {
 	await auth.signOut()
 	await Router.replace('/')
 }

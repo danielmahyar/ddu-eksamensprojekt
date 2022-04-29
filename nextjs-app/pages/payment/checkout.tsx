@@ -89,7 +89,8 @@ const Checkout = () => {
               {cartItems && cartItems.map((cartItem, index) => (
                 <div key={index} className="flex justify-between">
                   <p>{cartItem.name}</p>
-                  <p>{cartItem.price}</p>
+                  <p>{cartItem.price}kr</p>
+
                 </div>
               ))}
               <div className="flex justify-between">

@@ -49,7 +49,8 @@ const Login: NextPage = () => {
           </div>
           <button className="bg-secondary py-2 px-4 rounded-lg text-white font-bold" type="submit">Log ind</button>
         </form>
-        <p>Ikke oprettet? Så lav en profil <Link href="/signup">her</Link></p>
+				<p className="text-white text-center">Ikke oprettet? Så lav en profil <Link href="/signup"><span className="font-bold text-highlight cursor-pointer">her</span></Link></p>
+
       </section>
 
     </main>

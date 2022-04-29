@@ -5,6 +5,7 @@ import { createSetupIntent, listPaymentMethods } from './stripe/customer';
 import { cancelSubscription, createSubscription, listSubscriptions } from './stripe/billing';
 import { handleStripeWebhook } from "./stripe/webhooks";
 import { sendSubscriptionMail } from '../mail';
+import Stripe from "stripe";
 
 // Stripe API
 
@@ -41,8 +42,12 @@ export const getCards = functions.https.onCall(async (data, context) => {
 
 export const newSubscription = functions.https.onCall(async (data, context) => {
 	if (!context.auth) throw new Error('You must be authorized')
-	const subscription = await createSubscription(context.auth.uid, data.plan, data.payment_method);
-	await sendSubscriptionMail(data.email, data.displayName)
+	const subscription: Stripe.Subscription = await createSubscription(context.auth.uid, data.plan, data.payment_method);
+	try {
+		await sendSubscriptionMail(data.email, data.displayName)
+	} catch (error) {
+		
+	}
 	return subscription
 })
 

@@ -22,7 +22,7 @@ export interface StripeSubscription {
 	discount:                          null;
 	ended_at:                          null;
 	items:                             Items;
-	latest_invoice:                    string;
+	latest_invoice:                    any;
 	livemode:                          boolean;
 	metadata:                          Metadata;
 	next_pending_invoice_item_invoice: null;

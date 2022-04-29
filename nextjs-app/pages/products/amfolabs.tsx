@@ -11,6 +11,9 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax';
 import { buyItem } from '../../lib/handlers/userflowHandler';
 import { UserContext } from '../../lib/context/auth-context';
 import { BaseSubscriptionVariants, SubscriptionProduct } from '../../types/ProductsTypes';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { userflow, UserState } from '../../lib/atoms/userflow';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { data: [] } }
@@ -62,7 +65,18 @@ const ratings: Array<{ name: string, review: string, photoURL: string }> = [
     name: "Hans Olsen",
     review: "Jeg har brugt AmfoLabs siden starten af 3.g, og jeg kan kun anbefale AmfoLabs til jer.",
     photoURL: "https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg"
-  }
+  },
+  {
+    name: "Hans Olsen",
+    review: "Jeg har brugt AmfoLabs siden starten af 3.g, og jeg kan kun anbefale AmfoLabs til jer.",
+    photoURL: "https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg"
+  },
+  {
+    name: "Hans Olsen",
+    review: "Jeg har brugt AmfoLabs siden starten af 3.g, og jeg kan kun anbefale AmfoLabs til jer.",
+    photoURL: "https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg"
+  },
+
 ]
 
 const PRODUCT_ID = "1wwiM2PGNAXdTgP6S62d"
@@ -101,19 +115,25 @@ const productVariants = {
 const AmfoLabsPage: NextPage = () => {
   const [items, setItems] = useState<Array<number>>([0, 1, 2, 3])
   const [start, setStart] = useState<boolean>(false)
+  const router = useRouter()
   const pricesRef = useRef<any>();
   const { user } = useContext(UserContext)
+  const setUserflow = useSetRecoilState(userflow)
 
   const handleBuyPressed = (productKeyName: BaseSubscriptionVariants) => {
-
-    buyItem(productVariants[productKeyName], user?.uid)
+    if (!user) {
+      setUserflow({ flow: UserState.buyProductAfterSignup, tempProduct: productVariants[productKeyName] })
+      router.push('/signup')
+    } else {
+      buyItem(productVariants[productKeyName], user?.uid)
+    }
   }
 
 
   return (
     <>
       <MetaForProduct />
-      <main className="flex flex-col bg-background space-y-14">
+      <main className="flex flex-col bg-background space-y-16">
         <section className="flex md:h-auto bg-primary text-white py-10 px-4 md:px-10">
           <article className="w-full flex flex-col items-center md:items-start space-y-6 overflow-hidden">
             <div className="h-20 md:h-32" />
@@ -181,7 +201,7 @@ const AmfoLabsPage: NextPage = () => {
 
         </section>
         {/* ELECTRON VIEW HERE */}+
-        
+
         <section className="hidden h-auto md:flex flex-col space-y-5">
 
           <h1 className="text-center text-2xl">Prøv AmfoLabs selv</h1>
@@ -202,46 +222,47 @@ const AmfoLabsPage: NextPage = () => {
           </article>
         </section>
 
-        <section ref={pricesRef} className="h-auto relative ">
-          <div className="w-full h-96 bg-secondary absolute -top-0 z-0" />
-          <h1 className="z-20 text-white">Priser</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-end">
-            <article className="z-10 h-72 bg-primary">
-              1 måneds pris
-              <h2>39 kr</h2>
+        <section ref={pricesRef} className="h-auto text-white relative space-y-10">
+          {/* <div className="w-full  h-96 bg-secondary absolute -top-0 z-0" /> */}
+          <h1 className="z-20 text-3xl text-center text-black">Priser</h1>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end px-5">
+            <article className="z-10 h-72 bg-primary flex flex-col justify-around items-center">
+              <h2>1 måneds abonnement</h2>
+              <h1 className="font-bold">39 kr</h1>
               <button
                 onClick={() => handleBuyPressed(BaseSubscriptionVariants.one_month)}
+                className="py-2 px-10 rounded-md bg-secondary"
               >Køb</button>
             </article>
-            <article className="z-10 h-96 bg-primary relative" >
+            <article className="z-10 h-80 bg-primary flex flex-col justify-around items-center relative " >
               <div className="w-auto rounded-full h-auto px-5 py-1 absolute -top-2 bg-highlight right-5">
-                <p className="font-bold text-md">POPULÆRT</p>
+                <p className="font-bold text-md text-black">POPULÆRT</p>
               </div>
-              3 måneders pris
-              <h2>109 kr</h2>
+              <h2>3 måneders abonnement</h2>
+              <h1 className="font-bold">109 kr</h1>
               <button
                 onClick={() => handleBuyPressed(BaseSubscriptionVariants.three_month)}
+                className="py-2 px-10 rounded-md bg-secondary"
               >Køb</button>
             </article>
-            <article className="z-10 h-72 bg-primary">
-              1 års pris
-              <h2>399 kr</h2>
+            <article className="z-10 h-72 bg-primary flex flex-col justify-around items-center">
+              <h2>Årligt abonnement</h2>
+              <h1 className="font-bold">399 kr</h1>
               <button
                 onClick={() => handleBuyPressed(BaseSubscriptionVariants.yearly)}
+                className="py-2 px-10 rounded-md bg-secondary"
               >Køb</button>
             </article>
           </div>
         </section>
 
-        <section className="h-auto ">
-          <div className="h-screen grid grid-cols-3">
-            {ratings.map((ratingCard, index) => (
-              <RatingCard
-                key={index}
-                {...ratingCard}
-              />
-            ))}
-          </div>
+        <section className=" h-auto mb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {ratings.map((ratingCard, index) => (
+            <RatingCard
+              key={index}
+              {...ratingCard}
+            />
+          ))}
         </section>
 
       </main>

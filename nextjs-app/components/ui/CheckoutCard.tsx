@@ -19,25 +19,29 @@ const CheckoutCard = ({ item, handleDeleteProduct }: { item: CartItem, handleDel
 
 					/>
 				</article>
-				<article className="flex flex-col">
-					
-					{
-						sortDescriptionText(item.type)
-					}
+				<article className="flex w-full">
+					<div className="flex flex-col">
+						{
+							sortDescriptionText(item.type)
+						}
 
-					<div className="flex md:flex-row items-center text-sm justify-center p-2 space-x-4">
-						<button
-							className="text-white bg-red-600 py-2 px-4 flex items-center justify-center rounded-lg"
-							onClick={() => handleDeleteProduct(item.cartID)}
-						>
-							<FaTrash size={10} />
-							<p className="text-white">Slet</p>
+						<div className="flex md:flex-row items-center text-sm justify-center md:justify-start space-x-4">
+							<button
+								className="text-white bg-red-600 py-2 px-4 flex items-center justify-center rounded-lg"
+								onClick={() => handleDeleteProduct(item.cartID)}
+							>
+								<FaTrash size={10} />
+								<p className="text-white">Slet</p>
 
-						</button>
-						|
-						<FaSearch size={25} />
-						Led efter nye produkter
+							</button>
+							|
+							<FaSearch size={25} />
+							Led efter nye produkter
+						</div>
 					</div>
+
+					<p className="w-auto flex items-end justify-end">{item.price} kr</p>
+
 				</article>
 			</section>
 		</article>
@@ -51,25 +55,25 @@ function sortDescriptionText(subType: BaseSubscriptionVariants) {
 		case BaseSubscriptionVariants.one_month:
 			return (
 				<>
-					<h2 className="text-center">AmfoLabs til Termodynamik</h2>
-					<h3 className="text-center">1 måneds abonnement</h3>
-					<p className="text-center">Frem til {new Date(now.setMonth(now.getMonth() + 1)).toUTCString()}</p>
+					<h2 className="text-center md:text-left">AmfoLabs til Termodynamik</h2>
+					<h3 className="text-center md:text-left">1 måneds abonnement</h3>
+					<p className="text-center md:text-left">Frem til {new Date(now.setMonth(now.getMonth() + 1)).toUTCString()}</p>
 				</>
 			)
 		case BaseSubscriptionVariants.three_month:
 			return (
 				<>
-					<h2 className="text-center">AmfoLabs til Termodynamik</h2>
-					<h3 className="text-center">3 måneders abonnement</h3>
-					<p className="text-center">Frem til {new Date(now.setMonth(now.getMonth() + 3)).toUTCString()}</p>
+					<h2 className="text-center md:text-left">AmfoLabs til Termodynamik</h2>
+					<h3 className="text-center md:text-left">3 måneders abonnement</h3>
+					<p className="text-center md:text-left">Frem til {new Date(now.setMonth(now.getMonth() + 3)).toUTCString()}</p>
 				</>
 			)
 		case BaseSubscriptionVariants.yearly:
 			return (
 				<>
-					<h2 className="text-center">AmfoLabs til Termodynamik</h2>
-					<h3 className="text-center">Årligt abonnement</h3>
-					<p className="text-center">Frem til {new Date(now.setMonth(now.getMonth() + 12)).toUTCString()}</p>
+					<h2 className="text-center md:text-left">AmfoLabs til Termodynamik</h2>
+					<h3 className="text-center md:text-left">Årligt abonnement</h3>
+					<p className="text-center md:text-left">Frem til {new Date(now.setMonth(now.getMonth() + 12)).toUTCString()}</p>
 				</>
 			)
 	}

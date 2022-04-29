@@ -45,7 +45,7 @@ body {
 	stroke-width: 4;
 	stroke: #fff;
 	stroke-miterlimit: 10;
-	margin: 10% auto;
+	/* margin: 10% auto; */
 	box-shadow: inset 0px 0px 0px #4DAA57;
 	animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
 }
