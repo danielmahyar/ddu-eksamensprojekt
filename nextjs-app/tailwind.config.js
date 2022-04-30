@@ -28,6 +28,13 @@ module.exports = {
       }
     },
   },
+  variants: {
+    extend: {
+      scrollbar: ['rounded'],
+    }
+  },
   plugins: [
+    require('tailwind-scrollbar-hide'),
+    require('tailwind-scrollbar'),
   ],
 }

@@ -6,15 +6,19 @@ import { useUserData } from '../lib/hooks/useUserData'
 import { Toaster } from 'react-hot-toast'
 import { Elements } from '@stripe/react-stripe-js'
 import { stripePromise } from '../lib/setup/stripe'
-const Navbar = dynamic(() => import('../components/ui/Navbar'))
-const Footer = dynamic(() => import('../components/ui/Footer'))
 import { useRouter } from 'next/router'
 import { RecoilRoot } from 'recoil'
 import { domAnimation, LazyMotion } from 'framer-motion';
+import { useState } from 'react';
+const Footer = dynamic(() => import('../components/ui/Footer'))
+const Navbar = dynamic(() => import('../components/ui/Navbar'))
+const Navigation = dynamic(() => import('../components/ui/Navigation'));
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
   const { user, userLoading, extraInfo } = useUserData()
+
 
   return (
     <UserContext.Provider value={{ user, userLoading, extraInfo }} >
@@ -29,7 +33,14 @@ function MyApp({ Component, pageProps }: AppProps) {
               />
             ) : (
               <>
-                <Navbar />
+                <Navbar
+                  toggle={setSidebarOpen}
+                />
+                {sidebarOpen && (
+                  <Navigation 
+                    toggle={setSidebarOpen}
+                  />
+                )}
                 <Toaster />
               </>
             )}

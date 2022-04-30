@@ -17,14 +17,15 @@ const PLACEHOLDER_PHOTOURL = "https://www.everblazing.org/wp-content/uploads/201
 /**
  * Log in to Google Authentication via. Email and Password.
  * Makes UI change by using AuthState hook
- * @returns auth-state-update | error
+ * @returns UID String
  */
 export async function handleEmailLogin(
 	email: string,
 	password: string
-): Promise<void> {
+): Promise<string> {
 	try {
-		await signInWithEmailAndPassword(auth, email, password)
+		const user = await signInWithEmailAndPassword(auth, email, password)
+		return user.user.uid
 	} catch (error: any) {
 		console.error(error)
 		throw error

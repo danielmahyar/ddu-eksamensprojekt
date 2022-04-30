@@ -1,8 +1,8 @@
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { userflow, UserState } from '../lib/atoms/userflow';
@@ -18,12 +18,6 @@ type Inputs = {
 	password: string,
 	rep_password: string,
 };
-
-export const getServerSideProps: GetServerSideProps = async () => {
-	return {
-		props: { data: null }
-	}
-}
 
 const SignUp: NextPage = () => {
 	const { user: currUser } = useContext(UserContext)
@@ -71,23 +65,23 @@ const SignUp: NextPage = () => {
 	}
 	return (
 		<main className="min-h-screen w-full">
-			<section className="h-full w-full my-5 space-y-6 bg-primary flex flex-col p-8">
-				<h1 className="text-white text-2xl text-center">Opret profil</h1>
+			<section className="h-full w-full my-5 space-y-6 bg-primary max-w-6xl mx-auto flex flex-col p-8">
+				<h1 className="text-white font-thin text-2xl text-center">Opret profil</h1>
 
 				<form className="flex flex-col space-y-6" onSubmit={handleSubmit(onSubmit)}>
-					<div className="flex flex-col">
+					<div className="flex flex-col space-y-2">
 						<label className="text-white font-thin" htmlFor="fullName">Fulde navn</label>
-						<input className="text-white py-2 px-4 bg-transparent border rounded-lg" type="text" placeholder="" {...register("fullName")} />
+						<input className="text-white py-2 px-4 bg-transparent border rounded-lg" type="text" placeholder="Navn" {...register("fullName")} />
 					</div>
-					<div className="flex flex-col">
+					<div className="flex flex-col space-y-2">
 						<label className="text-white font-thin" htmlFor="email">Email</label>
 						<input className="text-white py-2 px-4 bg-transparent border rounded-lg" type="email" placeholder="name@text.dk" {...register("email")} />
 					</div>
-					<div className="flex flex-col">
+					<div className="flex flex-col space-y-2">
 						<label className="text-white font-thin" htmlFor="password">Adgangskode</label>
 						<input className="text-white py-2 px-4 bg-transparent border rounded-lg" type="password" placeholder="Kode" {...register("password")} />
 					</div>
-					<div className="flex flex-col">
+					<div className="flex flex-col space-y-2">
 						<label className="text-white font-thin" htmlFor="fullName">Gentag adgangskode</label>
 						<input className="text-white py-2 px-4 bg-transparent border rounded-lg" type="password" placeholder="Gentag kode" {...register("rep_password")} />
 					</div>

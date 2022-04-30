@@ -60,56 +60,57 @@ const Checkout = () => {
 
   return (
     <AuthCheck>
-      <main className="min-h-screen h-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 p-10 bg-background">
+      <main className="min-h-screen h-auto  p-10 bg-background">
 
-        <section className="md:col-span-2 lg:col-span-3 space-y-3">
-          <h1 className="font-bold text-4xl">Din Indkøbskurv</h1>
-          <ul className="space-y-2">
-            {cartItems.length === 0 && (
-              <>
-                <p>Du har ingen produkter. Tryk her for at se vores udvalg</p>
-                <button onClick={() => router.replace("/")} className="w-full max-w-3xl bg-primary py-2 flex items-center justify-center border-2 ">
-                  <FaPlusCircle size={40} className="text-highlight bg-primary p-2 rounded-full" />
+        <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
+          <div className="md:col-span-2 lg:col-span-3 space-y-3">
+            <h1 className="font-bold text-4xl">Din Indkøbskurv</h1>
+            <ul className="space-y-2">
+              {cartItems.length === 0 && (
+                <>
+                  <p>Du har ingen produkter. Tryk her for at se vores udvalg</p>
+                  <button onClick={() => router.replace("/")} className="w-full max-w-3xl bg-primary py-2 flex items-center justify-center border-2 ">
+                    <FaPlusCircle size={40} className="text-highlight bg-primary p-2 rounded-full" />
 
-                </button>
-              </>
-            )}
-            {cartItems && cartItems.map((cartItem, index) => (
-              <CheckoutCard item={cartItem} handleDeleteProduct={handleDeleteProduct} key={index} />
-            ))}
-          </ul>
-        </section>
-        <section className=" h-fit md:col-span-2 lg:col-span-2 bg-primary text-white flex flex-col justify-between p-5">
-
-          <article className="space-y-5">
-            <h1 className="text-2xl">Pris i alt</h1>
-
-            <div className="">
-
+                  </button>
+                </>
+              )}
               {cartItems && cartItems.map((cartItem, index) => (
-                <div key={index} className="flex justify-between">
-                  <p>{cartItem.name}</p>
-                  <p>{cartItem.price}kr</p>
-
-                </div>
+                <CheckoutCard item={cartItem} handleDeleteProduct={handleDeleteProduct} key={index} />
               ))}
-              <div className="flex justify-between">
-                <p>Subtotal</p>
-                <p>{calculateTotal}kr</p>
+            </ul>
+          </div>
+          <div className=" h-fit md:col-span-2 lg:col-span-2 bg-primary text-white flex flex-col justify-between p-5">
+            <article className="space-y-5">
+              <h1 className="text-2xl">Pris i alt</h1>
+
+              <div className="">
+
+                {cartItems && cartItems.map((cartItem, index) => (
+                  <div key={index} className="flex justify-between">
+                    <p>{cartItem.name}</p>
+                    <p>{cartItem.price}kr</p>
+
+                  </div>
+                ))}
+                <div className="flex justify-between">
+                  <p>Subtotal</p>
+                  <p>{calculateTotal}kr</p>
+                </div>
+
+                <hr className="w-full h-[1px] bg-black opacity-20 my-3" />
+
+                <div className="flex justify-between font-bold">
+                  <p>Pris i alt (inkl. moms)</p>
+                  <p>{calculateTotal}kr</p>
+                </div>
               </div>
 
-              <hr className="w-full h-[1px] bg-black opacity-20 my-3" />
 
-              <div className="flex justify-between font-bold">
-                <p>Pris i alt (inkl. moms)</p>
-                <p>{calculateTotal}kr</p>
-              </div>
-            </div>
+              <button onClick={handleConfirmPurchase} className="px-4 py-2 w-full bg-secondary rounded-md">Bekræft betaling</button>
 
-
-            <button onClick={handleConfirmPurchase} className="px-4 py-2 w-full bg-secondary rounded-md">Bekræft betaling</button>
-
-          </article>
+            </article>
+          </div>
         </section>
 
       </main>

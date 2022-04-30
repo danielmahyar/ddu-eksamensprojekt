@@ -5,10 +5,10 @@ import { motion, Variants } from 'framer-motion'
 const Card = ({ title, Icon, text }: { title: string, Icon: IconType, text: string }) => {
 	const cardVariants: Variants = {
 		offscreen: {
-			y: 300
+			scale: 0
 		},
 		onscreen: {
-			y: 50,
+			scale: 1,
 			rotate: 0,
 			transition: {
 				type: "spring",
@@ -20,14 +20,14 @@ const Card = ({ title, Icon, text }: { title: string, Icon: IconType, text: stri
 
 	return (
 		<motion.article
-			className="w-full h-72 p-4 bg-white rounded-xl  transition-all cursor-default ease-in-out group hover:shadow-xl"
+			className="w-full h-72 p-4 bg-white rounded-xl flex items-center justify-center transition-all cursor-default ease-in-out group hover:shadow-xl"
 			initial="offscreen"
 			whileHover={{ scale: 1.05 }}
 			whileInView="onscreen"
 			viewport={{ once: true, amount: 0.8 }}
 		>
 			<motion.div
-				className="flex flex-col space-y-4 items-center justify-center overflow-hidden relative"
+				className="flex flex-col space-y-4 items-center justify-center relative"
 				variants={cardVariants}
 			>
 				<h1 className="text-black font-semibold">{title}</h1>

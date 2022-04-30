@@ -41,7 +41,7 @@ const Confirmation: NextPage = () => {
   return (
     <AuthCheck>
       <main className="min-h-screen text-white bg-background">
-        <section className="w-full h-auto bg-primary my-10 space-y-10 p-10 flex flex-col items-center justify-center">
+        <section className="w-full h-auto max-w-6xl mx-auto bg-primary my-10 space-y-10 p-10 flex flex-col items-center justify-center">
           <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
             <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
             <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
@@ -61,8 +61,8 @@ const Confirmation: NextPage = () => {
             </Link>
           )}
           <div className="flex flex-col items-center justify-center">
-            <Link href="/profile/subscription"><p className="cursor-pointer">Se dine abonnementer</p></Link>
-            <Link href="/profile"><p className="cursor-pointer">Se din profilside</p></Link>
+            <Link href="/profile/subscription"><p className="cursor-pointer">Se dine <span className="font-bold text-highlight">abonnementer</span></p></Link>
+            <Link href="/profile"><p className="cursor-pointer">Se din <span className="font-bold text-highlight">profilside</span></p></Link>
           </div>
         </section>
       </main>

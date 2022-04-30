@@ -30,7 +30,7 @@ const SubscriptionPage: NextPage = () => {
 }
 
 
-function SubscribeToPlan(props: any) {
+function SubscribeToPlan() {
 	const stripe = useStripe();
 	const elements: any = useElements();
 	const [handler, setHandler] = useState<StripeUIHandler | null>(null)
@@ -42,12 +42,14 @@ function SubscribeToPlan(props: any) {
 
 
 	useEffect(() => {
+		if(!stripe) return 
 		const handler = new StripeUIHandler(stripe)
 		setHandler(handler)
 	}, [stripe])
 
 	// Get current subscriptions on mount
 	useEffect(() => {
+		if(!user || !handler) return
 		getSubscriptions();
 	}, [user, handler]);
 
@@ -103,7 +105,7 @@ function SubscribeToPlan(props: any) {
 				</section>
 				<div>
 					{subscriptions.length > 0 && subscriptions.map((sub) => (
-						<SubscriptionCard item={sub} />
+						<SubscriptionCard item={sub} handleCancel={cancel}/>
 						// <div key={sub.id}>
 						// 	{sub.id}. Next payment of {sub.plan.amount} due{' '}
 						// 	{new Date(sub.current_period_end * 1000).toUTCString()}
@@ -117,6 +119,7 @@ function SubscribeToPlan(props: any) {
 						// </div>
 					))}
 				</div>
+				
 			</article>
 		</section>
 

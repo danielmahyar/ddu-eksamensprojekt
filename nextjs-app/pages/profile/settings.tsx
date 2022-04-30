@@ -9,7 +9,7 @@ const Settings: NextPage = () => {
 	const router = useRouter()
 	
 	const handleSignout = async () => {
-		router.replace("/")
+		await router.replace("/")
 		await auth.signOut()
 	}
 	return (

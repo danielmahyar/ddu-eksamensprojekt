@@ -3,7 +3,7 @@ import React from 'react'
 const MetaForProduct = ({
   title = 'AmfoLabs Calculator',
   description = 'Din personlige hjælper til din eksamen',
-  image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfxNgsuE1wET71jqCNfvgL4DesBe_kVpfa-J6opKWRNcV14DTkAHxLvQoc2bZ-YfF2Rso&usqp=CAU',
+  image = '/amfolabs-logo.svg',
 }) => {
   return (
     <Head>

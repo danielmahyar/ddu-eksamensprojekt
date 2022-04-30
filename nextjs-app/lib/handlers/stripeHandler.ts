@@ -24,7 +24,7 @@ export class StripeUIHandler {
 		try {
 			const data = ((await fn()).data).data
 			toast.dismiss(load)
-			toast.success('Fandt dine abonnement')
+			toast.success(`Fandt ${(data.length > 1 ? 'dine abonnementer' : 'dit abonnement')}`)
 			return data
 			
 		} catch (error: any) {

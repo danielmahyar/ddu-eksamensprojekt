@@ -23,7 +23,7 @@ const nextConfig = {
     ],
   },
   headers: ["Access-Control-Allow-Origin: *"],
-  reactStrictMode: false,
+  reactStrictMode: true,
 }
 
 module.exports = nextConfig

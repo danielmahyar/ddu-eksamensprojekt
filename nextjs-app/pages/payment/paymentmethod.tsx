@@ -24,6 +24,7 @@ const AddPaymentMethodPage: NextPage = () => {
 	const router = useRouter()
 	const stripe = useStripe()
 	const elements = useElements()
+	const [error, setError] = useState<boolean>(false)
 	const { user, extraInfo } = useContext(UserContext)
 	// const [setupIntent, setSetupIntent] = useState<SetupIntent>();
 
@@ -37,49 +38,55 @@ const AddPaymentMethodPage: NextPage = () => {
 		if (!elements || !stripe || !user) return
 		const cardElement = elements.getElement(CardElement)
 		if (!cardElement) return
+		try {
 
-		const { paymentMethod, error } = await stripe.createPaymentMethod({
-			type: 'card',
-			card: cardElement
-		})
+			const { paymentMethod, error } = await stripe.createPaymentMethod({
+				type: 'card',
+				card: cardElement
+			})
 
 
-		if (error) {
-			toast.dismiss(loading)
-			toast.error(error.type)
-			console.log(error);
-			return
-		}
-
-		// toast.success('Kortet er nu oprettet!')
-
-		if (!paymentMethod) return
-
-		const dbData = await getDocs(collection(db, 'users', user?.uid, 'cartItems'))
-
-		const fn = httpsCallable<{ email: string, displayName: string, plan: string, payment_method: string }, StripeSubscription>(functions, 'newSubscription')
-
-		const { data: subscription } = await fn({ email: user.email || "", displayName: user.displayName || "", plan: dbData.docs[0].data().stripeID || "", payment_method: paymentMethod.id })
-
-		const { latest_invoice } = subscription;
-
-		if (latest_invoice.payment_intent) {
-			const { client_secret, status } = latest_invoice.payment_intent;
-
-			if (status === 'requires_action') {
-				const { error: confirmationError } = await stripe.confirmCardPayment(
-					client_secret
-				);
-				if (confirmationError) {
-					console.error(confirmationError);
-					toast.dismiss(loading)
-					toast.error('unable to confirm card');
-					return;
-				}
+			if (error) {
+				toast.dismiss(loading)
+				toast.error(error.type)
+				console.log(error);
+				return
 			}
 			toast.dismiss(loading)
-			toast.success('Du er nu abonneret!');
-			router.replace(`/payment/confirmation?itemId=1wwiM2PGNAXdTgP6S62d&stripeID=${extraInfo.stripeCustomerId}`)
+			toast.success('Kortet er nu oprettet!')
+			if (!paymentMethod) return
+			
+			const dbData = await getDocs(collection(db, 'users', user?.uid, 'cartItems'))
+			const loadSubscription = toast.loading(`Registrer dit abonnement til ${dbData.docs[0].data().name}`)
+
+			const fn = httpsCallable<{ email: string, displayName: string, plan: string, payment_method: string }, StripeSubscription>(functions, 'newSubscription')
+
+			const { data: subscription } = await fn({ email: user.email || "", displayName: user.displayName || "", plan: dbData.docs[0].data().stripeID || "", payment_method: paymentMethod.id })
+
+			const { latest_invoice } = subscription;
+
+			if (latest_invoice.payment_intent) {
+				const { client_secret, status } = latest_invoice.payment_intent;
+
+				if (status === 'requires_action') {
+					const { error: confirmationError } = await stripe.confirmCardPayment(
+						client_secret
+					);
+					if (confirmationError) {
+						console.error(confirmationError);
+						toast.dismiss(loadSubscription)
+						toast.error('unable to confirm card');
+						return;
+					}
+				}
+				toast.dismiss(loadSubscription)
+				toast.success(`Abonnement til ${dbData.docs[0].data().name} gennemført`);
+				router.replace(`/payment/confirmation?itemId=1wwiM2PGNAXdTgP6S62d&stripeID=${extraInfo.stripeCustomerId}`)
+			}
+		} catch (error: any) {
+			toast.dismiss(loading)
+			toast.error(error.message)
+			setError(true)
 		}
 
 	}
@@ -100,11 +107,19 @@ const AddPaymentMethodPage: NextPage = () => {
 					</article>
 					<article className="flex flex-col w-full h-auto bg-primary p-4 space-y-2">
 						{/* <PaymentElement /> */}
-						<CardElement className='border p-4 text-white'/>
+						<CardElement className='border p-4 text-white' />
 						{/* <CardNumberElement/>
 						<CardExpiryElement />
 						<CardCvcElement /> */}
-						<button onClick={handleSubmit} className="text-white rounded-md font-bold py-2 px-6 bg-secondary">Tilføj betalingsmetode</button>
+						{error === false ? (
+							<button onClick={handleSubmit} className="text-white rounded-md font-bold py-2 px-6 bg-secondary">
+								Tilføj betalingsmetode
+							</button>
+						) : (
+							<button onClick={handleSubmit} className="text-white rounded-md font-bold py-2 px-6 bg-secondary">
+								Tryk her for at prøve igen
+							</button>
+						)}
 					</article>
 				</section>
 
