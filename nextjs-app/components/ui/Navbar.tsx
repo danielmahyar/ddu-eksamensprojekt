@@ -7,7 +7,6 @@ import logo from '../../public/helpify-transparent-vector.svg'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 import { User } from 'firebase/auth'
-import { useRecoilValue } from 'recoil'
 
 const Navbar = () => {
   const { user, userLoading, extraInfo } = useContext(UserContext)

@@ -1,14 +1,16 @@
 import '../styles/globals.css'
+import dynamic from "next/dynamic";
 import type { AppProps } from 'next/app'
 import { UserContext } from '../lib/context/auth-context'
 import { useUserData } from '../lib/hooks/useUserData'
 import { Toaster } from 'react-hot-toast'
 import { Elements } from '@stripe/react-stripe-js'
 import { stripePromise } from '../lib/setup/stripe'
-import Footer from '../components/ui/Footer'
-import Navbar from '../components/ui/Navbar'
+const Navbar = dynamic(() => import('../components/ui/Navbar'))
+const Footer = dynamic(() => import('../components/ui/Footer'))
 import { useRouter } from 'next/router'
 import { RecoilRoot } from 'recoil'
+import { domAnimation, LazyMotion } from 'framer-motion';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -16,32 +18,33 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <UserContext.Provider value={{ user, userLoading, extraInfo }} >
-      <RecoilRoot>
-        <Elements stripe={stripePromise}>
-          {router.pathname.includes('/profile') ? (
-            <>
-              <Component {...pageProps} />
+      <LazyMotion features={domAnimation}>
+        <RecoilRoot>
+          <Elements stripe={stripePromise}>
+
+            {/* TOASTER CONFIGURATION FOR PROFILE SITE */}
+            {router.pathname.includes('/profile') ? (
               <Toaster
                 position="bottom-right"
               />
-            </>
-          ) : (
-            <>
-              <Navbar />
-              <Toaster />
-            </>
-          )}
-          
-          <Component {...pageProps} />
+            ) : (
+              <>
+                <Navbar />
+                <Toaster />
+              </>
+            )}
 
-          {!router.pathname.includes('/profile') && (
-            <>
-              <Footer />
-              <Toaster />
-            </>
-          )}
-        </Elements>
-      </RecoilRoot>
+            <Component {...pageProps} />
+
+            {!router.pathname.includes('/profile') && (
+              <>
+                <Footer />
+                <Toaster />
+              </>
+            )}
+          </Elements>
+        </RecoilRoot>
+      </LazyMotion>
     </UserContext.Provider>
   )
 }

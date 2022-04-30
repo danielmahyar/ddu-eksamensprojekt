@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, NextPage } from 'next'
+import { GetServerSidePropsContext, GetStaticPropsContext, NextPage } from 'next'
 import { IconType } from 'react-icons';
 import { FaHourglassHalf, FaSchool, FaScrewdriver, FaSearch, FaVial, FaWeight, FaWikipediaW } from 'react-icons/fa';
 import ElectronThermoView from '../../components/products-demo/thermo/ElectronThermoView';
@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { userflow, UserState } from '../../lib/atoms/userflow';
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticProps(context: GetStaticPropsContext) {
   return { props: { data: [] } }
 }
 const initial = [')', '2', '*', 'O', 'H', ')', '(', '(', '+', 'ΔH', '=', ')', '(', 'H2O', '(', ')', '-'].map((k, i) => {
