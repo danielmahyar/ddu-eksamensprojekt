@@ -13,12 +13,21 @@ import { CartItem } from '../../types/ProductsTypes'
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
-  const { user } = useContext(UserContext)
+  const { user, extraInfo } = useContext(UserContext)
   const stripe = useStripe()
   const router = useRouter()
 
-  const handleConfirmPurchase = () => {
-    confirmPurchase(stripe, cartItems)
+  console.log(extraInfo)
+
+  const handleConfirmPurchase = async () => {
+    const ref = toast.loading('Viderefører dig til betaling')
+    try {
+      await confirmPurchase(stripe, cartItems, extraInfo.stripeCustomerId)
+      toast.dismiss(ref)
+    } catch (error) {
+      toast.dismiss(ref)
+      toast.error('Der var problemer med serveren. Prøv igen senere')
+    }
   }
 
   const handleDeleteProduct = (cartID: string) => {

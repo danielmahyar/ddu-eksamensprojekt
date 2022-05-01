@@ -11,6 +11,6 @@ exports.makePaymentIntent = api.makePaymentIntent
 exports.newSubscription = api.newSubscription
 exports.saveCard = api.saveCard
 exports.unsubscribe = api.unsubscribe
-// exports.stripewebhooks = api.stripewebhooks
+exports.stripewebhooks = api.stripewebhooks
 exports.cleanupUserDelete = auth.cleanupUserDelete
 exports.createUser = auth.createUser

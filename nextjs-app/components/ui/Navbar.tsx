@@ -148,7 +148,7 @@ function CustomerNav({ user, router, extraInfo }: { user: User, router: any, ext
         width={40}
         height={40}
       />
-      <p className="text-white hidden lg:block font-semibold link link-underline link-underline-black truncate w-32">{user.displayName || extraInfo?.fullName}</p>
+      <p className="text-white hidden lg:block font-semibold link link-underline link-underline-black truncate ">{user.displayName || extraInfo?.fullName}</p>
       <FaArrowDown className="text-white cursor-pointer" />
     </div>
   )

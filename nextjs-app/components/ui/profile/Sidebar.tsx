@@ -5,10 +5,35 @@ import { FaHome } from 'react-icons/fa';
 import Link from 'next/link';
 import { MdCardMembership, MdDashboard, MdSettings, MdSubscriptions } from 'react-icons/md';
 import { UserContext } from '../../../lib/context/auth-context';
+import { IconType } from 'react-icons';
+import { useRouter } from 'next/router';
+
+const sideElements: Array<{ route: string, Icon: IconType, title: string}> = [
+  {
+    route: '/profile',
+    Icon: FaHome,
+    title: 'Oversigt'
+  },
+  {
+    route: '/profile/dashboard',
+    Icon: MdDashboard,
+    title: 'Apps'
+  },
+  {
+    route: '/profile/subscription',
+    Icon: MdCardMembership,
+    title: 'Abonnementer'
+  },
+  {
+    route: '/profile/settings',
+    Icon: MdSettings,
+    title: 'Indstillinger'
+  },
+]
 
 const Sidebar = () => {
   const { user, extraInfo } = useContext(UserContext)
-
+  const router = useRouter()
   return (
     <aside className="h-full w-56 bg-primary flex-shrink-0 flex flex-col">
       <section className="w-full h-auto p-2">
@@ -32,30 +57,9 @@ const Sidebar = () => {
       </section>
       <section className="flex w-full flex-1 flex-col items-start justify-center text-white">
         <ul className="w-full h-full space-y-1">
-          <Link href="/profile">
-            <li className="cursor-pointer h-auto flex items-center space-x-2 justify-start w-full py-2 px-4 group transition-all ease-in hover:bg-secondary">
-              <FaHome className="bg-secondary p-2 rounded-full transform transition-all group-hover:scale-105" size={40} />
-              <p className="font-bold ">Oversigt</p>
-            </li>
-          </Link>
-          <Link href="/profile/dashboard">
-            <li className="cursor-pointer h-auto flex items-center space-x-2 justify-start w-full py-2 px-4 group transition-all ease-in hover:bg-secondary">
-              <MdDashboard className="bg-secondary p-2 rounded-full transform transition-70 group-hover:scale-105" size={40} />
-              <p className="font-bold ">Apps</p>
-            </li>
-          </Link>
-          <Link href="/profile/subscription">
-            <li className="cursor-pointer h-auto flex items-center space-x-2 justify-start w-full py-2 px-4 group transition-all ease-in hover:bg-secondary">
-              <MdCardMembership className="bg-secondary p-2 rounded-full transform transition-all group-hover:scale-105" size={40} />
-              <p className="font-bold ">Abonnementer</p>
-            </li>
-          </Link>
-          <Link href="/profile/settings">
-            <li className="cursor-pointer h-auto flex items-center space-x-2 justify-start w-full py-2 px-4 group transition-all ease-in hover:bg-secondary">
-              <MdSettings className="bg-secondary p-2 rounded-full transform transition-all group-hover:scale-105" size={40} />
-              <p className="font-bold ">Indstillinger</p>
-            </li>
-          </Link>
+          {sideElements.map((sideElement, i) => (
+            <RouteCard key={i} {...sideElement} currRoute={router.pathname}/>
+          ))}
         </ul>
       </section>
       <section className="h-28 flex items-center justify-start px-2">
@@ -74,6 +78,18 @@ const Sidebar = () => {
 
 
     </aside>
+  )
+}
+
+function RouteCard({ route, title, Icon, currRoute }: { route: string, title: string, Icon: IconType, currRoute: string }) {
+
+  return (
+    <Link href={route}>
+      <li className={`cursor-pointer h-auto ${route === currRoute && ' bg-secondary'} flex items-center space-x-2 justify-start w-full py-2 px-4 group transition-all ease-in hover:bg-secondary`}>
+        <Icon className="bg-secondary p-2 rounded-full transform transition-all group-hover:scale-105" size={40} />
+        <p className="font-bold ">{title}</p>
+      </li>
+    </Link>
   )
 }
 

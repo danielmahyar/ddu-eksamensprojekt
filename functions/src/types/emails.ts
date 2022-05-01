@@ -8,7 +8,10 @@ export enum MailType {
 
 export type BaseEmail = {
 	to: string,
-	from: string,
+	from: {
+		email: string,
+		name: string
+	},
 	templateId: MailType,
 }
 

@@ -17,7 +17,7 @@ const Confirmation: NextPage = () => {
   // if(!itemId || !stripeID){
   //   router.replace("/profile")
   // }
-  const { user } = useContext(UserContext)
+  const { user, extraInfo } = useContext(UserContext)
 
   useEffect(() => {
     getDownloadURL(ref(storage, `gs://ddu-eksamensprojekt-71224.appspot.com/products/calculator/windows/AmfoLabs Calculator Setup 4.5.0.exe`)).then((URL: string) => {

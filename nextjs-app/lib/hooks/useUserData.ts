@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../setup/firebase";
@@ -9,9 +9,8 @@ export const useUserData = () => {
 	useEffect(() => {
 		if (error) return
 		if (!user) return
-		let unsub;
 
-		const data = getDoc(doc(db, "users", user.uid)).then((userData) => {
+		const unsub = onSnapshot(doc(db, "users", user.uid), (userData) => {
 			const data = userData.data() || null
 			setUser({ ...data })
 		})
@@ -19,6 +18,7 @@ export const useUserData = () => {
 		return unsub;
 
 	}, [user, error])
+
 
 	return {
 		user: (user !== undefined) ? user : null,

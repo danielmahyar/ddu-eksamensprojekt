@@ -18,7 +18,7 @@ const SpecificProfile: NextPage = () => {
 
   return (
     <>
-      <MetaForProfile title="Profil - Oversigt"/>
+      <MetaForProfile title="Profil - Oversigt" />
       <main className="h-screen flex flex-col bg-background">
         <AuthCheck>
           <section className="flex w-full h-full">
@@ -26,6 +26,7 @@ const SpecificProfile: NextPage = () => {
             <article className="p-10 w-full overflow-y-auto">
               <h1 className="text-3xl font-thin">Hej {user?.displayName || extraInfo?.fullName || ""}</h1>
               <button onClick={handleSignout}>Sign Out</button>
+
             </article>
           </section>
         </AuthCheck>

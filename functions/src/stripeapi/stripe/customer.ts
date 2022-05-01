@@ -5,7 +5,7 @@ export async function getOrCreateCustomer(userId: string, params?: Stripe.Custom
 
 	const userSnapshot = await db.collection('users').doc(userId).get();
  
-	const { stripeCustomerId, email }: any = userSnapshot.data()
+	const { stripeCustomerId, email, fullName }: any = userSnapshot.data()
  
 	// If missing customerID, create it
 	if (!stripeCustomerId) {
@@ -15,6 +15,7 @@ export async function getOrCreateCustomer(userId: string, params?: Stripe.Custom
 		   metadata: {
 			  firebaseUID: userId
 		   },
+		   name: fullName,
 		   ...params
 	    });
 	    await userSnapshot.ref.update({ stripeCustomerId: customer.id });

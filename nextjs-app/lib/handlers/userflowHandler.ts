@@ -17,27 +17,24 @@ export async function buyItem(subscriptionProduct: SubscriptionProduct, uid: str
 
 }
 
-export async function confirmPurchase(stripe: Stripe | null, items: CartItem[]) {
-	// if (!stripe) return 
-	// const line_items = items.map((item) => ({
-	// 	name: item.name,
-	// 	description: 'Product',
-	// 	amount: item.price,
-	// 	currency: 'dkk',
-	// 	quantity: 1
-	// }))
-	// const body = { line_items }
+export async function confirmPurchase(stripe: Stripe | null, items: CartItem[], stripeCustomerId: string | null | undefined) {
+	if (!stripe || !stripeCustomerId) return 
+	const line_items = items.map((item) => ({
+		price: item.stripeID,
+		quantity: 1
+	}))
+	const body = { line_items, stripeCustomerId }
+	console.log(body)
+	const fn = httpsCallable<any, any>(functions, 'checkouts')
+	const data = ((await fn(body)).data)
+	console.log(data)
+	const { error } = await stripe.redirectToCheckout({
+		sessionId: data.id,
+	});
 
-	// const fn = httpsCallable<any, any>(functions, 'checkouts')
-	// const sessionId = ((await fn(body)).data).data
-	// console.log(sessionId)
-	// const { error } = await stripe.redirectToCheckout({
-	// 	sessionId,
-	// });
+	if (error) {
+		console.log(error);
+	}
 
-	// if (error) {
-	// 	console.log(error);
-	// }
-
-	Router.push("/payment/paymentmethod")
+	// Router.push("/payment/paymentmethod")
 }
