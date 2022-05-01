@@ -10,6 +10,7 @@ import { StripeSubscription } from '../../types/StripeTypes';
 import Sidebar from '../../components/ui/profile/Sidebar';
 import { NextPage } from 'next';
 import SubscriptionCard from '../../components/ui/SubscriptionCard';
+import MetaForProfile from '../../components/seo-tags/MetaForProfile';
 
 const SubscriptionPage: NextPage = () => {
 
@@ -42,14 +43,14 @@ function SubscribeToPlan() {
 
 
 	useEffect(() => {
-		if(!stripe) return 
+		if (!stripe) return
 		const handler = new StripeUIHandler(stripe)
 		setHandler(handler)
 	}, [stripe])
 
 	// Get current subscriptions on mount
 	useEffect(() => {
-		if(!user || !handler) return
+		if (!user || !handler) return
 		getSubscriptions();
 	}, [user, handler]);
 
@@ -92,36 +93,40 @@ function SubscribeToPlan() {
 	};
 
 	return (
-		<section>
-			<article>
-				<section>
-					<ul className="flex items-center justify-between px-4">
-						<li>Status</li>
-						<li>Abonnement</li>
-						<li>Pris</li>
-						<li>Dato</li>
-						<li>Adminstrér</li>
-					</ul>
-				</section>
-				<div>
-					{subscriptions.length > 0 && subscriptions.map((sub) => (
-						<SubscriptionCard item={sub} handleCancel={cancel}/>
-						// <div key={sub.id}>
-						// 	{sub.id}. Next payment of {sub.plan.amount} due{' '}
-						// 	{new Date(sub.current_period_end * 1000).toUTCString()}
-						// 	--
-						// 	{new Date(sub.start_date * 1000).toUTCString()}
-						// 	<button
-						// 		onClick={() => cancel(sub.id)}
-						// 		disabled={loading}>
-						// 		Cancel
-						// 	</button>
-						// </div>
-					))}
-				</div>
-				
-			</article>
-		</section>
+		<>
+			<MetaForProfile title="Profil - Abonnementer"/>
+			<section>
+				<article>
+					<section>
+						<ul className="flex items-center justify-between px-4">
+							<li>Status</li>
+							<li>Abonnement</li>
+							<li>Pris</li>
+							<li>Dato</li>
+							<li>Adminstrér</li>
+						</ul>
+					</section>
+					<div>
+						{subscriptions.length > 0 && subscriptions.map((sub) => (
+							<SubscriptionCard item={sub} handleCancel={cancel} />
+							// <div key={sub.id}>
+							// 	{sub.id}. Next payment of {sub.plan.amount} due{' '}
+							// 	{new Date(sub.current_period_end * 1000).toUTCString()}
+							// 	--
+							// 	{new Date(sub.start_date * 1000).toUTCString()}
+							// 	<button
+							// 		onClick={() => cancel(sub.id)}
+							// 		disabled={loading}>
+							// 		Cancel
+							// 	</button>
+							// </div>
+						))}
+					</div>
+
+				</article>
+			</section>
+		</>
+
 
 	);
 }

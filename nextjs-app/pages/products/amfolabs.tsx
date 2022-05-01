@@ -6,7 +6,6 @@ import MetaForProduct from '../../components/seo-tags/MetaForProduct';
 import Card from '../../components/ui/Card';
 import { motion } from "framer-motion"
 import { useContext, useRef, useState } from 'react';
-import { MathJax, MathJaxContext } from 'better-react-mathjax';
 import { buyItem } from '../../lib/handlers/userflowHandler';
 import { UserContext } from '../../lib/context/auth-context';
 import { BaseSubscriptionVariants, SubscriptionProduct } from '../../types/ProductsTypes';
@@ -139,7 +138,7 @@ const AmfoLabsPage: NextPage = () => {
       <MetaForProduct />
       <main className="flex flex-col bg-background space-y-24 pb-20">
         <section className="w-full bg-primary">
-          <article className="w-full max-w-6xl mx-auto flex md:h-auto text-white py-10 md:py-20 px-4 md:px-10 ">
+          <article className="w-full max-w-6xl mx-auto flex flex-col md:flex-row md:h-auto text-white py-10 md:py-20 px-4 md:px-10 ">
             <section className="w-full flex flex-col items-center md:items-start space-y-6 overflow-hidden">
               <div className="h-20 md:h-32" />
               <motion.h1
@@ -156,13 +155,14 @@ const AmfoLabsPage: NextPage = () => {
               <div className="h-20 md:h-32" />
 
             </section>
-            <section className="hidden md:block w-full">
+            <section className="block w-full">
               <div className="h-12" />
 
-              <div className="w-full bg-white flex items-center justify-center h-full">
+              <div className="w-full bg-white rounded-lg flex items-center justify-center h-full">
                 <Image 
                   src={'/amfolabs-logo.svg'}
                   width={400}
+                  className="rounded-full"
                   height={400}
                 />
                 {/*start === false ? (
@@ -224,7 +224,7 @@ const AmfoLabsPage: NextPage = () => {
               Architecto ratione libero sapiente saepe illum reprehenderit, adipisci ipsa nulla ex nesciunt magnam numquam omnis, consequatur distinctio aspernatur, fuga recusandae suscipit tempora ut fugiat vitae voluptate quis. Mollitia, enim provident?</p>
           </article>
           <article className="w-full flex items-center justify-center">
-            <video autoPlay muted loop style={{ width: '100%', aspectRatio: "16 / 9" }}>
+            <video autoPlay muted loop playsInline style={{ width: '100%', aspectRatio: "16 / 9" }}>
               <source src='/video.mp4' />
             </video>
           </article>
@@ -233,7 +233,7 @@ const AmfoLabsPage: NextPage = () => {
         <section ref={pricesRef} className="h-auto bg-secondary">
           <div className="w-full max-w-6xl mx-auto py-10 text-white relative space-y-14">
             {/* <div className="w-full  h-96 bg-secondary absolute -top-0 z-0" /> */}
-            <h1 className="z-20 text-3xl text-center ">Priser</h1>
+            <h1 className="z-20 text-3xl text-center font-thin">Priser</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 items-end px-5 space-y-4">
               <article className="z-10 h-auto p-8 bg-primary flex flex-col justify-around items-center">
                 <h2 className="font-thin text-2xl">1 måneds abonnement</h2>

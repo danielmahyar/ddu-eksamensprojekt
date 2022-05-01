@@ -47,7 +47,7 @@ const Navbar = forwardRef<any, any>((props, ref) => {
       >
 
         <div className="block lg:hidden w-full transition-all hover:opacity-60">
-          <GiHamburgerMenu onClick={() => props.toggle((prev: any) => !prev)} size={38} className="text-white" />
+          <GiHamburgerMenu onClick={() => props.toggle((prev: any) => !prev)} size={38} className="text-white cursor-pointer" />
         </div>
         <div className="w-full flex flex-col md:flex-row transition-all items-center justify-center lg:justify-start md:space-x-2 lg:w-full cursor-pointer">
           <motion.div
@@ -76,6 +76,7 @@ const Navbar = forwardRef<any, any>((props, ref) => {
           >
             <Image
               src={logo}
+              alt="Helpify Main Logo"
               height="100"
               width="100"
               objectFit='scale-down'
@@ -142,7 +143,7 @@ function CustomerNav({ user, router, extraInfo }: { user: User, router: any, ext
     <div onClick={() => router.push("/profile")} className="w-full flex items-center justify-end space-x-2">
       <Image
         src={user.photoURL || "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png"}
-        className="rounded-full cursor-pointer"
+        className="rounded-full "
         alt="User Picture"
         width={40}
         height={40}

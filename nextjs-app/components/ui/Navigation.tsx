@@ -16,7 +16,7 @@ const Navigation = ({ toggle }: any) => {
 	const router = useRouter()
 
 	const handleClick = (destination: string) => {
-		toggle((prev: any) => !prev)
+		toggle((prev: boolean) => !prev)
 		router.push(destination)
 	}
 
