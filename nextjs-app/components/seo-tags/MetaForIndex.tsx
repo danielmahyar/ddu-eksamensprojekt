@@ -20,12 +20,12 @@ const MetaForIndex = () => {
       <meta property="og:type" content="product.group" />
       <meta property="og:url" content="helpify.shop" />
       <meta property="og:image" content="https://www.helpify.shop/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhelpify.fb4c2630.png&w=256&q=75" />
-      <meta property="og:description" content="Description..." />
+      <meta property="og:description" content="Helpify har designet IT-værktøjer til at hjælpe dig med dine gymnasielle uddannelse i Danmark. IT-værktøjerne er specielt designet til at hjælpe dig med specifikke emner indenfor naturfagene" />
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@helpify" />
       <meta name="twitter:title" content="Helpify.shop" />
-      <meta name="twitter:description" content="Description..." />
+      <meta name="twitter:description" content="Helpify har designet IT-værktøjer til at hjælpe dig med dine gymnasielle uddannelse i Danmark. IT-værktøjerne er specielt designet til at hjælpe dig med specifikke emner indenfor naturfagene" />
       <meta name="twitter:image" content="https://www.helpify.shop/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhelpify.fb4c2630.png&w=256&q=75" />
     </Head>
   )
