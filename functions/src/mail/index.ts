@@ -4,7 +4,7 @@ import { ByeEmail, MailType, SubscriptionEventMail, WelcomeEmail } from "../type
 
 
 
-const senderEmail = "thediamonds764@gmail.com"
+const senderEmail = "no-reply@helpify.shop"
 
 const API_KEY = functions.config().sendgrid.key;
 sgMail.setApiKey(API_KEY);
