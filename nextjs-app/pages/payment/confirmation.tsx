@@ -23,8 +23,9 @@ const Confirmation: NextPage = () => {
     getDownloadURL(ref(storage, `gs://ddu-eksamensprojekt-71224.appspot.com/products/calculator/windows/AmfoLabs Calculator Setup 4.5.0.exe`)).then((URL: string) => {
       setDownloaded(URL)
     })
-
   }, [])
+
+  console.log(osName)
 
   // const handleProgramDownload = async () => {
   //   const loading = toast.loading("Downloader...")
@@ -54,7 +55,7 @@ const Confirmation: NextPage = () => {
                 {osName === "Windows" && (
                   <FaWindows className="text-white" />
                 )}
-                {osName === "MacOS" && (
+                {osName === "Mac OS" && (
                   <FaApple className="text-white" />
                 )}
               </button>
