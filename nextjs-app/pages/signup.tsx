@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useRecoilValue } from 'recoil';
 import { userflow, UserState } from '../lib/atoms/userflow';
 import { UserContext } from '../lib/context/auth-context';
@@ -25,11 +26,14 @@ const SignUp: NextPage = () => {
 	const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 	const currUserflow = useRecoilValue(userflow)
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
+		const load = toast.loading("Opretter din profil")
 		if (currUser) return
 		if (data.password === "" || data.rep_password === "") return
 		if (data.password !== data.rep_password) return
 		const newUser = await createAccountWithEmail({ ...data })
 		await auth.currentUser?.reload()
+		toast.dismiss(load)
+		toast.success('Bruger oprettet')
 		switch (currUserflow.flow) {
 			case UserState.buyProductAfterSignup:
 				buyItem(currUserflow.tempProduct, newUser)
@@ -47,8 +51,11 @@ const SignUp: NextPage = () => {
 	};
 
 	const handleLocalGoogleLogin = async () => {
-		const newUser = await handleGoogleLogin()
+		const load = toast.loading("Opretter din profil")
 
+		const newUser = await handleGoogleLogin()
+		toast.dismiss(load)
+		toast.success('Bruger oprettet')
 		switch (currUserflow.flow) {
 			case UserState.buyProductAfterSignup:
 				buyItem(currUserflow.tempProduct, newUser)

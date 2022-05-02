@@ -1,4 +1,4 @@
-import  { firestore, auth } from "firebase-admin";
+import { firestore, auth } from "firebase-admin";
 import * as functions from "firebase-functions";
 import { sendDeleteEmail, sendWelcomeEmail } from "../mail";
 import { db } from "../setup";
@@ -21,6 +21,18 @@ export const createUser = functions.firestore.document("users/{uid}").onCreate(a
 	}
 })
 
+export const createUserFromProviderLogin = functions.auth.user().onCreate(async (user) => {
+	try {
+		const customer = await createCustomer(user?.email || "", user.uid)
+		await db.doc(`users/${user.uid}`).update({
+			stripeCustomerId: customer.id
+		})
+		await sendWelcomeEmail(user?.email || "", user.displayName || "", user.photoURL)
+	} catch (error) {
+		console.log(error)
+	}
+})
+
 export const cleanupUserDelete = functions.auth.user().onDelete(async (user) => {
 	const data = await db.doc(`users/${user.uid}`).get()
 	const userData = data.data() || {}
@@ -38,4 +50,3 @@ export const cleanupUserDelete = functions.auth.user().onDelete(async (user) => 
 	}
 })
 
-   
