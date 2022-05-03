@@ -1,374 +1,442 @@
 [
-    {
-        "_id": {
-            "$oid": "6217ccfb091a4e5f10cfd3ca"
-        },
-        "name": "Al^{3+}",
-        "form": "g",
-        "enthalpy": 5483.9,
-        "entropy": 149.9,
-        "gibs": null,
-        "author": "Anonymous",
-        "approved": false,
-        "source": {
-            "title": "DATABOG",
-            "publishers": [
-                "F&K Forlaget"
-            ],
-            "authors": [
-                "Erik Strandgaard Andersen",
-                "Paul Jespersgaard",
-                "Ove Grønbæk Østergaard"
-            ],
-            "site": "60",
-            "sourceDate": {
-                "yearMade": 2016,
-                "yearRead": 2022,
-                "comments": "",
-                "_id": {
-                    "$oid": "6217ccfb091a4e5f10cfd3cc"
-                }
-            },
-            "_id": {
-                "$oid": "6217ccfb091a4e5f10cfd3cb"
-            }
-        },
-        "__v": 0
+  {
+    "_id": {
+      "$oid": "6217ccfb091a4e5f10cfd3ca"
     },
-    {
+    "name": "Al^{3+}",
+    "form": "g",
+    "enthalpy": 5483.9,
+    "entropy": 149.9,
+    "gibs": null,
+    "author": "Anonymous",
+    "approved": false,
+    "source": {
+      "title": "DATABOG",
+      "publishers": [
+        "F&K Forlaget"
+      ],
+      "authors": [
+        "Erik Strandgaard Andersen",
+        "Paul Jespersgaard",
+        "Ove Grønbæk Østergaard"
+      ],
+      "site": "60",
+      "sourceDate": {
+        "yearMade": 2016,
+        "yearRead": 2022,
+        "comments": "",
         "_id": {
-            "$oid": "6217cda4091a4e5f10cfd3ce"
-        },
-        "name": "Al^{3+}",
-        "form": "aq",
-        "enthalpy": -583.4,
-        "entropy": -325,
-        "gibs": -485,
-        "author": "Anonymous",
-        "approved": false,
-        "source": {
-            "title": "DATABOG",
-            "publishers": [
-                "F&K Forlaget"
-            ],
-            "authors": [
-                "Erik Strandgaard Andersen",
-                "Paul Jespersgaard",
-                "Ove Grønbæk Østergaard"
-            ],
-            "site": "60",
-            "sourceDate": {
-                "yearMade": 2016,
-                "yearRead": 2022,
-                "comments": "",
-                "_id": {
-                    "$oid": "6217cda4091a4e5f10cfd3d0"
-                }
-            },
-            "_id": {
-                "$oid": "6217cda4091a4e5f10cfd3cf"
-            }
-        },
-        "__v": 0
+          "$oid": "6217ccfb091a4e5f10cfd3cc"
+        }
+      },
+      "_id": {
+        "$oid": "6217ccfb091a4e5f10cfd3cb"
+      }
     },
-    {
-        "_id": {
-            "$oid": "6217cdee091a4e5f10cfd3d2"
-        },
-        "name": "AlBr_{3}",
-        "form": "s",
-        "enthalpy": -527.2,
-        "entropy": 180.2,
-        "gibs": -504,
-        "author": "Anonymous",
-        "approved": false,
-        "source": {
-            "title": "DATABOG",
-            "publishers": [
-                "F&K Forlaget"
-            ],
-            "authors": [
-                "Erik Strandgaard Andersen",
-                "Paul Jespersgaard",
-                "Ove Grønbæk Østergaard"
-            ],
-            "site": "60",
-            "sourceDate": {
-                "yearMade": 2016,
-                "yearRead": 2022,
-                "comments": "",
-                "_id": {
-                    "$oid": "6217cdee091a4e5f10cfd3d4"
-                }
-            },
-            "_id": {
-                "$oid": "6217cdee091a4e5f10cfd3d3"
-            }
-        },
-        "__v": 0
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6217cda4091a4e5f10cfd3ce"
     },
-    {
+    "name": "Al^{3+}",
+    "form": "aq",
+    "enthalpy": -583.4,
+    "entropy": -325,
+    "gibs": -485,
+    "author": "Anonymous",
+    "approved": false,
+    "source": {
+      "title": "DATABOG",
+      "publishers": [
+        "F&K Forlaget"
+      ],
+      "authors": [
+        "Erik Strandgaard Andersen",
+        "Paul Jespersgaard",
+        "Ove Grønbæk Østergaard"
+      ],
+      "site": "60",
+      "sourceDate": {
+        "yearMade": 2016,
+        "yearRead": 2022,
+        "comments": "",
         "_id": {
-            "$oid": "6217ce52091a4e5f10cfd3d6"
-        },
-        "name": "Al_4C_3",
-        "form": "s",
-        "enthalpy": 208.81,
-        "entropy": 88.95,
-        "gibs": 196.2,
-        "author": "Anonymous",
-        "approved": false,
-        "source": {
-            "title": "DATABOG",
-            "publishers": [
-                "F&K Forlaget"
-            ],
-            "authors": [
-                "Erik Strandgaard Andersen",
-                "Paul Jespersgaard",
-                "Ove Grønbæk Østergaard"
-            ],
-            "site": "60",
-            "sourceDate": {
-                "yearMade": 2016,
-                "yearRead": 2022,
-                "comments": "",
-                "_id": {
-                    "$oid": "6217ce52091a4e5f10cfd3d8"
-                }
-            },
-            "_id": {
-                "$oid": "6217ce52091a4e5f10cfd3d7"
-            }
-        },
-        "__v": 0
+          "$oid": "6217cda4091a4e5f10cfd3d0"
+        }
+      },
+      "_id": {
+        "$oid": "6217cda4091a4e5f10cfd3cf"
+      }
     },
-    {
-        "_id": {
-            "$oid": "6217ce94091a4e5f10cfd3da"
-        },
-        "name": "Ar",
-        "form": "g",
-        "enthalpy": 0,
-        "entropy": 154.85,
-        "gibs": 0,
-        "author": "Anonymous",
-        "approved": false,
-        "source": {
-            "title": "DATABOG",
-            "publishers": [
-                "F&K Forlaget"
-            ],
-            "authors": [
-                "Erik Strandgaard Andersen",
-                "Paul Jespersgaard",
-                "Ove Grønbæk Østergaard"
-            ],
-            "site": "60",
-            "sourceDate": {
-                "yearMade": 2016,
-                "yearRead": 2022,
-                "comments": "",
-                "_id": {
-                    "$oid": "6217ce94091a4e5f10cfd3dc"
-                }
-            },
-            "_id": {
-                "$oid": "6217ce94091a4e5f10cfd3db"
-            }
-        },
-        "__v": 0
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6217cdee091a4e5f10cfd3d2"
     },
-    {
+    "name": "AlBr_{3}",
+    "form": "s",
+    "enthalpy": -527.2,
+    "entropy": 180.2,
+    "gibs": -504,
+    "author": "Anonymous",
+    "approved": false,
+    "source": {
+      "title": "DATABOG",
+      "publishers": [
+        "F&K Forlaget"
+      ],
+      "authors": [
+        "Erik Strandgaard Andersen",
+        "Paul Jespersgaard",
+        "Ove Grønbæk Østergaard"
+      ],
+      "site": "60",
+      "sourceDate": {
+        "yearMade": 2016,
+        "yearRead": 2022,
+        "comments": "",
         "_id": {
-            "$oid": "613f9dcccae52eabb2d6cd50"
-        },
-        "name": "O",
-        "searchName": "oxygen",
-        "form": "g",
-        "enthalpy": 249.18,
-        "entropy": 161.06,
-        "gibs": 231.75,
-        "approved": true
+          "$oid": "6217cdee091a4e5f10cfd3d4"
+        }
+      },
+      "_id": {
+        "$oid": "6217cdee091a4e5f10cfd3d3"
+      }
     },
-    {
-        "_id": {
-            "$oid": "614399cbe49f0be30f9b0bbb"
-        },
-        "name": "N",
-        "searchName": "nitrogen",
-        "form": "g",
-        "enthalpy": 472.7,
-        "entropy": 153.3,
-        "gibs": 340.9,
-        "author": "Daniel Cargar Mahyar",
-        "approved": true
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6217ce52091a4e5f10cfd3d6"
     },
-    {
+    "name": "Al_4C_3",
+    "form": "s",
+    "enthalpy": 208.81,
+    "entropy": 88.95,
+    "gibs": 196.2,
+    "author": "Anonymous",
+    "approved": false,
+    "source": {
+      "title": "DATABOG",
+      "publishers": [
+        "F&K Forlaget"
+      ],
+      "authors": [
+        "Erik Strandgaard Andersen",
+        "Paul Jespersgaard",
+        "Ove Grønbæk Østergaard"
+      ],
+      "site": "60",
+      "sourceDate": {
+        "yearMade": 2016,
+        "yearRead": 2022,
+        "comments": "",
         "_id": {
-            "$oid": "614b92a25721e36efae639f7"
-        },
-        "name": "O_{2}",
-        "searchName": "oxygen_dioxygen",
-        "form": "aq",
-        "enthalpy": -11.7,
-        "entropy": 110.9,
-        "gibs": 16.3,
-        "author": "Daniel",
-        "approved": true
+          "$oid": "6217ce52091a4e5f10cfd3d8"
+        }
+      },
+      "_id": {
+        "$oid": "6217ce52091a4e5f10cfd3d7"
+      }
     },
-    {
-        "_id": {
-            "$oid": "614b948421897b7f9990bd61"
-        },
-        "name": "O_3",
-        "searchName": "oxygen_ozon",
-        "form": "aq",
-        "enthalpy": 125.9,
-        "entropy": null,
-        "gibs": null,
-        "author": "Daniel Cargar Mahyar",
-        "approved": true
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6217ce94091a4e5f10cfd3da"
     },
-    {
+    "name": "Ar",
+    "form": "g",
+    "enthalpy": 0,
+    "entropy": 154.85,
+    "gibs": 0,
+    "author": "Anonymous",
+    "approved": false,
+    "source": {
+      "title": "DATABOG",
+      "publishers": [
+        "F&K Forlaget"
+      ],
+      "authors": [
+        "Erik Strandgaard Andersen",
+        "Paul Jespersgaard",
+        "Ove Grønbæk Østergaard"
+      ],
+      "site": "60",
+      "sourceDate": {
+        "yearMade": 2016,
+        "yearRead": 2022,
+        "comments": "",
         "_id": {
-            "$oid": "614b939c21897b7f9990bd5b"
-        },
-        "name": "O_3",
-        "searchName": "oxygen_ozon",
-        "form": "g",
-        "enthalpy": 142.7,
-        "entropy": 238.9,
-        "gibs": 163.2,
-        "author": "Daniel Cargar Mahyar",
-        "approved": true
+          "$oid": "6217ce94091a4e5f10cfd3dc"
+        }
+      },
+      "_id": {
+        "$oid": "6217ce94091a4e5f10cfd3db"
+      }
     },
-    {
-        "_id": {
-            "$oid": "614b981a8a4496da598e59b8"
-        },
-        "name": "O^{-2}",
-        "searchName": "oxygen",
-        "form": "g",
-        "enthalpy": 950,
-        "entropy": null,
-        "gibs": null,
-        "author": "Daniel Cargar Mahyar",
-        "approved": false
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "613f9dcccae52eabb2d6cd50"
     },
-    {
-        "_id": {
-            "$oid": "614b985f8a4496da598e59bb"
-        },
-        "name": "H_2O",
-        "form": "l",
-        "enthalpy": -285.83,
-        "entropy": 69.95,
-        "gibs": -237.13,
-        "author": "Daniel Cargar Mahyar",
-        "approved": false
+    "name": "O",
+    "searchName": "oxygen",
+    "form": "g",
+    "enthalpy": 249.18,
+    "entropy": 161.06,
+    "gibs": 231.75,
+    "approved": true
+  },
+  {
+    "_id": {
+      "$oid": "614399cbe49f0be30f9b0bbb"
     },
-    {
-        "_id": {
-            "$oid": "614e3a60e5f8b80ff49e178c"
-        },
-        "name": "Al",
-        "searchName": "aluminium",
-        "form": "s",
-        "enthalpy": 0,
-        "entropy": 28.3,
-        "gibs": 0,
-        "author": "Daniel Cargar Mahyar",
-        "approved": false
+    "name": "N",
+    "searchName": "nitrogen",
+    "form": "g",
+    "enthalpy": 472.7,
+    "entropy": 153.3,
+    "gibs": 340.9,
+    "author": "Daniel Cargar Mahyar",
+    "approved": true
+  },
+  {
+    "_id": {
+      "$oid": "614b92a25721e36efae639f7"
     },
-    {
-        "_id": {
-            "$oid": "614e3ad0e5f8b80ff49e1790"
-        },
-        "name": "Al",
-        "searchName": "aluminium",
-        "form": "g",
-        "enthalpy": 329.7,
-        "entropy": 164.55,
-        "gibs": 285.8,
-        "author": "Daniel Cargar Mahyar",
-        "approved": false,
-        "__v": null
+    "name": "O_{2}",
+    "searchName": "oxygen_dioxygen",
+    "form": "aq",
+    "enthalpy": -11.7,
+    "entropy": 110.9,
+    "gibs": 16.3,
+    "author": "Daniel",
+    "approved": true
+  },
+  {
+    "_id": {
+      "$oid": "614b948421897b7f9990bd61"
     },
-    {
-        "_id": {
-            "$oid": "614e3b17e5f8b80ff49e1792"
-        },
-        "name": "Al^{3+}",
-        "searchName": "aluminium",
-        "form": "g",
-        "enthalpy": 5483.9,
-        "entropy": 149.9,
-        "gibs": null,
-        "author": "Daniel Cargar Mahyar",
-        "approved": false
+    "name": "O_3",
+    "searchName": "oxygen_ozon",
+    "form": "aq",
+    "enthalpy": 125.9,
+    "entropy": null,
+    "gibs": null,
+    "author": "Daniel Cargar Mahyar",
+    "approved": true
+  },
+  {
+    "_id": {
+      "$oid": "614b939c21897b7f9990bd5b"
     },
-    {
-        "_id": {
-            "$oid": "614e3bbce5f8b80ff49e1797"
-        },
-        "name": "Al^{3+}",
-        "searchName": "aluminium",
-        "form": "aq",
-        "enthalpy": -583.4,
-        "entropy": -325,
-        "gibs": -485,
-        "author": "Daniel Cargar Mahyar",
-        "approved": false
+    "name": "O_3",
+    "searchName": "oxygen_ozon",
+    "form": "g",
+    "enthalpy": 142.7,
+    "entropy": 238.9,
+    "gibs": 163.2,
+    "author": "Daniel Cargar Mahyar",
+    "approved": true
+  },
+  {
+    "_id": {
+      "$oid": "614b981a8a4496da598e59b8"
     },
-    {
-        "_id": {
-            "$oid": "614e3bbce5f8b280ff49e1797"
-        },
-        "name": "Cu",
-        "enthalpy": 0,
-        "entropy": "36.6",
-        "gibs": "2",
-        "author": "Anonymous",
-        "form": "s",
-        "approved": false,
-        "__v": null
+    "name": "O^{-2}",
+    "searchName": "oxygen",
+    "form": "g",
+    "enthalpy": 950,
+    "entropy": null,
+    "gibs": null,
+    "author": "Daniel Cargar Mahyar",
+    "approved": false
+  },
+  {
+    "_id": {
+      "$oid": "614b985f8a4496da598e59bb"
     },
-    {
-        "_id": {
-            "$oid": "154bc184-3d2a-4ca3-a43d-f00542999e5a"
-        },
-        "name": "Mg",
-        "enthalpy": null,
-        "entropy": "563",
-        "gibs": null,
-        "author": "Anonymous",
-        "form": "l",
-        "approved": false,
-        "__v": null
+    "name": "H_2O",
+    "form": "l",
+    "enthalpy": -285.83,
+    "entropy": 69.95,
+    "gibs": -237.13,
+    "author": "Daniel Cargar Mahyar",
+    "approved": false
+  },
+  {
+    "_id": {
+      "$oid": "614e3a60e5f8b80ff49e178c"
     },
-    {
-        "_id": {
-            "$oid": "c7f14f61-3cd1-476d-a3f2-6d5163f7a4f9"
-        },
-        "name": "Cu",
-        "enthalpy": 0,
-        "entropy": 0,
-        "gibs": 0,
-        "author": "Anonymous",
-        "form": "l",
-        "approved": false
+    "name": "Al",
+    "searchName": "aluminium",
+    "form": "s",
+    "enthalpy": 0,
+    "entropy": 28.3,
+    "gibs": 0,
+    "author": "Daniel Cargar Mahyar",
+    "approved": false
+  },
+  {
+    "_id": {
+      "$oid": "614e3ad0e5f8b80ff49e1790"
     },
-    {
-        "_id": {
-            "$oid": "66acc963-3175-4e15-b21e-1d9bd5465186"
-        },
-        "name": "H",
-        "enthalpy": 123,
-        "entropy": 123,
-        "gibs": 123,
-        "author": "Anonymous",
-        "form": "s",
-        "approved": true
+    "name": "Al",
+    "searchName": "aluminium",
+    "form": "g",
+    "enthalpy": 329.7,
+    "entropy": 164.55,
+    "gibs": 285.8,
+    "author": "Daniel Cargar Mahyar",
+    "approved": false,
+    "__v": null
+  },
+  {
+    "_id": {
+      "$oid": "614e3b17e5f8b80ff49e1792"
+    },
+    "name": "Al^{3+}",
+    "searchName": "aluminium",
+    "form": "g",
+    "enthalpy": 5483.9,
+    "entropy": 149.9,
+    "gibs": null,
+    "author": "Daniel Cargar Mahyar",
+    "approved": false
+  },
+  {
+    "_id": {
+      "$oid": "614e3bbce5f8b80ff49e1797"
+    },
+    "name": "Al^{3+}",
+    "searchName": "aluminium",
+    "form": "aq",
+    "enthalpy": -583.4,
+    "entropy": -325,
+    "gibs": -485,
+    "author": "Daniel Cargar Mahyar",
+    "approved": false
+  },
+  {
+    "_id": {
+      "$oid": "614e3bbce5f8b280ff49e1797"
+    },
+    "name": "Cu",
+    "enthalpy": 0,
+    "entropy": "36.6",
+    "gibs": "2",
+    "author": "Anonymous",
+    "form": "s",
+    "approved": false,
+    "__v": null
+  },
+  {
+    "_id": {
+      "$oid": "154bc184-3d2a-4ca3-a43d-f00542999e5a"
+    },
+    "name": "Mg",
+    "enthalpy": null,
+    "entropy": "563",
+    "gibs": null,
+    "author": "Anonymous",
+    "form": "l",
+    "approved": false,
+    "__v": null
+  },
+  {
+    "_id": {
+      "$oid": "c7f14f61-3cd1-476d-a3f2-6d5163f7a4f9"
+    },
+    "name": "Cu",
+    "enthalpy": 0,
+    "entropy": 0,
+    "gibs": 0,
+    "author": "Anonymous",
+    "form": "l",
+    "approved": false
+  },
+  {
+    "_id": {
+      "$oid": "66acc963-3175-4e15-b21e-1d9bd5465186"
+    },
+    "name": "H",
+    "enthalpy": 123,
+    "entropy": 123,
+    "gibs": 123,
+    "author": "Anonymous",
+    "form": "s",
+    "approved": true
+  },
+  {
+    "_id": {
+      "$oid": "55ec7a14-55fb-4a12-93cf-0d2229db4905"
+    },
+    "name": "Ag^+",
+    "enthalpy": 105.79,
+    "entropy": 73.45,
+    "gibs": 77.16,
+    "author": "Anonymous",
+    "form": "aq",
+    "approved": false,
+    "source": {
+      "title": "DATABOG",
+      "authors": [
+        "Erik Strandgaard Andersen",
+        "Paul Jespersgaard",
+        "Ove Grønbæk Østergaard"
+      ],
+      "publishers": [
+        "F&K Forlaget"
+      ],
+      "site": "86-99",
+      "sourceDate": {
+        "yearMade": 2016,
+        "yearRead": 2022
+      }
     }
+  },
+  {
+    "_id": {
+      "$oid": "b6d9c4b7-8795-4e15-830e-f6181e74bfae"
+    },
+    "name": "AgCl",
+    "enthalpy": -127.01,
+    "entropy": 96.25,
+    "gibs": -109.86,
+    "author": "Anonymous",
+    "form": "s",
+    "approved": true
+  },
+  {
+    "_id": {
+      "$oid": "55ec7a14-55fb-4a12-93cf-0d2229db4905"
+    },
+    "name": "Cl^-",
+    "enthalpy": -167.08,
+    "entropy": 56.6,
+    "gibs": -131.2,
+    "author": "Anonymous",
+    "form": "aq",
+    "approved": true,
+    "source": {
+      "title": "DATABOG",
+      "authors": [
+        "Erik Strandgaard Andersen",
+        "Paul Jespersgaard",
+        "Ove Grønbæk Østergaard"
+      ],
+      "publishers": [
+        "F&K Forlaget"
+      ],
+      "site": "86-99",
+      "sourceDate": {
+        "yearMade": 2016,
+        "yearRead": 2022
+      }
+    }
+  }
 ]

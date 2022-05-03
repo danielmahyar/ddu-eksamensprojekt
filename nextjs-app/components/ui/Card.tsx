@@ -30,7 +30,7 @@ const Card = ({ title, Icon, text }: { title: string, Icon: IconType, text: stri
 				className="flex flex-col space-y-4 items-center justify-center relative"
 				variants={cardVariants}
 			>
-				<h1 className="text-black font-semibold">{title}</h1>
+				<h1 className="text-black font-bold">{title}</h1>
 				<Icon size={60} className=" transform scale-100 transition-all ease-in-out group-hover:scale-105" />
 				<p className="text-black text-center">{text}</p>
 			</motion.div>

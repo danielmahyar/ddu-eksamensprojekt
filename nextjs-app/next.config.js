@@ -19,7 +19,8 @@ const nextConfig = {
       'images.unsplash.com', 
       'lh3.googleusercontent.com', 
       'www.everblazing.org',
-      'i.pinimg.com'
+      'i.pinimg.com',
+      'picsum.photos'
     ],
   },
   headers: ["Access-Control-Allow-Origin: *"],

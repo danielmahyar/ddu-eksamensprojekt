@@ -282,8 +282,12 @@ const latexToMathML = (subUi: SubstanceUI): string => {
 
 const numtoMathML = (subUI: SubstanceUI, target: SubstanceType): string => {
   if (!subUI?.substance) return '';
+  const num = subUI.substance[target];
+  const numIsNegative = num !== null && num < 0;
   const MathMLObj = `
-      <mi>${subUI.substance[target]}</mi> ${sortMathMLUnit(target)}
+      <mi>${numIsNegative ? '<mo>(</mo>' : ''}${num}</mi> ${sortMathMLUnit(
+    target
+  )} ${numIsNegative ? '<mo>)</mo>' : ''}
     `;
   return MathMLObj;
 };

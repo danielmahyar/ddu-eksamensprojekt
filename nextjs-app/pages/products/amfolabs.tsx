@@ -1,12 +1,15 @@
-import { GetServerSidePropsContext, GetStaticPropsContext, NextPage } from 'next'
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { GetStaticPropsContext, NextPage } from 'next'
 import { IconType } from 'react-icons';
-import { FaBookOpen, FaHourglassHalf, FaWikipediaW } from 'react-icons/fa';
+import { FaBookOpen, FaHourglassHalf } from 'react-icons/fa';
 import { AiFillThunderbolt, AiFillSafetyCertificate } from 'react-icons/ai'
 import { RiFocus2Fill, RiWifiOffLine } from 'react-icons/ri'
-import { BsFillArrowUpCircleFill, BsLightningFill, BsShieldCheck } from 'react-icons/bs'
-import ElectronThermoView from '../../components/products-demo/thermo/ElectronThermoView';
-import MetaForProduct from '../../components/seo-tags/MetaForProduct';
-import Card from '../../components/ui/Card';
+import { BsFillArrowUpCircleFill } from 'react-icons/bs'
+const RatingsSection = dynamic(() => import('../../components/ui/products/RatingsSection'));
+const ElectronThermoView = dynamic(() => import('../../components/products-demo/thermo/ElectronThermoView'));
+const MetaForProduct = dynamic(() => import('../../components/seo-tags/MetaForProduct'));
+const Card = dynamic(() => import('../../components/ui/Card'));
 import { motion } from "framer-motion"
 import { useContext, useRef, useState } from 'react';
 import { buyItem } from '../../lib/handlers/userflowHandler';
@@ -15,21 +18,11 @@ import { BaseSubscriptionVariants, SubscriptionProduct } from '../../types/Produ
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { userflow, UserState } from '../../lib/atoms/userflow';
-import RatingsSection from '../../components/ui/products/RatingsSection';
-import Image from 'next/image';
 import { GiJourney } from 'react-icons/gi';
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   return { props: { data: [] } }
 }
-const initial = [')', '2', '*', 'O', 'H', ')', '(', '(', '+', 'ΔH', '=', ')', '(', 'H2O', '(', ')', '-'].map((k, i) => {
-  const custom: any = {
-    id: `id-${i}`,
-    content: `${k}`
-  };
-
-  return custom;
-});
 
 const cards: Array<{ title: string, Icon: IconType, text: string }> = [
   {
@@ -120,8 +113,6 @@ const productVariants = {
 
 
 const AmfoLabsPage: NextPage = () => {
-  const [items, setItems] = useState<Array<number>>([0, 1, 2, 3])
-  const [start, setStart] = useState<boolean>(false)
   const router = useRouter()
   const pricesRef = useRef<any>();
   const demoRef = useRef<any>();
@@ -137,72 +128,53 @@ const AmfoLabsPage: NextPage = () => {
     }
   }
 
+  const handleScrollToProduct = () => {
+    if (!demoRef?.current) return
+    demoRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
 
   return (
     <>
       <MetaForProduct />
       <main className="flex flex-col bg-background space-y-24 pb-20">
         <section className="w-full bg-primary">
-          <article className="w-full max-w-6xl mx-auto flex flex-col md:flex-row md:h-auto text-white py-10 md:py-20 px-4">
-            <section className="w-full flex flex-col items-center md:items-start space-y-6 overflow-hidden">
+          <article className="w-full max-w-6xl mx-auto flex flex-col py-0 md:flex-row text-white md:py-20 px-4">
+            <section className=" w-full flex flex-col items-center md:items-start space-y-6 overflow-hidden">
               <div className="h-20 md:h-32" />
               <motion.h1
                 className="text-center md:text-left text-4xl md:text-5xl"
                 initial={{ x: -700 }}
                 animate={{ x: 0 }}
               >AmfoLabs</motion.h1>
-              <motion.p initial={{ x: -700 }} animate={{ x: 0 }} className="text-center md:text-left text-2xl">Det eneste program til termodynamik i gymnasium. Har alting <strong className="font-bold">du</strong> skal bruge til <strong className="font-bold">eksamen</strong></motion.p>
+              <motion.p initial={{ x: -700 }} animate={{ x: 0 }} className="text-center md:text-left text-2xl">Det eneste program du behøver til termodynamik emnet i gym. Har alting <strong className="font-bold">du</strong> skal bruge til <strong className="font-bold">eksamen</strong></motion.p>
               <div className="flex flex-col lg:flex-row items-center md:items-start justify-center space-y-2 lg:space-x-2 lg:space-y-0">
                 <motion.button
-                  className="bg-secondary px-14 w-64 font-bold py-3 rounded-lg cursor-pointer"
+                  className="bg-secondary hidden md:block px-14 w-64 font-bold py-3 rounded-lg cursor-pointer"
                   initial={{ x: -700 }}
                   animate={{ x: 0 }}
-                  onClick={() => demoRef.current.scrollIntoView({ behavior: 'smooth' })}
-                >Se vores løsning</motion.button>
+                  onClick={handleScrollToProduct}
+                >Prøv produktet</motion.button>
                 <motion.button
-                  className="bg-secondary px-14 w-56 font-bold py-3 rounded-lg"
+                  className="bg-secondary px-14 w-48 font-bold py-3 rounded-lg"
                   initial={{ x: -700 }}
                   animate={{ x: 0 }}
                   onClick={() => pricesRef.current.scrollIntoView({ behavior: 'smooth' })}
                 >Se priser</motion.button>
               </div>
               <div className="h-20 md:h-32" />
-
             </section>
-            <section className="w-full flex items-center justify-center lg:justify-end">
-              <div className="border-4 border-highlight rounded-full w-64 h-64 md:w-72 md:h-72 lg:h-96 lg:w-96 relative">
+
+            <section className="w-full hidden md:flex items-center justify-center lg:justify-end">
+              <div className="border-4 border-highlight rounded-full w-36 h-36 md:w-72 md:h-72 lg:h-96 lg:w-96 relative">
                 <Image
                   src={'/amfolabs-logo.svg'}
                   layout="fill"
                   className="rounded-full"
                 />
               </div>
-
-              {/*start === false ? (
-                  <div className="h-full w-full flex items-center justify-center">
-                    <motion.button onClick={() => setStart(prev => !prev)} className="bg-highlight text-lg font-bold px-20 py-3 rounded-lg text-black">Spil</motion.button>
-                  </div>
-                ) : (
-                  <MathJaxContext>
-
-                    <MathJax>{"\\(Ag^{+}(aq) + Cl^{-}(aq) \\rightarrow AgCl\\)"}</MathJax>
-                    Opskriv beregningen af standard entalpiændring
-                    {/* <Reorder.Group axis="x" className="flex" values={items} onReorder={setItems}>
-                  {items.map((item) => (
-                    <Reorder.Item key={item} value={item} className="w-20 bg-highlight">
-                      {item}
-                    </Reorder.Item>
-                  ))}
-                </Reorder.Group> 
-              }
-
-                  </MathJaxContext>
-                )*/}
-
-
             </section>
           </article>
-
         </section>
 
 
@@ -210,7 +182,7 @@ const AmfoLabsPage: NextPage = () => {
           <article className="h-auto space-y-4 pt-10 px-4 lg:px-0">
 
             <h1 className="text-center text-4xl font-bold mb-4">Hvad er AmfoLabs?</h1>
-            <p className="text-center w-3/4 mx-auto text-lg">Termodynamik beregninger i Kemi på A niveau, er  til tider et af de mest frustrerende emner at arbejde med. Først skal du finde de enkelte termodynamiske værdier fra en databog og sætte parenteser korrekt op.
+            <p className="text-center w-full px-2 md:w-3/4 mx-auto text-lg">Termodynamik beregninger i Kemi på A niveau, er  til tider et af de mest frustrerende emner at arbejde med. Først skal du finde de enkelte termodynamiske værdier fra en databog og sætte parenteser korrekt op.
               Helpify har derfor udviklet et program, som er specielt beregnet til kemi afleveringer og eksamen
             </p>
 
@@ -226,25 +198,35 @@ const AmfoLabsPage: NextPage = () => {
         </section>
 
         <section className="h-auto bg-primary">
-          <article className="max-w-6xl mx-auto text-white space-y-10 flex flex-col items-center justify-center pt-5 md:space-x-5 md:p-8">
-            <h1 className="font-bold text-2xl text-center">Sikkert og Tidsbesparende</h1>
-            <video autoPlay muted loop playsInline style={{ width: '100%', aspectRatio: "16 / 9" }}>
-              <source src='/video.mp4' />
-            </video>
+          <article className="max-w-6xl mx-auto text-white space-y-10 flex flex-col items-center justify-center py-10 px-4 md:space-x-5">
+            <h1 className="font-bold text-4xl text-center">AmfoLabs sammenlignet med fysisk regning</h1>
+            <div className='flex flex-col md:flex-row space-y-10 md:space-x-10 md:space-y-0'>
+              <section className="flex overflow-x-auto flex-col md:flex-row w-full md:w-86 2xl:w-[40rem] h-auto ">
+                <video autoPlay muted playsInline className="w-full rounded-lg">
+                  <source src='amfolabs/amfo.mp4' />
+                </video>
+              </section>
+              <section className="flex overflow-x-auto flex-col md:flex-row w-full md:w-86 2xl:w-[40rem] h-auto">
+                <iframe width="100%" src="https://www.youtube.com/embed/2vC1O8eFL1k?&autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+              </section>
+            </div>
+            <button onClick={handleScrollToProduct} className="bg-secondary hidden md:block px-10 py-2 rounded-lg text-lg">Prøv programmet selv</button>
           </article>
         </section>
 
         <section>
-          <article className="max-w-6xl mx-auto space-y-10 flex flex-col items-center justify-center pt-5 md:space-x-5 md:p-8">
-            <h1 className="text-center text-4xl font-bold mb-4">Sikkert og Tidsbesparende</h1>
-            <section className="flex space-x-10">
-              <div>
-                <h2 className="text-2xl font-bold">Mere tid</h2>
-                <FaHourglassHalf size={60}/>
+          <article className="max-w-6xl mx-auto px-5 space-y-10 flex flex-col items-center justify-center pt-5 md:space-x-5 md:p-8">
+            <h1 className="text-center text-4xl font-bold mb-4">TID og FOKUS gør AmfoLabs unikt</h1>
+            <section className="flex flex-col md:flex-row  md:space-x-10">
+              <div className="shadow-xl rounded-lg p-8 w-full flex flex-col text-center items-center justify-center">
+                <FaHourglassHalf size={160} className="mb-2" />
+                <h2 className="text-2xl font-bold mb-5">Mere tid</h2>
+                <p className=" text-lg text-center">AmfoLabs hjælper dig med at flytte fokus fra at fejltjekke til at lave de andre opgaver</p>
               </div>
-              <div>
-                <h2 className="text-2xl font-bold">Specialiseret</h2>
-                <RiFocus2Fill size={60}/>
+              <div className="shadow-xl rounded-lg p-8 w-full flex flex-col text-center items-center justify-center">
+                <RiFocus2Fill size={160} className="mb-2" />
+                <h2 className="text-2xl font-bold mb-5">Specialiseret</h2>
+                <p className="text-lg text-center">AmfoLabs er fokuseret på at løse meget specifikke opgaver. Jo mere specifikt, jo bedre en oplevelse under eksamen</p>
               </div>
             </section>
           </article>
@@ -252,17 +234,20 @@ const AmfoLabsPage: NextPage = () => {
 
         {/* ELECTRON VIEW HERE */}
 
-        <section className="hidden h-auto md:flex flex-col space-y-5">
+        <section ref={demoRef} className="hidden h-auto md:flex flex-col pt-10 space-y-5 bg-primary">
 
-          <h1 className="text-center text-2xl">Prøv AmfoLabs selv</h1>
+          <h1 className="text-center text-4xl font-bold text-white">Prøv AmfoLabs selv</h1>
+          <p className="w-3/4 mx-auto text-center text-white pb-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem, minus ut totam veniam praesentium alias deleniti eum unde temporibus molestias, fuga eos officia hic ullam culpa exercitationem sint, qui itaque.
+            Dolorum id, dolore repellat quia, exercitationem optio recusandae itaque consequuntur earum at saepe distinctio perferendis corporis! Quis id aut velit, rem quas architecto. Reiciendis, hic magnam laboriosam sed praesentium nobis.
+          </p>
 
-          <ElectronThermoView ref={demoRef} />
+          <ElectronThermoView />
         </section>
 
         <section ref={pricesRef} className="h-auto bg-secondary">
           <div className="w-full max-w-6xl mx-auto py-10 text-white relative space-y-14">
             {/* <div className="w-full  h-96 bg-secondary absolute -top-0 z-0" /> */}
-            <h1 className="z-20 text-3xl text-center font-thin">Priser</h1>
+            <h1 className="z-20 text-4xl text-center font-bold">Priser</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 items-end px-5 space-y-4">
               <article className="z-10 h-auto p-8 bg-primary flex flex-col justify-around items-center">
                 <h2 className="font-thin text-2xl">1 måneds abonnement</h2>
@@ -301,7 +286,7 @@ const AmfoLabsPage: NextPage = () => {
           </div>
         </section>
 
-        <RatingsSection ratings={ratings} />
+        <RatingsSection title="Se hvad andre synes om AmfoLabs" ratings={ratings} />
 
 
 
@@ -311,3 +296,25 @@ const AmfoLabsPage: NextPage = () => {
 }
 
 export default AmfoLabsPage
+
+
+{/*start === false ? (
+                  <div className="h-full w-full flex items-center justify-center">
+                    <motion.button onClick={() => setStart(prev => !prev)} className="bg-highlight text-lg font-bold px-20 py-3 rounded-lg text-black">Spil</motion.button>
+                  </div>
+                ) : (
+                  <MathJaxContext>
+
+                    <MathJax>{"\\(Ag^{+}(aq) + Cl^{-}(aq) \\rightarrow AgCl\\)"}</MathJax>
+                    Opskriv beregningen af standard entalpiændring
+                    {/* <Reorder.Group axis="x" className="flex" values={items} onReorder={setItems}>
+                  {items.map((item) => (
+                    <Reorder.Item key={item} value={item} className="w-20 bg-highlight">
+                      {item}
+                    </Reorder.Item>
+                  ))}
+                </Reorder.Group> 
+              }
+
+                  </MathJaxContext>
+                )*/}

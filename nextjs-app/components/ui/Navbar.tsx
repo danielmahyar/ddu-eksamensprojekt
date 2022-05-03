@@ -110,9 +110,9 @@ const Navbar = forwardRef<any, any>((props, ref) => {
 
 
         <ul className="text-white w-4/5 text-lg hidden lg:flex items-center justify-around font-semibold ">
-          <Link href="/products/amfolabs"><p className="link link-underline link-underline-black text-white">Produkter</p></Link>
-          <Link href="/products/prices"><p className="link link-underline link-underline-black text-white">Priser</p></Link>
-          <Link href="/aboutus"><p className="link link-underline link-underline-black text-white">Om Helpify</p></Link>
+          <Link href="/products/amfolabs"><p className={`link link-underline link-underline-black text-white ${router.pathname === '/products/amfolabs' ? 'link_active' : ''}`}>Produkter</p></Link>
+          <Link href="/products/prices"><p className={`link link-underline link-underline-black text-white ${router.pathname === '/products/prices' ? 'link_active' : ''}`}>Priser</p></Link>
+          <Link href="/aboutus"><p className={`link link-underline link-underline-black text-white ${router.pathname === '/aboutus' ? 'link_active' : ''}`}>Om Helpify</p></Link>
         </ul>
 
         {user ?

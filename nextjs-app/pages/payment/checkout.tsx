@@ -17,10 +17,12 @@ const Checkout = () => {
   const stripe = useStripe()
   const router = useRouter()
 
-  console.log(extraInfo)
-
   const handleConfirmPurchase = async () => {
     const ref = toast.loading('Viderefører dig til betaling')
+    if(!extraInfo.stripeCustomerId) {
+      toast.dismiss(ref)
+      return toast.error("Vi er igang med at oprette din profil. Vent et øjeblik...")
+    }
     try {
       await confirmPurchase(stripe, cartItems, extraInfo.stripeCustomerId)
       toast.dismiss(ref)

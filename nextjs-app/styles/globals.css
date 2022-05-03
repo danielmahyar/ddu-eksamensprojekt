@@ -81,6 +81,12 @@ body {
 	background-image: linear-gradient(transparent, transparent), linear-gradient(#FFBF00, #FFBF00)
 }
 
+.link_active {
+	cursor: pointer;
+	background-size: 100% 1px;
+	background-position: 0 100%
+}
+
 .link-underline:hover {
 	cursor: pointer;
 	background-size: 100% 1px;
@@ -109,4 +115,31 @@ body {
 	100% {
 		box-shadow: inset 0px 0px 0px 30px #4DAA57;
 	}
+}
+
+.next,
+.prev {
+  top: calc(50% - 20px);
+  position: absolute;
+  background: white;
+  border-radius: 30px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  z-index: 2;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev {
+  left: 10px;
+  transform: scale(-1);
 }
