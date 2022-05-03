@@ -1,6 +1,9 @@
 import { GetServerSidePropsContext, GetStaticPropsContext, NextPage } from 'next'
 import { IconType } from 'react-icons';
-import { FaHourglassHalf, FaSchool, FaScrewdriver, FaSearch, FaVial, FaWeight, FaWikipediaW } from 'react-icons/fa';
+import { FaBookOpen, FaHourglassHalf, FaWikipediaW } from 'react-icons/fa';
+import { AiFillThunderbolt, AiFillSafetyCertificate } from 'react-icons/ai'
+import { RiFocus2Fill, RiWifiOffLine } from 'react-icons/ri'
+import { BsFillArrowUpCircleFill, BsLightningFill, BsShieldCheck } from 'react-icons/bs'
 import ElectronThermoView from '../../components/products-demo/thermo/ElectronThermoView';
 import MetaForProduct from '../../components/seo-tags/MetaForProduct';
 import Card from '../../components/ui/Card';
@@ -14,6 +17,7 @@ import { useSetRecoilState } from 'recoil';
 import { userflow, UserState } from '../../lib/atoms/userflow';
 import RatingsSection from '../../components/ui/products/RatingsSection';
 import Image from 'next/image';
+import { GiJourney } from 'react-icons/gi';
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   return { props: { data: [] } }
@@ -29,34 +33,34 @@ const initial = [')', '2', '*', 'O', 'H', ')', '(', '(', '+', 'ΔH', '=', ')', '
 
 const cards: Array<{ title: string, Icon: IconType, text: string }> = [
   {
-    title: "Fleksibilitet",
-    Icon: FaVial,
-    text: "Kan bruges på internettet og downloades som program til eksamen"
+    title: "Hurtige beregninger",
+    Icon: AiFillThunderbolt,
+    text: "Lange termodynamiske beregninger er kendte for at være tidskrævende. AmfoLabs sørger for at du på ingen tid kan udføre beregninger, der i hånden tager over 5 minutter hver. "
   },
   {
-    title: "Tidsmæssig hjælp",
-    Icon: FaHourglassHalf,
-    text: "AmfoLabs er specielt designet for at gå fra en uløselig opgave til et flot 12-tal"
+    title: "Gem Databogen væk",
+    Icon: FaBookOpen,
+    text: "AmfoLabs har alle værdierne tilknyttet til stofferne fra databogen fysik/kemi 2016. Du kommer aldrig til at lede efter værdier i en databog igen!"
   },
   {
-    title: "Lærenemt",
-    Icon: FaScrewdriver,
-    text: "Hog N er overpowered, og derfor har vi designet AmfoLabs til at være brugervenlig"
+    title: "Sikkerhed",
+    Icon: AiFillSafetyCertificate,
+    text: "Termodynamik byder på lange og svære beregninger, hvor en lille tastefejl kan afgøre resultatet. Med AmfoLabs vil fortegn og systematik aldrig være et problem igen."
   },
   {
-    title: "Mindre lektier",
-    Icon: FaSchool,
-    text: "Med AmfoLabs behøver du ikke bruge meget tid på dine opgaver, så du kan fokusere på det, som er vigtigere"
+    title: "Højere karakter",
+    Icon: BsFillArrowUpCircleFill,
+    text: "En lang, svær og uoverskuelig opgave, kan med AmfoLabs hurtigt løses til et stensikkert 12-tal. AmfoLabs hjælper dig nemlig med at minde om de vigtigste delkonklusioner. "
   },
   {
-    title: "Eksamenshjælp",
-    Icon: FaSearch,
-    text: "Fjern dødvægten på dine skuldre"
+    title: "Eksamen mode",
+    Icon: RiWifiOffLine,
+    text: "Du kan bruge AmfoLabs på nettet, eller under eksamen, hvis du downloader applikationen. På denne måde kan værktøjet hjælpe dig, når det virkelig gælder."
   },
   {
-    title: "Overblik over alle stoffer",
-    Icon: FaWikipediaW,
-    text: "Indholder alle de termodymaniske værdier for Databogen Fysik/Kemi 2016"
+    title: "Brugervenligt",
+    Icon: GiJourney,
+    text: "AmfoLabs er designet til at hjælpe dig. Et brugervenligt design sørger for at du hurtigt lærer programmet at kende, og dermed optimerer hurtigheden yderligere."
   }
 ]
 
@@ -120,6 +124,7 @@ const AmfoLabsPage: NextPage = () => {
   const [start, setStart] = useState<boolean>(false)
   const router = useRouter()
   const pricesRef = useRef<any>();
+  const demoRef = useRef<any>();
   const { user } = useContext(UserContext)
   const setUserflow = useSetRecoilState(userflow)
 
@@ -138,34 +143,42 @@ const AmfoLabsPage: NextPage = () => {
       <MetaForProduct />
       <main className="flex flex-col bg-background space-y-24 pb-20">
         <section className="w-full bg-primary">
-          <article className="w-full max-w-6xl mx-auto flex flex-col md:flex-row md:h-auto text-white py-10 md:py-20 px-4 md:px-10 ">
+          <article className="w-full max-w-6xl mx-auto flex flex-col md:flex-row md:h-auto text-white py-10 md:py-20 px-4">
             <section className="w-full flex flex-col items-center md:items-start space-y-6 overflow-hidden">
               <div className="h-20 md:h-32" />
               <motion.h1
                 className="text-center md:text-left text-4xl md:text-5xl"
-                initial={{ x: -300 }}
+                initial={{ x: -700 }}
                 animate={{ x: 0 }}
-              >AmfoLabs <br /> Hjælper dig med kemi </motion.h1>
-              <motion.button
-                className="bg-secondary px-20 py-3 rounded-lg"
-                initial={{ x: -300 }}
-                animate={{ x: 0 }}
-                onClick={() => pricesRef.current.scrollIntoView({ behavior: 'smooth' })}
-              >Køb</motion.button>
+              >AmfoLabs</motion.h1>
+              <motion.p initial={{ x: -700 }} animate={{ x: 0 }} className="text-center md:text-left text-2xl">Det eneste program til termodynamik i gymnasium. Har alting <strong className="font-bold">du</strong> skal bruge til <strong className="font-bold">eksamen</strong></motion.p>
+              <div className="flex flex-col lg:flex-row items-center md:items-start justify-center space-y-2 lg:space-x-2 lg:space-y-0">
+                <motion.button
+                  className="bg-secondary px-14 w-64 font-bold py-3 rounded-lg cursor-pointer"
+                  initial={{ x: -700 }}
+                  animate={{ x: 0 }}
+                  onClick={() => demoRef.current.scrollIntoView({ behavior: 'smooth' })}
+                >Se vores løsning</motion.button>
+                <motion.button
+                  className="bg-secondary px-14 w-56 font-bold py-3 rounded-lg"
+                  initial={{ x: -700 }}
+                  animate={{ x: 0 }}
+                  onClick={() => pricesRef.current.scrollIntoView({ behavior: 'smooth' })}
+                >Se priser</motion.button>
+              </div>
               <div className="h-20 md:h-32" />
 
             </section>
-            <section className="block w-full">
-              <div className="h-12" />
-
-              <div className="w-full bg-white rounded-lg flex items-center justify-center h-full">
-                <Image 
+            <section className="w-full flex items-center justify-center lg:justify-end">
+              <div className="border-4 border-highlight rounded-full w-64 h-64 md:w-72 md:h-72 lg:h-96 lg:w-96 relative">
+                <Image
                   src={'/amfolabs-logo.svg'}
-                  width={400}
+                  layout="fill"
                   className="rounded-full"
-                  height={400}
                 />
-                {/*start === false ? (
+              </div>
+
+              {/*start === false ? (
                   <div className="h-full w-full flex items-center justify-center">
                     <motion.button onClick={() => setStart(prev => !prev)} className="bg-highlight text-lg font-bold px-20 py-3 rounded-lg text-black">Spil</motion.button>
                   </div>
@@ -186,18 +199,22 @@ const AmfoLabsPage: NextPage = () => {
                   </MathJaxContext>
                 )*/}
 
-              </div>
 
             </section>
           </article>
 
         </section>
+
+
         <section className="w-full max-w-6xl mx-auto h-auto">
           <article className="h-auto space-y-4 pt-10 px-4 lg:px-0">
 
-            <h1 className="text-center text-2xl">Hvad tilbyder AmfoLabs?</h1>
+            <h1 className="text-center text-4xl font-bold mb-4">Hvad er AmfoLabs?</h1>
+            <p className="text-center w-3/4 mx-auto text-lg">Termodynamik beregninger i Kemi på A niveau, er  til tider et af de mest frustrerende emner at arbejde med. Først skal du finde de enkelte termodynamiske værdier fra en databog og sætte parenteser korrekt op.
+              Helpify har derfor udviklet et program, som er specielt beregnet til kemi afleveringer og eksamen
+            </p>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:px-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:px-4 pt-10">
               {cards.map((card, index) => (
                 <Card
                   key={index}
@@ -208,26 +225,38 @@ const AmfoLabsPage: NextPage = () => {
           </article>
         </section>
 
+        <section className="h-auto bg-primary">
+          <article className="max-w-6xl mx-auto text-white space-y-10 flex flex-col items-center justify-center pt-5 md:space-x-5 md:p-8">
+            <h1 className="font-bold text-2xl text-center">Sikkert og Tidsbesparende</h1>
+            <video autoPlay muted loop playsInline style={{ width: '100%', aspectRatio: "16 / 9" }}>
+              <source src='/video.mp4' />
+            </video>
+          </article>
+        </section>
+
+        <section>
+          <article className="max-w-6xl mx-auto space-y-10 flex flex-col items-center justify-center pt-5 md:space-x-5 md:p-8">
+            <h1 className="text-center text-4xl font-bold mb-4">Sikkert og Tidsbesparende</h1>
+            <section className="flex space-x-10">
+              <div>
+                <h2 className="text-2xl font-bold">Mere tid</h2>
+                <FaHourglassHalf size={60}/>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">Specialiseret</h2>
+                <RiFocus2Fill size={60}/>
+              </div>
+            </section>
+          </article>
+        </section>
+
         {/* ELECTRON VIEW HERE */}
 
         <section className="hidden h-auto md:flex flex-col space-y-5">
 
           <h1 className="text-center text-2xl">Prøv AmfoLabs selv</h1>
 
-          <ElectronThermoView />
-        </section>
-
-        <section className="h-auto max-w-6xl mx-auto  flex flex-col md:flex-row pt-5 md:space-x-5 md:p-8">
-          <article className="w-full flex flex-col items-start justify-center p-4">
-            <h1 className="font-bold text-2xl text-center md:text-left">Sikkert og Tidsbesparende</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum ratione non consequatur, commodi dolorem iste libero, quod ab omnis iure distinctio vel sit. Fugit, quasi! Deserunt molestiae aliquid corrupti voluptatibus?
-              Architecto ratione libero sapiente saepe illum reprehenderit, adipisci ipsa nulla ex nesciunt magnam numquam omnis, consequatur distinctio aspernatur, fuga recusandae suscipit tempora ut fugiat vitae voluptate quis. Mollitia, enim provident?</p>
-          </article>
-          <article className="w-full flex items-center justify-center">
-            <video autoPlay muted loop playsInline style={{ width: '100%', aspectRatio: "16 / 9" }}>
-              <source src='/video.mp4' />
-            </video>
-          </article>
+          <ElectronThermoView ref={demoRef} />
         </section>
 
         <section ref={pricesRef} className="h-auto bg-secondary">

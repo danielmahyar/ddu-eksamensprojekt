@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { BrowserView } from 'react-device-detect'
 import { MdClear } from 'react-icons/md'
 import Reactants from './Reactants'
 
-const ElectronThermoView = () => {
+const ElectronThermoView = forwardRef((props, ref) => {
 	const [state, setState] = useState(1)
 	return (
-		<article className="flex h-screen">
+		<article ref={ref as any} className="flex h-screen">
 			<aside
-				className={`h-full w-72 transition-all duration-700 ease-in-out flex-shrink-0 relative z-10 bg-[#2F3136]  flex flex-col border-discord-border`}
+				className={`h-full w-72 transition-all duration-700 ease-in-out flex-shrink-0 relative z-10 bg-primary  flex flex-col border-discord-border`}
 			>
 				<div className="h-14 w-full mb-2 flex items-center shadow flex-shrink-0 p-2">
 					<h1 className="text-xl font-bold text-white ml-2">
@@ -55,7 +55,7 @@ const ElectronThermoView = () => {
 				</div>
 
 			</aside>
-			<div className="p-6 pr-8 w-full h-full z-0 bg-[#36393F] flex flex-col scrollbar-thin scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-thumb-discord-dark overflow-y-visible">
+			<div className="p-6 pr-8 w-full h-full z-0 bg-primary flex flex-col scrollbar-thin scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-thumb-discord-dark overflow-y-visible">
 				<div className="mb-10 border-b border-discord-border flex items-center justify-between">
 					<h1 className="font-semibold mb-2 text-gray-300 text-xl rounded uppercase">
 						Beregn termodynamik
@@ -101,6 +101,6 @@ const ElectronThermoView = () => {
 			</div>
 		</article>
 	)
-}
+})
 
 export default ElectronThermoView
