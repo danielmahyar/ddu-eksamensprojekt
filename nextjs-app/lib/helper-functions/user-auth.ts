@@ -99,6 +99,7 @@ export async function handleUserFirestoreCreateGoogle(
 /**
  * Creates user in to Google Authentication via. Google Provider.
  * Makes UI change by using AuthState hook
+ * ! CREATES DOCUMENT ON EVERY LOGIN
  * @returns auth-state-update
  */
 export async function handleGoogleLogin(): Promise<string> {
