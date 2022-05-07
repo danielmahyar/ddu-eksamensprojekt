@@ -1,16 +1,31 @@
 import * as functions from "firebase-functions";
 import * as sgMail from '@sendgrid/mail';
-import { ByeEmail, MailType, SubscriptionEventMail, WelcomeEmail } from "../types/emails";
+import { 
+	ByeEmail, 
+	MailType, 
+	SENDER_MAIL, 
+	SENDER_NAME, 
+	SubscriptionEventMail, 
+	WelcomeEmail 
+} from "../types/emails";
 
 
-
-const SENDER_MAIL = "no-reply@helpify.shop"
-const SENDER_NAME = "Helpify"
 
 const API_KEY = functions.config().sendgrid.key;
 sgMail.setApiKey(API_KEY);
 
-export const sendWelcomeEmail = (email: string, displayName: string, photoURL: string = "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png"): Promise<[sgMail.ClientResponse, {}]> => {
+/**
+ * Sends Welcome Email via. SendGrid to user email.
+ * @example
+ * await sendWelcomeEmail(USER_EMAIL, USERNAME);
+ * 
+ * @throws 
+ */
+export const sendWelcomeEmail = (
+	email: string,
+	displayName: string,
+	photoURL = "https://www.everblazing.org/wp-content/uploads/2017/06/avatar-372-456324-300x300.png"
+): Promise<[sgMail.ClientResponse, {}]> => {
 	const msg: WelcomeEmail = {
 		to: email,
 		from: {
@@ -25,8 +40,10 @@ export const sendWelcomeEmail = (email: string, displayName: string, photoURL: s
 	 };
 	 return sgMail.send(msg);
 }
-
-export const sendDeleteEmail = (email: string, displayName: string): Promise<[sgMail.ClientResponse, {}]> => {
+/**
+ * Send Grid
+ */
+export const sendDeleteEmail = (email: string): Promise<[sgMail.ClientResponse, {}]> => {
 	const msg: ByeEmail = {
 		to: email,
 		from: {
@@ -38,8 +55,14 @@ export const sendDeleteEmail = (email: string, displayName: string): Promise<[sg
 	 };
 	 return sgMail.send(msg);
 }
-
-export const sendSubscriptionMail = (email: string, displayName: string, productName: string = "AmfoLabs abonnement"): Promise<[sgMail.ClientResponse, {}]> => {
+/**
+ * Send Grid
+ */
+export const sendSubscriptionMail = (
+	email: string, 
+	displayName: string, 
+	productName = "AmfoLabs abonnement"
+): Promise<[sgMail.ClientResponse, {}]> => {
 	const msg: SubscriptionEventMail = {
 		to: email,
 		from: {

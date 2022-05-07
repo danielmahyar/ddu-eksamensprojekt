@@ -10,6 +10,7 @@ import { GiPuzzle } from "react-icons/gi";
 import RatingsSection from '../components/ui/products/RatingsSection';
 import Image from 'next/image';
 import Carousel from '../components/ui/Carousel';
+import { useRouter } from 'next/router';
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
@@ -75,12 +76,12 @@ const ratings: Array<{ name: string, review: string, photoURL: string, role: str
 ]
 
 const Home: NextPage = () => {
-
+  const router = useRouter()
   return (
     <>
       <MetaForIndex />
 
-      <main className="min-h-screen h-auto bg-background space-y-10">
+      <main className="min-h-screen h-auto bg-background w-full space-y-10">
 
         <section className="h-auto overflow-hidden bg-primary w-full flex">
           <Carousel />
@@ -126,6 +127,7 @@ const Home: NextPage = () => {
               </div>
               <div className='flex justify-center my-6'>
                 <button
+                  onClick={() => router.push('/products/amfolabs')}
                   className="py-2 px-10 rounded-md bg-secondary opacity-100 transition-all ease-in-out hover:opacity-80"
                 >Læs Mere</button>
               </div>
@@ -146,6 +148,7 @@ const Home: NextPage = () => {
               </div>
               <div className='flex justify-center my-6'>
                 <button
+                  onClick={() => router.push('/products/amfolabs')}
                   className="py-2 px-10 rounded-md bg-secondary opacity-100 transition-all ease-in-out hover:opacity-80"
                 >Læs Mere</button>
               </div>
@@ -166,6 +169,7 @@ const Home: NextPage = () => {
               </div>
               <div className='flex justify-center my-6'>
                 <button
+                  onClick={() => router.push('/products/amfolabs')}
                   className="py-2 px-10 rounded-md bg-secondary opacity-100 transition-all ease-in-out hover:opacity-80"
                 >Læs Mere</button>
               </div>

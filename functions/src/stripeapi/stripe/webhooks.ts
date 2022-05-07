@@ -72,11 +72,12 @@ export const handleStripeWebhook = async (req: functions.https.Request, res: fun
 		return;
 	}
 
+	console.log(event.type)
+
 	switch (event.type) {
 		case 'checkout.session.completed':
-			const session = event.data.object;
-			console.log(session)
-			await sendSubscriptionMail('thediamonds764@gmail.com', 'Daniel Cargar Mahyar')
+			const session: any = event.data.object;
+			await sendSubscriptionMail(session?.customer_details?.email, session?.customer_details?.name)
 			// Then define and call a function to handle the event checkout.session.completed
 			res.status(200).json({ recieved: true })
 			break;

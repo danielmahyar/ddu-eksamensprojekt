@@ -28,7 +28,7 @@ export async function getOrCreateCustomer(userId: string, params?: Stripe.Custom
 
  export async function createCustomer(
 	email: string, 
-	firebaseUID: string, 
+	firebaseUID: string,
 	params?: Stripe.CustomerCreateParams
 ): Promise<Stripe.Response<Stripe.Customer>> {
 	 return await stripe.customers.create({

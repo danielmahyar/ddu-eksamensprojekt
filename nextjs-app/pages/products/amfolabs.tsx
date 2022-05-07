@@ -11,7 +11,7 @@ const ElectronThermoView = dynamic(() => import('../../components/products-demo/
 const MetaForProduct = dynamic(() => import('../../components/seo-tags/MetaForProduct'));
 const Card = dynamic(() => import('../../components/ui/Card'));
 import { motion } from "framer-motion"
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import { buyItem } from '../../lib/handlers/userflowHandler';
 import { UserContext } from '../../lib/context/auth-context';
 import { BaseSubscriptionVariants, SubscriptionProduct } from '../../types/ProductsTypes';
@@ -116,6 +116,7 @@ const AmfoLabsPage: NextPage = () => {
   const router = useRouter()
   const pricesRef = useRef<any>();
   const demoRef = useRef<any>();
+  const productRef = useRef<any>();
   const { user } = useContext(UserContext)
   const setUserflow = useSetRecoilState(userflow)
 
@@ -131,6 +132,11 @@ const AmfoLabsPage: NextPage = () => {
   const handleScrollToProduct = () => {
     if (!demoRef?.current) return
     demoRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const handleScrollToProgram = () => {
+    if (!productRef?.current) return
+    productRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
 
@@ -203,11 +209,11 @@ const AmfoLabsPage: NextPage = () => {
             <div className='flex flex-col md:flex-row space-y-10 md:space-x-10 md:space-y-0'>
               <section className="flex overflow-x-auto flex-col md:flex-row w-full md:w-86 2xl:w-[40rem] h-auto ">
                 <video autoPlay muted playsInline className="w-full rounded-lg">
-                  <source src='amfolabs/amfo.mp4' />
+                  <source src='/amfo.mp4' />
                 </video>
               </section>
               <section className="flex overflow-x-auto flex-col md:flex-row w-full md:w-86 2xl:w-[40rem] h-auto">
-                <iframe width="100%" src="https://www.youtube.com/embed/2vC1O8eFL1k?&autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+                <iframe width="100%" className=" aspect-video" src="https://www.youtube.com/embed/2vC1O8eFL1k?&autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
               </section>
             </div>
             <button onClick={handleScrollToProduct} className="bg-secondary hidden md:block px-10 py-2 rounded-lg text-lg">Prøv programmet selv</button>
@@ -240,8 +246,10 @@ const AmfoLabsPage: NextPage = () => {
           <p className="w-3/4 mx-auto text-center text-white pb-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem, minus ut totam veniam praesentium alias deleniti eum unde temporibus molestias, fuga eos officia hic ullam culpa exercitationem sint, qui itaque.
             Dolorum id, dolore repellat quia, exercitationem optio recusandae itaque consequuntur earum at saepe distinctio perferendis corporis! Quis id aut velit, rem quas architecto. Reiciendis, hic magnam laboriosam sed praesentium nobis.
           </p>
-
-          <ElectronThermoView />
+          <button onClick={handleScrollToProgram} className="px-10 py-2 bg-secondary w-auto text-white rounded-lg font-bold mx-auto">Gå fuldskærm</button>
+          <article ref={productRef} className="flex h-screen">
+            <ElectronThermoView ref={productRef} />
+          </article>
         </section>
 
         <section ref={pricesRef} className="h-auto bg-secondary">

@@ -23,6 +23,7 @@ export async function handleEmailLogin(
 	email: string,
 	password: string
 ): Promise<string> {
+	console.log("Email login")
 	try {
 		const user = await signInWithEmailAndPassword(auth, email, password)
 		return user.user.uid
@@ -33,6 +34,23 @@ export async function handleEmailLogin(
 }
 
 /**
+ * Creates user in to Google Authentication via. Google Provider.
+ * Makes UI change by using AuthState hook
+ * @returns auth-state-update
+ */
+ export async function handleGoogleLogin(): Promise<string> {
+	 console.log("Google Login")
+	try {
+		const user = await signInWithPopup(auth, googleAuthProvider)
+		return user.user.uid
+	} catch (error) {
+		console.error(error)
+		throw error
+	}
+
+}
+
+/**
  * Creates user in to Google Authentication via. Email and Password.
  * Makes UI change by using AuthState hook
  * @returns auth-state-update
@@ -40,12 +58,31 @@ export async function handleEmailLogin(
 export async function createAccountWithEmail(
 	user: NewUserInfo
 ): Promise<string> {
+	console.log("Create With Email")
 	const { email, password, fullName, photoURL } = user
 	try {
 		const newUser = await createUserWithEmailAndPassword(auth, email, password)
 		await handleUserFirestoreCreate(newUser.user, fullName, email, photoURL, CustomerType.NORMAL_USER)
 		return newUser.user.uid
 	} catch (error) {
+		throw error
+	}
+
+}
+
+/**
+ * Creates user in to Google Authentication via. Google Provider.
+ * Makes UI change by using AuthState hook
+ * @returns auth-state-update
+ */
+ export async function createWithGoogleLogin(): Promise<string> {
+	console.log("Create With Google Login")
+	try {
+		const newUser = await signInWithPopup(auth, googleAuthProvider)
+		await handleUserFirestoreCreateGoogle(newUser.user, CustomerType.NORMAL_USER)
+		return newUser.user.uid
+	} catch (error) {
+		console.error(error)
 		throw error
 	}
 
@@ -96,23 +133,7 @@ export async function handleUserFirestoreCreateGoogle(
 	}
 }
 
-/**
- * Creates user in to Google Authentication via. Google Provider.
- * Makes UI change by using AuthState hook
- * ! CREATES DOCUMENT ON EVERY LOGIN AND OVERRIDES STRIPECUSTOMERID
- * @returns auth-state-update
- */
-export async function handleGoogleLogin(): Promise<string> {
-	try {
-		const newUser = await signInWithPopup(auth, googleAuthProvider)
-		await handleUserFirestoreCreateGoogle(newUser.user, CustomerType.NORMAL_USER)
-		return newUser.user.uid
-	} catch (error) {
-		console.error(error)
-		throw error
-	}
 
-}
 
 export function saveUserLastLocation(lastLocation: string): void {
 	if (typeof window === 'undefined') return
