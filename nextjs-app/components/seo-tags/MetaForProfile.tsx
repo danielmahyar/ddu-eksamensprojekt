@@ -6,6 +6,7 @@ const MetaForProfile = ({ title }: any) => {
 		<Head>
 			<title>{title}</title>
 			<link rel="icon" href={"/favicon.ico"} />
+			<meta name="robots" content="noindex, nofollow" />
 			<meta title="Profile Page" />
 		</Head >
 	)

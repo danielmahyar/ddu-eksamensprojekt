@@ -11,7 +11,9 @@ const MetaForIndex = () => {
       <meta name="HandheldFriendly" content="True" />
       <meta name="MobileOptimized" content="320" />
       <meta name="viewport" content="width=device-width,minimum-scale=1" />
-      <link rel="canonical" href="https://helpify.shop" />
+      <link rel="canonical" href="https://helpify.shop/" />
+      <meta name="robots" content="index, follow" /> 
+
 
       <meta name="description" content="Helpify har designet IT-værktøjer til at hjælpe dig med dine gymnasielle uddannelse i Danmark. IT-værktøjerne er specielt designet til at hjælpe dig med specifikke emner indenfor naturfagene" />
       <meta name="image" content="https://www.helpify.shop/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhelpify.fb4c2630.png&w=256&q=75" />
