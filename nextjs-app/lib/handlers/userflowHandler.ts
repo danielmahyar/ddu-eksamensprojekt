@@ -35,6 +35,4 @@ export async function confirmPurchase(stripe: Stripe | null, items: CartItem[], 
 	if (error) {
 		console.log(error);
 	}
-
-	// Router.push("/payment/paymentmethod")
 }

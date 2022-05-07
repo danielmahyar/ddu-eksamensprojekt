@@ -9,7 +9,7 @@ import { useRecoilValue } from 'recoil';
 import { userflow, UserState } from '../lib/atoms/userflow';
 import { UserContext } from '../lib/context/auth-context';
 import { buyItem } from '../lib/handlers/userflowHandler';
-import { createAccountWithEmail, handleGoogleLogin } from '../lib/helper-functions/user-auth';
+import { createAccountWithEmail, createWithGoogleLogin, handleGoogleLogin } from '../lib/helper-functions/user-auth';
 import { auth } from '../lib/setup/firebase';
 import google from '../public/google-icon.png'
 
@@ -26,10 +26,10 @@ const SignUp: NextPage = () => {
 	const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 	const currUserflow = useRecoilValue(userflow)
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
+		if (currUser) return toast.error("Du er allerede logget ind")
+		if (data.password === "" || data.rep_password === "") return toast.error("Du har ikke skrevet nogle koder")
+		if (data.password !== data.rep_password) return toast.error("Koderne var ikke de samme")
 		const load = toast.loading("Opretter din profil")
-		if (currUser) return
-		if (data.password === "" || data.rep_password === "") return
-		if (data.password !== data.rep_password) return
 		const newUser = await createAccountWithEmail({ ...data })
 		await auth.currentUser?.reload()
 		toast.dismiss(load)
@@ -50,10 +50,10 @@ const SignUp: NextPage = () => {
 
 	};
 
-	const handleLocalGoogleLogin = async () => {
+	const handelLocalGoogleSignup = async () => {
 		const load = toast.loading("Opretter din profil")
 
-		const newUser = await handleGoogleLogin()
+		const newUser = await createWithGoogleLogin()
 		toast.dismiss(load)
 		toast.success('Bruger oprettet')
 		switch (currUserflow.flow) {
@@ -94,7 +94,7 @@ const SignUp: NextPage = () => {
 					</div>
 					<button className="bg-secondary py-2 px-4 rounded-lg text-white font-bold" type="submit">Opret profil</button>
 				</form>
-				<button onClick={handleLocalGoogleLogin} className="w-full flex items-center justify-center space-x-2 px-5 py-2 bg-white rounded-full cursor-pointer transition-all hover:opacity-75">
+				<button onClick={handelLocalGoogleSignup} className="w-full flex items-center justify-center space-x-2 px-5 py-2 bg-white rounded-full cursor-pointer transition-all hover:opacity-75">
 					<Image
 						src={google}
 						width={30}

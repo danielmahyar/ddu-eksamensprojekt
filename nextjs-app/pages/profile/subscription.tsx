@@ -13,6 +13,9 @@ import { httpsCallable } from 'firebase/functions';
 import { Stripe } from '@stripe/stripe-js';
 import PaymentMethodCard from '../../components/ui/PaymentMethodCard';
 import { MdAdd } from 'react-icons/md';
+import Loader from '../../components/ui/Loader';
+import toast from 'react-hot-toast';
+import { AnimatePresence } from 'framer-motion';
 
 const SubscriptionPage: NextPage = () => {
 
@@ -60,10 +63,16 @@ function StripeSection() {
 	}, [user, handler]);
 
 	const getWallet = async () => {
-		const fn = httpsCallable<null, StripeCard[]>(functions, 'getCards')
-		const data = ((await fn()).data)
-		setWallets(data)
-		setLoading(false)
+		try {
+			const fn = httpsCallable<null, StripeCard[]>(functions, 'getCards')
+			const data = ((await fn()).data)
+			setWallets(data)
+			setLoading(false)
+		} catch (error: any) {
+			toast.error(error.message)
+			setLoading(false)
+		}
+
 
 	}
 
@@ -121,36 +130,11 @@ function StripeSection() {
 						</ul>
 					</section>
 					<section>
-						{loading === true && (
-							<div className="h-56 w-56">
-								<svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-									viewBox="0 0 100 100" enable-background="new 0 0 0 0" >
-									<circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" />
-									<circle fill="#fff" stroke="#e74c3c" stroke-width="3" cx="8" cy="54" r="6" >
-										<animateTransform
-											attributeName="transform"
-											dur="2s"
-											type="rotate"
-											from="0 50 48"
-											to="360 50 52"
-											repeatCount="indefinite" />
-
-									</circle>
-								</svg>
-							</div>
-
-						)}
+						<Loader show={loading} />
 
 						{subscriptions.length > 0 && subscriptions.map((sub, i) => (
 							<SubscriptionCard key={i} item={sub} handleCancel={cancel} />
 						))}
-						{subscriptions.length === 0 && (
-							<div className="w-full flex items-center justify-center">
-								<button className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center">
-									<MdAdd className="text-white" size={35} />
-								</button>
-							</div>
-						)}
 					</section>
 
 				</article>
@@ -158,16 +142,27 @@ function StripeSection() {
 			<section className="flex w-full h-full flex-col">
 				<h1 className="text-3xl font-thin">Dine betalingsmetoder</h1>
 				<p>Adminstrér dine abonnementer og se dine tidligere betalinger</p>
-				<ul className="flex flex-col">
-					{wallets.length > 0 && wallets.map((wallet, i) => (
-						<PaymentMethodCard key={i} item={wallet} />
-					))}
-				</ul>
-				<div className="w-full flex items-center justify-center">
-					<button className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center">
-						<MdAdd className="text-white" size={35} />
-					</button>
-				</div>
+				<AnimatePresence
+					initial={false}
+					
+				>
+					<ul className="flex flex-col overflow-x-hidden">
+						{wallets.length > 0 && wallets.map((wallet, i) => (
+							<PaymentMethodCard key={i} item={wallet} />
+						))}
+					</ul>
+				</AnimatePresence>
+
+				{loading === false ? (
+					<div className="w-full flex items-center justify-center">
+						<button className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center">
+							<MdAdd className="text-white" size={35} />
+						</button>
+					</div>
+				) : (
+					<Loader show={true} />
+				)}
+
 
 			</section>
 		</article>

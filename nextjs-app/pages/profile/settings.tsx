@@ -1,3 +1,4 @@
+import { deleteUser, GoogleAuthProvider, reauthenticateWithCredential, reauthenticateWithPopup } from 'firebase/auth'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -31,6 +32,31 @@ const Settings: NextPage = () => {
 		await router.replace("/")
 		await auth.signOut()
 	}
+
+	const handleDelete = async () => {
+		if(!user) return
+		const ref = toast.loading('Sletter profil...')
+		try {
+			toast.dismiss(ref)
+			await reauthenticateWithPopup(user, new GoogleAuthProvider())
+
+		} catch (error: any) {
+			toast.dismiss(ref)
+			toast.error(error.message)
+		}
+
+		const ref2 = toast.loading('For at være sikker, skal du lige logge ind igen')
+		try {
+			await deleteUser(user)
+			toast.dismiss(ref2)
+			toast.success('Slettet din profil')
+			await router.replace('/') 
+		} catch (error: any) {
+			toast.dismiss(ref2)
+			toast.error(error.message)
+		}
+	}
+
 	return (
 		<>
 			<MetaForProfile title="Profil - Indstillinger" />
@@ -82,7 +108,8 @@ const Settings: NextPage = () => {
 								</div>
 								<hr className="w-full h-[1px] bg-black my-5"/>
 							</form>
-							<button className="px-4 py-2 bg-red-600 rounded-lg text-white font-bold" onClick={handleSignout}>Sign Out</button>
+							<button className="px-4 py-2 bg-red-600 rounded-lg text-white font-bold" onClick={handleSignout}>Log ud</button>
+							<button disabled className="px-4 py-2 bg-red-600 rounded-lg text-white font-bold disabled:bg-red-200" onClick={handleDelete}>Slet konto</button>
 						</article>
 					</section>
 				</AuthCheck>
