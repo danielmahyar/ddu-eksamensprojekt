@@ -8,7 +8,6 @@ import { sendSubscriptionMail } from '../mail';
 import Stripe from "stripe";
 
 // Stripe API
-
 export const stripewebhooks = functions.https.onRequest(
 	(req, res) => {
 		handleStripeWebhook(req, res)

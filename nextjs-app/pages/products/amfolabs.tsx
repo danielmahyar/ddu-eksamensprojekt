@@ -208,12 +208,10 @@ const AmfoLabsPage: NextPage = () => {
             <h1 className="font-bold text-4xl text-center">AmfoLabs sammenlignet med fysisk regning</h1>
             <div className='flex flex-col md:flex-row space-y-10 md:space-x-10 md:space-y-0'>
               <section className="flex overflow-x-auto flex-col md:flex-row w-full md:w-86 2xl:w-[40rem] h-auto ">
-                <video autoPlay muted playsInline className="w-full rounded-lg">
-                  <source src='/amfo.mp4' />
-                </video>
+                <iframe width="100%" className=" aspect-video" src="https://www.youtube.com/embed/J6IVrv3MZ4k?&autoplay=1&controls=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
               </section>
               <section className="flex overflow-x-auto flex-col md:flex-row w-full md:w-86 2xl:w-[40rem] h-auto">
-                <iframe width="100%" className=" aspect-video" src="https://www.youtube.com/embed/2vC1O8eFL1k?&autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+                <iframe width="100%" className=" aspect-video" src="https://www.youtube.com/embed/2vC1O8eFL1k?&autoplay=1&controls=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
               </section>
             </div>
             <button onClick={handleScrollToProduct} className="bg-secondary hidden md:block px-10 py-2 rounded-lg text-lg">Prøv programmet selv</button>

@@ -85,7 +85,7 @@ const Login: NextPage = () => {
               width={30}
               height={30}
             />
-            <p className="ml-2 font-bold">Opret med Google</p>
+            <p className="ml-2 font-bold">Log ind med Google</p>
           </button>
           <hr className="w-full rounded-lg" />
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-6">

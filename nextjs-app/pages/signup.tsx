@@ -75,6 +75,15 @@ const SignUp: NextPage = () => {
 			<section className="h-full w-full my-5 space-y-6 bg-primary max-w-6xl mx-auto flex flex-col p-8">
 				<h1 className="text-white font-thin text-2xl text-center">Opret profil</h1>
 
+				<button onClick={handelLocalGoogleSignup} className="w-full flex items-center justify-center space-x-2 px-5 py-2 bg-white rounded-full cursor-pointer transition-all hover:opacity-75">
+					<Image
+						src={google}
+						width={30}
+						height={30}
+					/>
+					<p className="ml-2 font-bold">Opret med Google</p>
+				</button>
+
 				<form className="flex flex-col space-y-6" onSubmit={handleSubmit(onSubmit)}>
 					<div className="flex flex-col space-y-2">
 						<label className="text-white font-thin" htmlFor="fullName">Fulde navn</label>
@@ -94,14 +103,7 @@ const SignUp: NextPage = () => {
 					</div>
 					<button className="bg-secondary py-2 px-4 rounded-lg text-white font-bold" type="submit">Opret profil</button>
 				</form>
-				<button onClick={handelLocalGoogleSignup} className="w-full flex items-center justify-center space-x-2 px-5 py-2 bg-white rounded-full cursor-pointer transition-all hover:opacity-75">
-					<Image
-						src={google}
-						width={30}
-						height={30}
-					/>
-					<p className="ml-2 font-bold">Opret med Google</p>
-				</button>
+
 				<p className="text-white text-center">Har du allerede en profil? Så log ind <Link href="/login"><span className="font-bold text-highlight cursor-pointer">her</span></Link></p>
 			</section>
 		</main >

@@ -10,7 +10,7 @@ const variants = {
 	enter: (direction: number) => {
 		return {
 			x: direction > 0 ? 1000 : -1000,
-			opacity: 0
+			opacity: 0,
 		};
 	},
 	center: {
@@ -22,7 +22,7 @@ const variants = {
 		return {
 			zIndex: 0,
 			x: direction < 0 ? 1000 : -1000,
-			opacity: 0
+			opacity: 0,
 		};
 	}
 };

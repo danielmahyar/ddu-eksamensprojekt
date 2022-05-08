@@ -5,7 +5,7 @@ export async function createStripeCheckoutSession(
 	line_items: Stripe.Checkout.SessionCreateParams.LineItem[],
 	customerID: string
 ){
-	const url = process.env.WEBAPP_URL || "http://localhost:3000";
+	const url = process.env.NODE_ENV === 'production' ? 'https://helpify.shop': 'http://localhost:3000';
 	const session = await stripe.checkout.sessions.create(({
 		mode: 'subscription',
 		payment_method_types: ['card'],
