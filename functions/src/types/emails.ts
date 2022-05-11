@@ -1,6 +1,10 @@
 export const SENDER_MAIL = "no-reply@helpify.shop"
 export const SENDER_NAME = "Helpify"
 
+/**
+ * Mail Types from SendGrid Dynamic Templates
+ * https://mc.sendgrid.com/dynamic-templates
+ */
 export enum MailType {
 	welcomeEmail = "d-a35835a6f82d4cdebb9155dc431b7147",
 	subscriptionCreated = "d-62d68bda0b154e24bd8d77969a83145e",

@@ -20,9 +20,7 @@ import { useSetRecoilState } from 'recoil';
 import { userflow, UserState } from '../../lib/atoms/userflow';
 import { GiJourney } from 'react-icons/gi';
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  return { props: { data: [] } }
-}
+
 
 const cards: Array<{ title: string, Icon: IconType, text: string }> = [
   {
@@ -111,6 +109,9 @@ const productVariants = {
   YEARLY_SUBSCRIPTION
 }
 
+export async function getStaticProps(context: GetStaticPropsContext) {
+  return { props: { data: [] } }
+}
 
 const AmfoLabsPage: NextPage = () => {
   const router = useRouter()
